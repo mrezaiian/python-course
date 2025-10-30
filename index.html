@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusIntell - یادگیری برنامه‌نویسی پایتون</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --brown-gold: #999459;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .auth-buttons {
+            display: flex;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-login {
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            margin-left: 10px;
+        }
+
+        .btn-signup {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background-color: var(--sea-blue);
+        }
+
+        /* بخش هیرو */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--sea-blue));
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            font-weight: bold;
+            padding: 12px 30px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 12px 30px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gold-yellow);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* بخش ویژگی‌ها */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-blue);
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        /* بخش مسیر آموزشی */
+        .learning-path {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .path-step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .path-step:hover {
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            background-color: var(--primary-blue);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h3 {
+            margin-bottom: 5px;
+            color: var(--dark-blue);
+        }
+
+        .step-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .step-link:hover {
+            text-decoration: underline;
+        }
+
+        /* بخش درباره ما */
+        .about {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 0 10px 10px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">BusIntell</div>
+                <ul class="nav-links">
+                    <li><a href="#">خانه</a></li>
+                    <li><a href="#features">ویژگی‌ها</a></li>
+                    <li><a href="#learning-path">مسیر آموزشی</a></li>
+                    <li><a href="#about">درباره ما</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-login">ورود</a>
+                    <a href="#" class="btn btn-signup">ثبت‌نام</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- بخش هیرو -->
+    <section class="hero">
+        <div class="container">
+            <h1>یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی</h1>
+            <p>با BusIntell، برنامه‌نویسی پایتون را به ساده‌ترین و جذاب‌ترین روش یاد بگیرید. تمرین‌های تعاملی ما شما را از مبتدی به یک برنامه‌نویس حرفه‌ای تبدیل می‌کند.</p>
+            <div class="hero-buttons">
+                <a href="#learning-path" class="btn btn-primary">شروع یادگیری</a>
+                <a href="#about" class="btn btn-secondary">درباره ما</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش ویژگی‌ها -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>چرا BusIntell؟</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>یادگیری تعاملی</h3>
+                    <p>با تمرین‌های عملی و پروژه‌های واقعی، مفاهیم برنامه‌نویسی را به صورت ملموس یاد بگیرید.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>پوشش کامل</h3>
+                    <p>از مبانی اولیه تا مفاهیم پیشرفته پایتون، همه چیز را در یک پلتفرم جامع بیاموزید.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐍</div>
+                    <h3>پایتون محوری</h3>
+                    <p>تمرکز کامل بر روی زبان پایتون و کاربردهای متنوع آن در دنیای واقعی.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش مسیر آموزشی -->
+    <section id="learning-path" class="learning-path">
+        <div class="container">
+            <div class="section-title">
+                <h2>مسیر آموزشی پایتون</h2>
+            </div>
+            <div class="path-steps">
+                <div class="path-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>مقدمه</h3>
+                        <a href="مقدمه.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>سینتکس</h3>
+                        <a href="سینتکس.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>متغیر</h3>
+                        <a href="متغیر.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>انواع داده</h3>
+                        <a href="انواع-داده.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>عدد</h3>
+                        <a href="عدد.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>رشته</h3>
+                        <a href="رشته.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3>بولین</h3>
+                        <a href="بولین.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h3>عملیات‌ها</h3>
+                        <a href="عملیات-ها.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h3>لیست</h3>
+                        <a href="لیست.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">10</div>
+                    <div class="step-content">
+                        <h3>تاپل</h3>
+                        <a href="تاپل.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">11</div>
+                    <div class="step-content">
+                        <h3>مجموعه‌ها</h3>
+                        <a href="مجموعه-ها.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">12</div>
+                    <div class="step-content">
+                        <h3>دیکشنری</h3>
+                        <a href="دیکشنری.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">13</div>
+                    <div class="step-content">
+                        <h3>حلقه if</h3>
+                        <a href="حلقه-if.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">14</div>
+                    <div class="step-content">
+                        <h3>حلقه while</h3>
+                        <a href="حلقه-while.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">15</div>
+                    <div class="step-content">
+                        <h3>توابع</h3>
+                        <a href="توابع.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">16</div>
+                    <div class="step-content">
+                        <h3>کار با فایل</h3>
+                        <a href="کار-با-فایل.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">17</div>
+                    <div class="step-content">
+                        <h3>مدیریت خطا</h3>
+                        <a href="مدیریت-خطا.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">18</div>
+                    <div class="step-content">
+                        <h3>کلاس‌ها</h3>
+                        <a href="کلاس-ها.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">19</div>
+                    <div class="step-content">
+                        <h3>ماژول</h3>
+                        <a href="ماژول.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">20</div>
+                    <div class="step-content">
+                        <h3>ایتریتور</h3>
+                        <a href="ایتریتور.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">21</div>
+                    <div class="step-content">
+                        <h3>کار با داده‌ها</h3>
+                        <a href="کار-با-داده-ها.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">22</div>
+                    <div class="step-content">
+                        <h3>مصورسازی داده</h3>
+                        <a href="مصور-سازی-داده.html" class="step-link">شروع یادگیری →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش درباره ما -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>درباره ما</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>پلتفرم آموزشی BusIntell</h2>
+                    <p>BusIntell یک پلتفرم آموزشی آنلاین است که با هدف ارائه آموزش‌های باکیفیت و تعاملی در زمینه برنامه‌نویسی پایتون ایجاد شده است.</p>
+                    <p>رویکرد آموزشی ما مبتنی بر تمرین‌های عملی و پروژه‌های واقعی است تا دانشجویان بتوانند مفاهیم را به صورت ملموس درک کرده و در موقعیت‌های واقعی به کار بگیرند.</p>
+                </div>
+                <div class="about-image">
+                    <div style="background-color: var(--light-blue); height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
+                        تصویر معرفی BusIntell
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BusIntell</h3>
+                    <p>پلتفرم آموزشی برنامه‌نویسی پایتون با تمرین‌های تعاملی</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">ب</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">خانه</a></li>
+                        <li><a href="#features">ویژگی‌ها</a></li>
+                        <li><a href="#learning-path">مسیر آموزشی</a></li>
+                        <li><a href="#about">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <ul class="footer-links">
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© ۲۰۲۳ BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

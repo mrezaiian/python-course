@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متغیرها در پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --brown-gold: #999459;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo span {
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            margin-left: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 3;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            flex: 1;
+            margin-right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .course-list {
+            list-style: none;
+        }
+        
+        .course-list li {
+            margin-bottom: 10px;
+        }
+        
+        .course-list a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .course-list a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        
+        .course-list a.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* استایل بخش‌های آموزشی */
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .section h3 {
+            color: var(--sea-blue);
+            margin: 20px 0 10px;
+            font-size: 20px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #6a737d;
+        }
+        
+        .example {
+            background-color: #f0f8ff;
+            border-right: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--sea-blue);
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-right: 4px solid var(--gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: var(--brown-gold);
+            margin-bottom: 10px;
+        }
+        
+        /* استایل بخش آزمون */
+        .quiz {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .quiz h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-option label {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1a7a4a;
+        }
+        
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-correct {
+            background-color: #e6f7ee;
+            border: 1px solid #228957;
+            color: #228957;
+        }
+        
+        .quiz-incorrect {
+            background-color: #fde8e8;
+            border: 1px solid #e53e3e;
+            color: #e53e3e;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            margin-left: 10px;
+            color: white;
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+            }
+            
+            .auth-buttons {
+                margin-top: 10px;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Bus<span>Intell</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-login">ورود</a>
+                    <a href="#" class="btn btn-signup">ثبت‌نام</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- محتوای آموزشی -->
+            <div class="content">
+                <h1>متغیرها در پایتون</h1>
+                
+                <div class="section">
+                    <h2>متغیرها</h2>
+                    <p>متغیرها ظروفی برای ذخیره مقادیر داده هستند.</p>
+                </div>
+                
+                <div class="section">
+                    <h2>ایجاد متغیرها</h2>
+                    <p>پایتون هیچ دستوری برای اعلام متغیر ندارد. یک متغیر در لحظه‌ای که اولین بار به آن مقدار اختصاص می‌دهید، ایجاد می‌شود.</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = 5<br>
+                            y = "John"<br>
+                            print(x)<br>
+                            print(y)
+                        </div>
+                    </div>
+                    
+                    <p>متغیرها نیازی به اعلام با نوع خاصی ندارند و حتی می‌توانند پس از تنظیم، نوع خود را تغییر دهند.</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = 4       <span class="code-comment"># x از نوع int است</span><br>
+                            x = "Sally" <span class="code-comment"># x اکنون از نوع str است</span><br>
+                            print(x)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Casting</h2>
+                    <p>اگر می‌خواهید نوع داده یک متغیر را مشخص کنید، این کار را می‌توان با casting انجام داد.</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = str(3)    <span class="code-comment"># x برابر '3' خواهد بود</span><br>
+                            y = int(3)    <span class="code-comment"># y برابر 3 خواهد بود</span><br>
+                            z = float(3)  <span class="code-comment"># z برابر 3.0 خواهد بود</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>دریافت نوع</h2>
+                    <p>می‌توانید نوع داده یک متغیر را با تابع type() دریافت کنید.</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = 5<br>
+                            y = "John"<br>
+                            print(type(x))<br>
+                            print(type(y))
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>نقل‌قول تکی یا دوتایی؟</h2>
+                    <p>متغیرهای رشته‌ای را می‌توان با استفاده از نقل‌قول تکی یا دوتایی اعلام کرد:</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = "John"<br>
+                            <span class="code-comment"># همان است</span><br>
+                            x = 'John'
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>حساس به حروف بزرگ و کوچک</h2>
+                    <p>نام متغیرها به حروف بزرگ و کوچک حساس هستند.</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <p>این دو متغیر ایجاد خواهد کرد:</p>
+                        <div class="code-block">
+                            a = 4<br>
+                            A = "Sally"<br>
+                            <span class="code-comment"># A روی a بازنویسی نخواهد کرد</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- بخش آزمون -->
+                <div class="quiz">
+                    <h3>آزمون: متغیرها در پایتون</h3>
+                    <p>برای اطمینان از درک مطلب، لطفاً به سوال زیر پاسخ دهید:</p>
+                    
+                    <div class="quiz-question">کدام یک از نام‌های متغیر زیر در پایتون معتبر است؟</div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="option1" name="quiz" value="1">
+                            <label for="option1">2myvar</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option2" name="quiz" value="2">
+                            <label for="option2">my-var</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option3" name="quiz" value="3">
+                            <label for="option3">my_var</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option4" name="quiz" value="4">
+                            <label for="option4">my var</label>
+                        </div>
+                    </div>
+                    
+                    <button class="quiz-submit" onclick="checkQuiz()">بررسی پاسخ</button>
+                    
+                    <div id="quiz-result" class="quiz-result"></div>
+                </div>
+                
+                <!-- ادامه محتوای آموزشی -->
+                <div class="section">
+                    <h2>نام‌های متغیر</h2>
+                    <p>یک متغیر می‌تواند نام کوتاه (مانند x و y) یا نام توصیفی (مانند age، carname، total_volume) داشته باشد.</p>
+                    
+                    <h3>قوانین برای متغیرهای پایتون:</h3>
+                    <ul>
+                        <li>نام متغیر باید با یک حرف یا کاراکتر زیرخط شروع شود</li>
+                        <li>نام متغیر نمی‌تواند با یک عدد شروع شود</li>
+                        <li>نام متغیر فقط می‌تواند شامل کاراکترهای آلفانومریک و زیرخط باشد (A-z، 0-9 و _)</li>
+                        <li>نام متغیرها به حروف بزرگ و کوچک حساس هستند (age، Age و AGE سه متغیر مختلف هستند)</li>
+                        <li>نام متغیر نمی‌تواند هیچ یک از کلمات کلیدی پایتون باشد.</li>
+                    </ul>
+                    
+                    <div class="example">
+                        <div class="example-title">نام‌های متغیر قانونی:</div>
+                        <div class="code-block">
+                            myvar = "John"<br>
+                            my_var = "John"<br>
+                            _my_var = "John"<br>
+                            myVar = "John"<br>
+                            MYVAR = "John"<br>
+                            myvar2 = "John"
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">نام‌های متغیر غیرقانونی:</div>
+                        <div class="code-block">
+                            2myvar = "John"<br>
+                            my-var = "John"<br>
+                            my var = "John"
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <div class="note-title">توجه:</div>
+                        <p>به یاد داشته باشید که نام متغیرها به حروف بزرگ و کوچک حساس هستند.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>نام‌های متغیر چند کلمه‌ای</h2>
+                    <p>نام‌های متغیر با بیش از یک کلمه می‌توانند خواندن را دشوار کنند. چندین تکنیک وجود دارد که می‌توانید برای خوانایی بیشتر از آنها استفاده کنید:</p>
+                    
+                    <h3>Camel Case</h3>
+                    <p>هر کلمه، به جز اولین کلمه، با یک حرف بزرگ شروع می‌شود:</p>
+                    <div class="code-block">myVariableName = "John"</div>
+                    
+                    <h3>Pascal Case</h3>
+                    <p>هر کلمه با یک حرف بزرگ شروع می‌شود:</p>
+                    <div class="code-block">MyVariableName = "John"</div>
+                    
+                    <h3>Snake Case</h3>
+                    <p>هر کلمه با یک کاراکتر زیرخط جدا می‌شود:</p>
+                    <div class="code-block">my_variable_name = "John"</div>
+                </div>
+                
+                <!-- آزمون دوم -->
+                <div class="quiz">
+                    <h3>آزمون: نام‌گذاری متغیرها</h3>
+                    <p>برای اطمینان از درک مطلب، لطفاً به سوال زیر پاسخ دهید:</p>
+                    
+                    <div class="quiz-question">کدام یک از موارد زیر یک نام متغیر معتبر در پایتون نیست؟</div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="option5" name="quiz2" value="1">
+                            <label for="option5">my_variable</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option6" name="quiz2" value="2">
+                            <label for="option6">_myvariable</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option7" name="quiz2" value="3">
+                            <label for="option7">2variable</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option8" name="quiz2" value="4">
+                            <label for="option8">variable2</label>
+                        </div>
+                    </div>
+                    
+                    <button class="quiz-submit" onclick="checkQuiz2()">بررسی پاسخ</button>
+                    
+                    <div id="quiz-result2" class="quiz-result"></div>
+                </div>
+                
+                <!-- ادامه محتوای آموزشی -->
+                <div class="section">
+                    <h2>متغیرهای پایتون - اختصاص چندین مقدار</h2>
+                    
+                    <h3>چند مقدار به چند متغیر</h3>
+                    <p>پایتون به شما امکان می‌دهد مقادیر را به چندین متغیر در یک خط اختصاص دهید:</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x, y, z = "Orange", "Banana", "Cherry"<br>
+                            print(x)<br>
+                            print(y)<br>
+                            print(z)
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <div class="note-title">توجه:</div>
+                        <p>مطمئن شوید که تعداد متغیرها با تعداد مقادیر مطابقت دارد، در غیر این صورت خطا دریافت خواهید کرد.</p>
+                    </div>
+                    
+                    <h3>یک مقدار به چند متغیر</h3>
+                    <p>و می‌توانید همان مقدار را به چندین متغیر در یک خط اختصاص دهید:</p>
+                    
+                    <div class="example">
+                        <div class="example-title">مثال</div>
+                        <div class="code-block">
+                            x = y = z = "Orange"<br>
+                            print(x)<br>
+                            print(y)<br>
+                            print(z)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- آزمون سوم -->
+                <div class="quiz">
+                    <h3>آزمون: اختصاص مقادیر</h3>
+                    <p>برای اطمینان از درک مطلب، لطفاً به سوال زیر پاسخ دهید:</p>
+                    
+                    <div class="quiz-question">خروجی کد زیر چیست؟<br><code>x, y, z = "Apple", "Banana", "Cherry"<br>print(y)</code></div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="option9" name="quiz3" value="1">
+                            <label for="option9">Apple</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option10" name="quiz3" value="2">
+                            <label for="option10">Banana</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option11" name="quiz3" value="3">
+                            <label for="option11">Cherry</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="option12" name="quiz3" value="4">
+                            <label for="option12">Error</label>
+                        </div>
+                    </div>
+                    
+                    <button class="quiz-submit" onclick="checkQuiz3()">بررسی پاسخ</button>
+                    
+                    <div id="quiz-result3" class="quiz-result"></div>
+                </div>
+            </div>
+            
+            <!-- نوار کناری مسیر آموزشی -->
+            <div class="sidebar">
+                <h3>مسیر آموزشی پایتون</h3>
+                <ul class="course-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html" class="active">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون با تمرین‌های تعاملی ایجاد شده است. ما معتقدیم که یادگیری برنامه‌نویسی باید در دسترس، جذاب و کاربردی باشد.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">ب</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی آزمون اول
+        function checkQuiz() {
+            const selectedOption = document.querySelector('input[name="quiz"]:checked');
+            const resultElement = document.getElementById('quiz-result');
+            
+            if (!selectedOption) {
+                alert('لطفاً یک گزینه انتخاب کنید');
+                return;
+            }
+            
+            if (selectedOption.value === '3') {
+                resultElement.textContent = 'پاسخ شما صحیح است! my_var یک نام متغیر معتبر در پایتون است.';
+                resultElement.className = 'quiz-result quiz-correct';
+            } else {
+                resultElement.textContent = 'پاسخ شما نادرست است. گزینه صحیح my_var است.';
+                resultElement.className = 'quiz-result quiz-incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+        
+        // تابع بررسی آزمون دوم
+        function checkQuiz2() {
+            const selectedOption = document.querySelector('input[name="quiz2"]:checked');
+            const resultElement = document.getElementById('quiz-result2');
+            
+            if (!selectedOption) {
+                alert('لطفاً یک گزینه انتخاب کنید');
+                return;
+            }
+            
+            if (selectedOption.value === '3') {
+                resultElement.textContent = 'پاسخ شما صحیح است! 2variable یک نام متغیر معتبر نیست زیرا با عدد شروع شده است.';
+                resultElement.className = 'quiz-result quiz-correct';
+            } else {
+                resultElement.textContent = 'پاسخ شما نادرست است. گزینه صحیح 2variable است زیرا نام متغیر نمی‌تواند با عدد شروع شود.';
+                resultElement.className = 'quiz-result quiz-incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+        
+        // تابع بررسی آزمون سوم
+        function checkQuiz3() {
+            const selectedOption = document.querySelector('input[name="quiz3"]:checked');
+            const resultElement = document.getElementById('quiz-result3');
+            
+            if (!selectedOption) {
+                alert('لطفاً یک گزینه انتخاب کنید');
+                return;
+            }
+            
+            if (selectedOption.value === '2') {
+                resultElement.textContent = 'پاسخ شما صحیح است! خروجی کد Banana خواهد بود.';
+                resultElement.className = 'quiz-result quiz-correct';
+            } else {
+                resultElement.textContent = 'پاسخ شما نادرست است. گزینه صحیح Banana است زیرا مقدار y برابر Banana تنظیم شده است.';
+                resultElement.className = 'quiz-result quiz-incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

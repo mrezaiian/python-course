@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماژول‌های پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Container */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #043a8e;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #eab819;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #eab819;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: #eab819;
+            color: #043a8e;
+            border: 1px solid #eab819;
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 3;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #043a8e;
+            margin-bottom: 20px;
+            font-size: 28px;
+            border-bottom: 2px solid #eab819;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #15495f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+        
+        h3 {
+            color: #0a407c;
+            margin: 20px 0 10px;
+            font-size: 18px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border-right: 3px solid #eab819;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        .note {
+            background-color: #e8f4fd;
+            border-right: 3px solid #68bbef;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .example {
+            background-color: #f0f9f4;
+            border-right: 3px solid #228957;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .quiz-section {
+            background-color: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-submit {
+            background-color: #043a8e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #0a407c;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .sidebar h2 {
+            color: #043a8e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eab819;
+        }
+        
+        .learning-path {
+            list-style: none;
+        }
+        
+        .learning-path li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .learning-path li:last-child {
+            border-bottom: none;
+        }
+        
+        .learning-path a {
+            color: #15495f;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+        }
+        
+        .learning-path a:hover {
+            color: #043a8e;
+            padding-right: 5px;
+        }
+        
+        .learning-path .active {
+            color: #043a8e;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #15495f;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: #eab819;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #eab819;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #eab819;
+            color: #15495f;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">ورود</a>
+                <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1>ماژول‌های پایتون</h1>
+            
+            <div class="content-section">
+                <h2>ماژول چیست؟</h2>
+                <p>یک ماژول را به عنوان یک کتابخانه کد در نظر بگیرید.</p>
+                <p>یک فایل حاوی مجموعه‌ای از توابع که می‌خواهید در برنامه خود قرار دهید.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>ایجاد یک ماژول</h2>
+                <p>برای ایجاد یک ماژول، کافی است کدی را که می‌خواهید در یک فایل با پسوند .py ذخیره کنید:</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>این کد را در فایلی به نام mymodule.py ذخیره کنید:</p>
+                    <div class="code-block">
+                        def greeting(name):<br>
+                        &nbsp;&nbsp;print("Hello, " + name)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>استفاده از یک ماژول</h2>
+                <p>اکنون می‌توانیم از ماژولی که ایجاد کردیم با استفاده از دستور import استفاده کنیم:</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>ماژول mymodule را import کنید و تابع greeting را فراخوانی کنید:</p>
+                    <div class="code-block">
+                        import mymodule<br><br>
+                        mymodule.greeting("Jonathan")
+                    </div>
+                </div>
+                <div class="note">
+                    <p><strong>توجه:</strong> هنگام استفاده از یک تابع از یک ماژول، از این نحو استفاده کنید: module_name.function_name</p>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>متغیرها در ماژول</h2>
+                <p>ماژول می‌تواند شامل توابع باشد، همانطور که قبلاً توضیح داده شد، اما همچنین می‌تواند شامل متغیرهایی از انواع مختلف (آرایه‌ها، دیکشنری‌ها، اشیاء و غیره) باشد:</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>این کد را در فایل mymodule.py ذخیره کنید:</p>
+                    <div class="code-block">
+                        person1 = {<br>
+                        &nbsp;&nbsp;"name": "John",<br>
+                        &nbsp;&nbsp;"age": 36,<br>
+                        &nbsp;&nbsp;"country": "Norway"<br>
+                        }
+                    </div>
+                </div>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>ماژول mymodule را import کنید و به دیکشنری person1 دسترسی پیدا کنید:</p>
+                    <div class="code-block">
+                        import mymodule<br><br>
+                        a = mymodule.person1["age"]<br>
+                        print(a)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>نام‌گذاری یک ماژول</h2>
+                <p>می‌توانید فایل ماژول را به هر نامی که دوست دارید نام‌گذاری کنید، اما باید پسوند فایل .py داشته باشد.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>تغییر نام یک ماژول</h2>
+                <p>می‌توانید هنگام import کردن یک ماژول، با استفاده از کلیدواژه as یک نام مستعار ایجاد کنید:</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>یک نام مستعار برای mymodule به نام mx ایجاد کنید:</p>
+                    <div class="code-block">
+                        import mymodule as mx<br><br>
+                        a = mx.person1["age"]<br>
+                        print(a)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>ماژول‌های داخلی</h2>
+                <p>چندین ماژول داخلی در پایتون وجود دارد که می‌توانید هر زمان که خواستید آن‌ها را import کنید.</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>ماژول platform را import کرده و از آن استفاده کنید:</p>
+                    <div class="code-block">
+                        import platform<br><br>
+                        x = platform.system()<br>
+                        print(x)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>استفاده از تابع dir()</h2>
+                <p>یک تابع داخلی برای فهرست کردن تمام نام‌های تابع (یا نام‌های متغیر) در یک ماژول وجود دارد. تابع dir():</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>تمام نام‌های تعریف شده متعلق به ماژول platform را فهرست کنید:</p>
+                    <div class="code-block">
+                        import platform<br><br>
+                        x = dir(platform)<br>
+                        print(x)
+                    </div>
+                </div>
+                <div class="note">
+                    <p><strong>توجه:</strong> تابع dir() را می‌توان در تمام ماژول‌ها، از جمله ماژول‌هایی که خودتان ایجاد می‌کنید، استفاده کرد.</p>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>Import از ماژول</h2>
+                <p>می‌توانید با استفاده از کلیدواژه from فقط بخش‌هایی از یک ماژول را import کنید.</p>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>ماژول mymodule دارای یک تابع و یک دیکشنری است:</p>
+                    <div class="code-block">
+                        def greeting(name):<br>
+                        &nbsp;&nbsp;print("Hello, " + name)<br><br>
+                        person1 = {<br>
+                        &nbsp;&nbsp;"name": "John",<br>
+                        &nbsp;&nbsp;"age": 36,<br>
+                        &nbsp;&nbsp;"country": "Norway"<br>
+                        }
+                    </div>
+                </div>
+                <div class="example">
+                    <h3>مثال</h3>
+                    <p>فقط دیکشنری person1 را از ماژول import کنید:</p>
+                    <div class="code-block">
+                        from mymodule import person1<br><br>
+                        print(person1["age"])
+                    </div>
+                </div>
+                <div class="note">
+                    <p><strong>توجه:</strong> هنگام import کردن با استفاده از کلیدواژه from، از نام ماژول هنگام اشاره به عناصر در ماژول استفاده نکنید. مثال: person1["age"]، نه mymodule.person1["age"]</p>
+                </div>
+            </div>
+            
+            <!-- Quiz Section -->
+            <div class="quiz-section">
+                <h2>آزمون ماژول‌ها</h2>
+                <p>برای اطمینان از درک مطالب، لطفاً به سوالات زیر پاسخ دهید:</p>
+                
+                <div class="quiz-question">۱. برای ایجاد یک ماژول در پایتون، فایل باید چه پسوندی داشته باشد؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">.mod</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">.py</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">.pym</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">۲. کدام دستور برای import کردن یک ماژول به نام "mymodule" صحیح است؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">include mymodule</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">import mymodule</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">require mymodule</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">۳. چگونه می‌توانید هنگام import کردن یک ماژول، نام مستعار برای آن ایجاد کنید؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">با استفاده از کلیدواژه as</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">با استفاده از کلیدواژه alias</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">با استفاده از کلیدواژه rename</label>
+                    </div>
+                </div>
+                
+                <button class="quiz-submit">ارسال پاسخ‌ها</button>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="learning-path">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html" class="active">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>درباره BusIntell</h3>
+                <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون به صورت تعاملی و کاربردی ایجاد شده است. ما بر این باوریم که یادگیری برنامه‌نویسی باید برای همه در دسترس و لذت‌بخش باشد.</p>
+            </div>
+            <div class="footer-section">
+                <h3>لینک‌های سریع</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تماس با ما</h3>
+                <ul class="footer-links">
+                    <li>ایمیل: info@busintell.com</li>
+                    <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    <li>آدرس: تهران، خیابان نمونه، پلاک ۱۲۳</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>شبکه‌های اجتماعی</h3>
+                <p>ما را در شبکه‌های اجتماعی دنبال کنید:</p>
+                <div class="social-links">
+                    <a href="https://www.aparat.com/busintell" title="آپارات">آ</a>
+                    <a href="https://t.me/busintell" title="تلگرام">ت</a>
+                    <a href="https://ble.ir/busintell" title="بله">ب</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; ۲۰۲۳ BusIntell. تمام حقوق محفوظ است.
+        </div>
+    </footer>
+
+    <script>
+        // Quiz functionality
+        document.querySelector('.quiz-submit').addEventListener('click', function() {
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'a'
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (const question in answers) {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                if (selected && selected.value === answers[question]) {
+                    score++;
+                }
+            }
+            
+            alert(`نتیجه آزمون: ${score} از ${total}\n\n${score === total ? 'آفرین! تمام پاسخ‌ها صحیح هستند.' : 'لطفاً درس را مجدداً مرور کنید.'}`);
+        });
+    </script>
+</body>
+</html>

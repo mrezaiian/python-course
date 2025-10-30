@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایتریتور - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            margin-left: 0.5rem;
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-blue);
+            color: white;
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 2rem 0;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-left: 2rem;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .sidebar-title {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .sidebar-list {
+            list-style: none;
+        }
+        
+        .sidebar-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-list a {
+            color: var(--dark-blue);
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-list a:hover {
+            background-color: var(--light-blue);
+            color: white;
+        }
+        
+        .sidebar-list .active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* استایل بخش‌های آموزشی */
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .section-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        .code-example pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        /* استایل تست‌ها */
+        .quiz {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .quiz-title {
+            color: var(--sea-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-option input {
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1a7a4a;
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--golden-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--golden-yellow);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            margin-left: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--golden-yellow);
+            color: var(--dark-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .content {
+                margin-left: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin: 1rem 0;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 1rem 0.5rem 0;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">BusIntell</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="index.html#features">ویژگی‌ها</a></li>
+                    <li><a href="index.html#learning-path">مسیر آموزشی</a></li>
+                    <li><a href="index.html#about">درباره ما</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">ورود</button>
+                    <button class="btn btn-signup">ثبت‌نام</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- محتوای آموزشی -->
+            <div class="content">
+                <h1>Python Iterators</h1>
+                
+                <!-- بخش معرفی ایتریتور -->
+                <section class="section">
+                    <h2 class="section-title">ایتریتور چیست؟</h2>
+                    <div class="section-content">
+                        <p>ایتریتور یک شیء است که شامل تعداد قابل شمارشی از مقادیر است.</p>
+                        <p>ایتریتور یک شیء است که می‌توان روی آن تکرار کرد، به این معنی که می‌توانید از میان تمام مقادیر آن پیمایش کنید.</p>
+                        <p>از نظر فنی، در پایتون، یک ایتریتور یک شیء است که پروتکل ایتریتور را پیاده‌سازی می‌کند که شامل متدهای <code>__iter__()</code> و <code>__next__()</code> است.</p>
+                    </div>
+                </section>
+                
+                <!-- بخش ایتریتور در مقابل ایتربل -->
+                <section class="section">
+                    <h2 class="section-title">ایتریتور در مقابل ایتربل</h2>
+                    <div class="section-content">
+                        <p>لیست‌ها، تاپل‌ها، دیکشنری‌ها و مجموعه‌ها همه اشیاء قابل تکرار هستند. آن‌ها کانتینرهای قابل تکرار هستند که می‌توانید از آن‌ها یک ایتریتور دریافت کنید.</p>
+                        <p>همه این اشیاء یک متد <code>iter()</code> دارند که برای دریافت یک ایتریتور استفاده می‌شود:</p>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>یک ایتریتور از یک تاپل برگردانید و هر مقدار را چاپ کنید:</p>
+                            <pre>
+mytuple = ("apple", "banana", "cherry")
+myit = iter(mytuple)
+
+print(next(myit))
+print(next(myit))
+print(next(myit))</pre>
+                        </div>
+                        
+                        <p>حتی رشته‌ها نیز اشیاء قابل تکرار هستند و می‌توانند یک ایتریتور برگردانند:</p>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>رشته‌ها نیز اشیاء قابل تکرار هستند که شامل دنباله‌ای از کاراکترها هستند:</p>
+                            <pre>
+mystr = "banana"
+myit = iter(mystr)
+
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))</pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- تست اول -->
+                <div class="quiz">
+                    <h3 class="quiz-title">تست اول: درک مفاهیم پایه</h3>
+                    <p class="quiz-question">کدام یک از موارد زیر در پایتون قابل تکرار (iterable) نیست؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="question1" value="a">
+                            <label for="q1a">لیست</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="question1" value="b">
+                            <label for="q1b">عدد صحیح (int)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="question1" value="c">
+                            <label for="q1c">رشته</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1d" name="question1" value="d">
+                            <label for="q1d">دیکشنری</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkAnswer(1)">بررسی پاسخ</button>
+                    <div id="result1" class="quiz-result"></div>
+                </div>
+                
+                <!-- بخش حلقه زدن در ایتریتور -->
+                <section class="section">
+                    <h2 class="section-title">حلقه زدن در ایتریتور</h2>
+                    <div class="section-content">
+                        <p>ما همچنین می‌توانیم از یک حلقه for برای تکرار در یک شیء قابل تکرار استفاده کنیم:</p>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>مقادیر یک تاپل را تکرار کنید:</p>
+                            <pre>
+mytuple = ("apple", "banana", "cherry")
+
+for x in mytuple:
+    print(x)</pre>
+                        </div>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>کاراکترهای یک رشته را تکرار کنید:</p>
+                            <pre>
+mystr = "banana"
+
+for x in mystr:
+    print(x)</pre>
+                        </div>
+                        
+                        <p>حلقه for در واقع یک شیء ایتریتور ایجاد می‌کند و متد <code>next()</code> را برای هر حلقه اجرا می‌کند.</p>
+                    </div>
+                </section>
+                
+                <!-- تست دوم -->
+                <div class="quiz">
+                    <h3 class="quiz-title">تست دوم: حلقه‌ها و ایتریتورها</h3>
+                    <p class="quiz-question">کدام یک از گزینه‌های زیر در مورد حلقه for در پایتون صحیح است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="question2" value="a">
+                            <label for="q2a">حلقه for فقط با لیست‌ها کار می‌کند</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="question2" value="b">
+                            <label for="q2b">حلقه for به طور خودکار یک شیء ایتریتور ایجاد می‌کند</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="question2" value="c">
+                            <label for="q2c">حلقه for فقط با رشته‌ها کار می‌کند</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2d" name="question2" value="d">
+                            <label for="q2d">حلقه for نیاز به تعریف صریح ایتریتور ندارد</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkAnswer(2)">بررسی پاسخ</button>
+                    <div id="result2" class="quiz-result"></div>
+                </div>
+                
+                <!-- بخش ایجاد یک ایتریتور -->
+                <section class="section">
+                    <h2 class="section-title">ایجاد یک ایتریتور</h2>
+                    <div class="section-content">
+                        <p>برای ایجاد یک شیء/کلاس به عنوان ایتریتور، باید متدهای <code>__iter__()</code> و <code>__next__()</code> را برای شیء خود پیاده‌سازی کنید.</p>
+                        <p>همانطور که در فصل کلاس‌ها/اشیاء پایتون یاد خواهید گرفت، همه کلاس‌ها یک تابع به نام <code>__init__()</code> دارند که به شما امکان می‌دهد هنگام ایجاد شیء، مقداری مقداردهی اولیه انجام دهید.</p>
+                        <p>متد <code>__iter__()</code> به طور مشابه عمل می‌کند، شما می‌توانید عملیات (مقداردهی اولیه و غیره) انجام دهید، اما باید همیشه خود شیء ایتریتور را برگرداند.</p>
+                        <p>متد <code>__next__()</code> نیز به شما امکان انجام عملیات را می‌دهد و باید مورد بعدی در دنباله را برگرداند.</p>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>یک ایتریتور ایجاد کنید که اعداد را برگرداند، از 1 شروع می‌شود و هر دنباله یک عدد افزایش می‌یابد (1،2،3،4،5 و غیره را برمی‌گرداند):</p>
+                            <pre>
+class MyNumbers:
+    def __iter__(self):
+        self.a = 1
+        return self
+
+    def __next__(self):
+        x = self.a
+        self.a += 1
+        return x
+
+myclass = MyNumbers()
+myiter = iter(myclass)
+
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))</pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- بخش StopIteration -->
+                <section class="section">
+                    <h2 class="section-title">StopIteration</h2>
+                    <div class="section-content">
+                        <p>مثال بالا اگر به اندازه کافی عبارت <code>next()</code> داشته باشید یا اگر در یک حلقه for استفاده شود، برای همیشه ادامه خواهد یافت.</p>
+                        <p>برای جلوگیری از ادامه یافتن تکرار برای همیشه، می‌توانیم از عبارت <code>StopIteration</code> استفاده کنیم.</p>
+                        <p>در متد <code>__next__()</code>، می‌توانیم یک شرط خاتمه اضافه کنیم تا در صورت انجام تکرار به تعداد مشخص شده، یک خطا ایجاد کند:</p>
+                        
+                        <div class="code-example">
+                            <h3>مثال</h3>
+                            <p>بعد از 20 تکرار متوقف شود:</p>
+                            <pre>
+class MyNumbers:
+    def __iter__(self):
+        self.a = 1
+        return self
+
+    def __next__(self):
+        if self.a <= 20:
+            x = self.a
+            self.a += 1
+            return x
+        else:
+            raise StopIteration
+
+myclass = MyNumbers()
+myiter = iter(myclass)
+
+for x in myiter:
+    print(x)</pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- تست سوم -->
+                <div class="quiz">
+                    <h3 class="quiz-title">تست سوم: ایجاد ایتریتور سفارشی</h3>
+                    <p class="quiz-question">کدام یک از گزینه‌های زیر برای ایجاد یک ایتریتور سفارشی در پایتون ضروری است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="question3" value="a">
+                            <label for="q3a">پیاده‌سازی متدهای __iter__ و __next__</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="question3" value="b">
+                            <label for="q3b">استفاده از تابع iter() به تنهایی</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="question3" value="c">
+                            <label for="q3c">تعریف یک تابع generator</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3d" name="question3" value="d">
+                            <label for="q3d">استفاده از حلقه for به جای while</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkAnswer(3)">بررسی پاسخ</button>
+                    <div id="result3" class="quiz-result"></div>
+                </div>
+            </div>
+            
+            <!-- نوار کناری مسیر آموزشی -->
+            <div class="sidebar">
+                <h2 class="sidebar-title">مسیر آموزشی پایتون</h2>
+                <ul class="sidebar-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه if.html">حلقه if</a></li>
+                    <li><a href="حلقه while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار با فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html" class="active">ایتریتور</a></li>
+                    <li><a href="کار با داده ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور سازی داده.html">مصور سازی داده</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="index.html#features">ویژگی‌ها</a></li>
+                        <li><a href="index.html#learning-path">مسیر آموزشی</a></li>
+                        <li><a href="index.html#about">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <ul class="footer-links">
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>کلیه حقوق مادی و معنوی این سایت متعلق به BusIntell می‌باشد. © ۲۰۲۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی پاسخ تست‌ها
+        function checkAnswer(questionNumber) {
+            const answers = {
+                1: "b", // عدد صحیح قابل تکرار نیست
+                2: "b", // حلقه for به طور خودکار یک شیء ایتریتور ایجاد می‌کند
+                3: "a"  // پیاده‌سازی متدهای __iter__ و __next__ ضروری است
+            };
+            
+            const selectedOption = document.querySelector(`input[name="question${questionNumber}"]:checked`);
+            const resultElement = document.getElementById(`result${questionNumber}`);
+            
+            if (!selectedOption) {
+                resultElement.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                resultElement.className = "quiz-result incorrect";
+                resultElement.style.display = "block";
+                return;
+            }
+            
+            if (selectedOption.value === answers[questionNumber]) {
+                resultElement.textContent = "پاسخ شما صحیح است! ✓";
+                resultElement.className = "quiz-result correct";
+            } else {
+                resultElement.textContent = "پاسخ شما نادرست است. لطفاً مجدداً مطالعه کنید.";
+                resultElement.className = "quiz-result incorrect";
+            }
+            
+            resultElement.style.display = "block";
+        }
+    </script>
+</body>
+</html>

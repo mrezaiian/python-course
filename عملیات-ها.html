@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusIntell - آموزش برنامه‌نویسی پایتون</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* فونت‌ها و تنظیمات اولیه */
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --brown-gold: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 25px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            margin-left: 10px;
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* بخش محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .content h2 {
+            color: var(--navy-blue);
+            margin: 25px 0 15px;
+        }
+        
+        .content h3 {
+            color: var(--dark-blue);
+            margin: 20px 0 10px;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border-right: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: right;
+        }
+        
+        th {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* سایدبار مسیر آموزشی */
+        .learning-path {
+            width: 300px;
+            margin-right: 30px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .learning-path h2 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 10px;
+        }
+        
+        .path-list a {
+            display: block;
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            transition: all 0.3s;
+        }
+        
+        .path-list a:hover {
+            background-color: var(--light-blue);
+            color: white;
+        }
+        
+        /* بخش درباره ما */
+        .about-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .about-section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .about-item {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-item h3 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* بخش تست */
+        .quiz-section {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            border-right: 4px solid var(--light-blue);
+        }
+        
+        .quiz-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">BusIntell</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">خانه</a></li>
+                <li><a href="#features">ویژگی‌ها</a></li>
+                <li><a href="#learning-path">مسیر آموزشی</a></li>
+                <li><a href="#about">درباره ما</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">ورود</a>
+                <a href="#" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- سایدبار مسیر آموزشی -->
+            <aside class="learning-path">
+                <h2>مسیر آموزشی پایتون</h2>
+                <ul class="path-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات‌ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه‌ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس‌ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده‌ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </aside>
+
+            <!-- محتوای اصلی -->
+            <main class="content">
+                <h1>عملیات‌ها در پایتون</h1>
+                
+                <h2>عملگرهای حسابی پایتون</h2>
+                <p>عملگرهای حسابی برای انجام عملیات ریاضی روی مقادیر عددی استفاده می‌شوند:</p>
+                
+                <table>
+                    <tr>
+                        <th>عملگر</th>
+                        <th>نام</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>جمع</td>
+                        <td>x + y</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>تفریق</td>
+                        <td>x - y</td>
+                    </tr>
+                    <tr>
+                        <td>*</td>
+                        <td>ضرب</td>
+                        <td>x * y</td>
+                    </tr>
+                    <tr>
+                        <td>/</td>
+                        <td>تقسیم</td>
+                        <td>x / y</td>
+                    </tr>
+                    <tr>
+                        <td>%</td>
+                        <td>باقیمانده</td>
+                        <td>x % y</td>
+                    </tr>
+                    <tr>
+                        <td>**</td>
+                        <td>توان</td>
+                        <td>x ** y</td>
+                    </tr>
+                    <tr>
+                        <td>//</td>
+                        <td>تقسیم صحیح</td>
+                        <td>x // y</td>
+                    </tr>
+                </table>
+                
+                <h3>مثال‌ها</h3>
+                <p>در اینجا یک مثال با استفاده از عملگرهای حسابی مختلف آورده شده است:</p>
+                
+                <div class="code-block">
+x = 15
+y = 4
+
+print(x + y)  # 19
+print(x - y)  # 11
+print(x * y)  # 60
+print(x / y)  # 3.75
+print(x % y)  # 3
+print(x ** y) # 50625
+print(x // y) # 3
+                </div>
+                
+                <!-- بخش تست -->
+                <div class="quiz-section">
+                    <h3>آزمون: عملگرهای حسابی</h3>
+                    <p>خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+x = 10
+y = 3
+print(x // y)
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz1" value="a"> 3.33</label>
+                        <label><input type="radio" name="quiz1" value="b"> 3</label>
+                        <label><input type="radio" name="quiz1" value="c"> 1</label>
+                        <label><input type="radio" name="quiz1" value="d"> 30</label>
+                    </div>
+                    <button class="quiz-submit">بررسی پاسخ</button>
+                </div>
+                
+                <h2>تقسیم در پایتون</h2>
+                <p>پایتون دو عملگر تقسیم دارد:</p>
+                <ul>
+                    <li>/ - تقسیم (یک عدد اعشاری برمی‌گرداند)</li>
+                    <li>// - تقسیم صحیح (یک عدد صحیح برمی‌گرداند)</li>
+                </ul>
+                
+                <h3>مثال</h3>
+                <p>تقسیم همیشه یک عدد اعشاری برمی‌گرداند:</p>
+                
+                <div class="code-block">
+x = 12
+y = 5
+
+print(x / y)  # 2.4
+                </div>
+                
+                <h3>مثال</h3>
+                <p>تقسیم صحیح همیشه یک عدد صحیح برمی‌گرداند. این عملگر به سمت پایین گرد می‌کند:</p>
+                
+                <div class="code-block">
+x = 12
+y = 5
+
+print(x // y)  # 2
+                </div>
+                
+                <!-- ادامه محتوا برای سایر عملگرها -->
+                <!-- برای صرفه‌جویی در فضا، فقط بخش اول نمایش داده شده است -->
+                
+            </main>
+        </div>
+
+        <!-- بخش درباره ما -->
+        <section id="about" class="about-section">
+            <h2>درباره BusIntell</h2>
+            <div class="about-content">
+                <div class="about-item">
+                    <h3>معرفی پلتفرم</h3>
+                    <p>BusIntell یک پلتفرم آموزشی آنلاین است که با هدف ارائه آموزش‌های باکیفیت برنامه‌نویسی پایتون به زبان فارسی ایجاد شده است. ما بر یادگیری تعاملی و پروژه‌محور تمرکز داریم.</p>
+                </div>
+                <div class="about-item">
+                    <h3>فلسفه آموزشی</h3>
+                    <p>ما معتقدیم بهترین روش یادگیری برنامه‌نویسی، تمرین عملی و حل مسئله است. به همین دلیل، در کنار هر درس، تمرین‌های تعاملی و پروژه‌های واقعی ارائه می‌دهیم.</p>
+                </div>
+                <div class="about-item">
+                    <h3>تیم ما</h3>
+                    <p>تیم BusIntell متشکل از توسعه‌دهندگان و مربیان با تجربه است که علاقه‌مند به اشتراک‌گذاری دانش و کمک به رشد جامعه برنامه‌نویسی فارسی‌زبان هستند.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <p>آدرس: تهران، خیابان ولیعصر</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="#features">ویژگی‌ها</a></li>
+                        <li><a href="#learning-path">مسیر آموزشی</a></li>
+                        <li><a href="#about">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <p>ما را در شبکه‌های اجتماعی دنبال کنید</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>تمامی حقوق برای BusIntell محفوظ است © ۲۰۲۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // اسکریپت ساده برای تست‌ها
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizButtons = document.querySelectorAll('.quiz-submit');
+            
+            quizButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const quizSection = this.closest('.quiz-section');
+                    const selectedOption = quizSection.querySelector('input[type="radio"]:checked');
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === 'b') {
+                            alert('پاسخ شما صحیح است!');
+                        } else {
+                            alert('پاسخ شما نادرست است. لطفا دوباره تلاش کنید.');
+                        }
+                    } else {
+                        alert('لطفا یک گزینه را انتخاب کنید.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

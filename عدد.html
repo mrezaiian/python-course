@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اعداد در پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --gold-brown: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            margin-left: 10px;
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-blue);
+            color: white;
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(4, 58, 142, 0.05);
+        }
+        
+        .btn-signup:hover {
+            background-color: #032a6b;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-left: 20px;
+        }
+        
+        .page-title {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .content-section h2 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #333;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-right: 4px solid var(--gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        /* استایل مسیر آموزشی */
+        .learning-path {
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+        
+        .learning-path h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 8px;
+        }
+        
+        .path-list a {
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            color: var(--dark-blue);
+        }
+        
+        .path-list a:hover {
+            background-color: rgba(4, 58, 142, 0.05);
+        }
+        
+        .path-list a.active {
+            background-color: rgba(4, 58, 142, 0.1);
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
+        /* استایل بخش تست */
+        .quiz-section {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .quiz-section h3 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-option label {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #032a6b;
+        }
+        
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background-color: rgba(34, 137, 87, 0.1);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        
+        .quiz-result.incorrect {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: var(--gold-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold-yellow);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold-yellow);
+            color: var(--dark-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px 5px 0;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">BusIntell</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">ورود</button>
+                    <button class="btn btn-signup">ثبت‌نام</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- مسیر آموزشی -->
+            <aside class="learning-path">
+                <h3>مسیر آموزشی پایتون</h3>
+                <ul class="path-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html" class="active">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </aside>
+
+            <!-- محتوای آموزشی -->
+            <main class="content">
+                <h1 class="page-title">اعداد در پایتون</h1>
+                
+                <div class="content-section">
+                    <h2>انواع عددی در پایتون</h2>
+                    <p>سه نوع عددی در پایتون وجود دارد:</p>
+                    <ul>
+                        <li>int (اعداد صحیح)</li>
+                        <li>float (اعداد اعشاری)</li>
+                        <li>complex (اعداد مختلط)</li>
+                    </ul>
+                    <p>متغیرهای عددی زمانی ایجاد می‌شوند که شما یک مقدار را به آن‌ها اختصاص دهید:</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            x = 1    # int<br>
+                            y = 2.8  # float<br>
+                            z = 1j   # complex
+                        </code>
+                    </div>
+                    
+                    <p>برای تأیید نوع هر شی در پایتون، از تابع type() استفاده کنید:</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            print(type(x))<br>
+                            print(type(y))<br>
+                            print(type(z))
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>اعداد صحیح (Int)</h2>
+                    <p>Int یا عدد صحیح، یک عدد کامل، مثبت یا منفی، بدون اعشار و با طول نامحدود است.</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد صحیح:<br>
+                            x = 1<br>
+                            y = 35656222554887711<br>
+                            z = -3255522<br><br>
+                            
+                            print(type(x))<br>
+                            print(type(y))<br>
+                            print(type(z))
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>اعداد اعشاری (Float)</h2>
+                    <p>Float یا "عدد اعشاری" یک عدد مثبت یا منفی است که شامل یک یا چند رقم اعشار می‌باشد.</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد اعشاری:<br>
+                            x = 1.10<br>
+                            y = 1.0<br>
+                            z = -35.59<br><br>
+                            
+                            print(type(x))<br>
+                            print(type(y))<br>
+                            print(type(z))
+                        </code>
+                    </div>
+                    
+                    <p>اعداد اعشاری می‌توانند به صورت علمی نیز نوشته شوند که با "e" توان 10 را نشان می‌دهند.</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد اعشاری علمی:<br>
+                            x = 35e3<br>
+                            y = 12E4<br>
+                            z = -87.7e100<br><br>
+                            
+                            print(type(x))<br>
+                            print(type(y))<br>
+                            print(type(z))
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>اعداد مختلط (Complex)</h2>
+                    <p>اعداد مختلط با "j" به عنوان بخش موهومی نوشته می‌شوند:</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد مختلط:<br>
+                            x = 3+5j<br>
+                            y = 5j<br>
+                            z = -5j<br><br>
+                            
+                            print(type(x))<br>
+                            print(type(y))<br>
+                            print(type(z))
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>تبدیل نوع</h2>
+                    <p>شما می‌توانید از یک نوع به نوع دیگر با استفاده از توابع int()، float() و complex() تبدیل کنید:</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            x = 1    # int<br>
+                            y = 2.8  # float<br>
+                            z = 1j   # complex<br><br>
+                            
+                            # تبدیل از int به float:<br>
+                            a = float(x)<br><br>
+                            
+                            # تبدیل از float به int:<br>
+                            b = int(y)<br><br>
+                            
+                            # تبدیل از int به complex:<br>
+                            c = complex(x)<br><br>
+                            
+                            print(a)<br>
+                            print(b)<br>
+                            print(c)<br><br>
+                            
+                            print(type(a))<br>
+                            print(type(b))<br>
+                            print(type(c))
+                        </code>
+                    </div>
+                    
+                    <div class="note">
+                        <p><strong>توجه:</strong> شما نمی‌توانید اعداد مختلط را به نوع عددی دیگری تبدیل کنید.</p>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>اعداد تصادفی</h2>
+                    <p>پایتون تابع random() برای تولید اعداد تصادفی ندارد، اما ماژول داخلی به نام random دارد که می‌تواند برای تولید اعداد تصادفی استفاده شود:</p>
+                    
+                    <div class="code-block">
+                        <code>
+                            # وارد کردن ماژول random و نمایش یک عدد تصادفی بین 1 تا 9:<br>
+                            import random<br><br>
+                            
+                            print(random.randrange(1, 10))
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2>تبدیل نوع صریح (Casting)</h2>
+                    <p>تبدیل نوع در پایتون با استفاده از توابع سازنده انجام می‌شود:</p>
+                    <ul>
+                        <li>int() - یک عدد صحیح از یک عدد صحیح، عدد اعشاری (با حذف تمام اعشارها) یا رشته (در صورتی که رشته نشان‌دهنده یک عدد کامل باشد) می‌سازد</li>
+                        <li>float() - یک عدد اعشاری از یک عدد صحیح، عدد اعشاری یا رشته (در صورتی که رشته نشان‌دهنده یک عدد اعشاری یا صحیح باشد) می‌سازد</li>
+                        <li>str() - یک رشته از انواع مختلف داده‌ها از جمله رشته‌ها، اعداد صحیح و اعداد اعشاری می‌سازد</li>
+                    </ul>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد صحیح:<br>
+                            x = int(1)   # x برابر 1 خواهد بود<br>
+                            y = int(2.8) # y برابر 2 خواهد بود<br>
+                            z = int("3") # z برابر 3 خواهد بود
+                        </code>
+                    </div>
+                    
+                    <div class="code-block">
+                        <code>
+                            # اعداد اعشاری:<br>
+                            x = float(1)     # x برابر 1.0 خواهد بود<br>
+                            y = float(2.8)   # y برابر 2.8 خواهد بود<br>
+                            z = float("3")   # z برابر 3.0 خواهد بود<br>
+                            w = float("4.2") # w برابر 4.2 خواهد بود
+                        </code>
+                    </div>
+                    
+                    <div class="code-block">
+                        <code>
+                            # رشته‌ها:<br>
+                            x = str("s1") # x برابر 's1' خواهد بود<br>
+                            y = str(2)    # y برابر '2' خواهد بود<br>
+                            z = str(3.0)  # z برابر '3.0' خواهد بود
+                        </code>
+                    </div>
+                </div>
+                
+                <!-- بخش تست اول -->
+                <div class="quiz-section">
+                    <h3>تست اول: انواع عددی</h3>
+                    <p class="quiz-question">کدام یک از موارد زیر یک عدد مختلط (complex) در پایتون است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a1" name="quiz1" value="a">
+                            <label for="q1a1">x = 5</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a2" name="quiz1" value="b">
+                            <label for="q1a2">x = 5.0</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a3" name="quiz1" value="c">
+                            <label for="q1a3">x = 5j</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a4" name="quiz1" value="d">
+                            <label for="q1a4">x = "5"</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz1()">بررسی پاسخ</button>
+                    <div id="quiz1-result" class="quiz-result"></div>
+                </div>
+                
+                <!-- بخش تست دوم -->
+                <div class="quiz-section">
+                    <h3>تست دوم: تبدیل نوع</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            x = 3.7<br>
+                            y = int(x)<br>
+                            print(y)
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a1" name="quiz2" value="a">
+                            <label for="q2a1">3.7</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a2" name="quiz2" value="b">
+                            <label for="q2a2">3</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a3" name="quiz2" value="c">
+                            <label for="q2a3">4</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a4" name="quiz2" value="d">
+                            <label for="q2a4">خطا</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz2()">بررسی پاسخ</button>
+                    <div id="quiz2-result" class="quiz-result"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 BusIntell. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی تست اول
+        function checkQuiz1() {
+            const selectedOption = document.querySelector('input[name="quiz1"]:checked');
+            const resultElement = document.getElementById('quiz1-result');
+            
+            if (!selectedOption) {
+                alert('لطفاً یک گزینه انتخاب کنید');
+                return;
+            }
+            
+            if (selectedOption.value === 'c') {
+                resultElement.textContent = 'پاسخ شما صحیح است! x = 5j یک عدد مختلط در پایتون است.';
+                resultElement.className = 'quiz-result correct';
+            } else {
+                resultElement.textContent = 'پاسخ شما نادرست است. گزینه صحیح x = 5j است.';
+                resultElement.className = 'quiz-result incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+        
+        // تابع بررسی تست دوم
+        function checkQuiz2() {
+            const selectedOption = document.querySelector('input[name="quiz2"]:checked');
+            const resultElement = document.getElementById('quiz2-result');
+            
+            if (!selectedOption) {
+                alert('لطفاً یک گزینه انتخاب کنید');
+                return;
+            }
+            
+            if (selectedOption.value === 'b') {
+                resultElement.textContent = 'پاسخ شما صحیح است! تابع int() قسمت اعشاری را حذف می‌کند و فقط قسمت صحیح را برمی‌گرداند.';
+                resultElement.className = 'quiz-result correct';
+            } else {
+                resultElement.textContent = 'پاسخ شما نادرست است. گزینه صحیح 3 است. تابع int() قسمت اعشاری را حذف می‌کند.';
+                resultElement.className = 'quiz-result incorrect';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

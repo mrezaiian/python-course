@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت خطا - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --gold-brown: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            margin-left: 10px;
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .content h2 {
+            color: var(--navy-blue);
+            margin: 25px 0 15px;
+            font-size: 22px;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 8px;
+        }
+        
+        .content h3 {
+            color: var(--dark-blue);
+            margin: 20px 0 10px;
+            font-size: 18px;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border-left: 4px solid var(--primary-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: var(--dark-blue);
+        }
+        
+        .note {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+        
+        /* استایل مسیر آموزشی */
+        .learning-path {
+            flex: 1;
+            margin-right: 30px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .learning-path h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .path-list a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            display: block;
+            padding: 8px 5px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .path-list a:hover {
+            background-color: #f0f5ff;
+            color: var(--primary-blue);
+            padding-right: 10px;
+        }
+        
+        .path-list .active {
+            background-color: #e8f4fd;
+            color: var(--primary-blue);
+            font-weight: bold;
+            border-right: 3px solid var(--primary-blue);
+        }
+        
+        /* استایل تست‌ها */
+        .quiz {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .quiz h3 {
+            color: var(--navy-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .quiz-option input {
+            margin-left: 10px;
+            margin-top: 5px;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #e6f7e9;
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        
+        .incorrect {
+            background-color: #ffe6e6;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--gold-yellow);
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">BusIntell</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">ورود</a>
+                    <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- مسیر آموزشی -->
+            <aside class="learning-path">
+                <h2>مسیر آموزشی پایتون</h2>
+                <ul class="path-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html" class="active">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </aside>
+
+            <!-- محتوای آموزشی -->
+            <main class="content">
+                <h1>مدیریت خطا در پایتون</h1>
+                
+                <p>در پایتون، مدیریت خطا به ما کمک می‌کند تا برنامه‌هایی بنویسیم که در مواجهه با خطاها به درستی رفتار کنند و از خرابی ناگهانی برنامه جلوگیری کنند.</p>
+                
+                <h2>بلوک try و except</h2>
+                <p>بلوک <code>try</code> به شما امکان می‌دهد یک بلوک کد را برای خطا آزمایش کنید.</p>
+                <p>بلوک <code>except</code> به شما امکان می‌دهد خطا را مدیریت کنید.</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            try:<br>
+                            &nbsp;&nbsp;print(x)<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("یک خطا رخ داده است")
+                        </code>
+                    </div>
+                    <p>از آنجایی که بلوک try یک خطا ایجاد می‌کند، بلوک except اجرا می‌شود.</p>
+                </div>
+                
+                <div class="note">
+                    <p><strong>نکته:</strong> بدون بلوک try، برنامه خراب می‌شود و یک خطا ایجاد می‌کند.</p>
+                </div>
+                
+                <h2>خطاهای متعدد</h2>
+                <p>شما می‌توانید به تعداد دلخواه بلوک‌های exception تعریف کنید، به عنوان مثال اگر می‌خواهید یک بلوک کد خاص برای یک نوع خطای خاص اجرا شود:</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            try:<br>
+                            &nbsp;&nbsp;print(x)<br>
+                            except NameError:<br>
+                            &nbsp;&nbsp;print("متغیر x تعریف نشده است")<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("چیز دیگری اشتباه پیش رفت")
+                        </code>
+                    </div>
+                </div>
+                
+                <!-- تست اول -->
+                <div class="quiz">
+                    <h3>تست اول: درک مفاهیم پایه</h3>
+                    <div class="quiz-question">کدام بلوک برای مدیریت خطاها در پایتون استفاده می‌شود؟</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="quiz1" value="a">
+                            <label for="q1a">بلوک try</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="quiz1" value="b">
+                            <label for="q1b">بلوک except</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="quiz1" value="c">
+                            <label for="q1c">هر دو بلوک try و except</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1d" name="quiz1" value="d">
+                            <label for="q1d">بلوک finally</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz1()">بررسی پاسخ</button>
+                    <div id="quiz1-result" class="quiz-result"></div>
+                </div>
+                
+                <h2>بلوک else</h2>
+                <p>شما می‌توانید از کلمه کلیدی <code>else</code> برای تعریف یک بلوک کد استفاده کنید که در صورت عدم بروز خطا اجرا شود:</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            try:<br>
+                            &nbsp;&nbsp;print("Hello")<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("چیزی اشتباه پیش رفت")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("هیچ چیز اشتباه پیش نرفت")
+                        </code>
+                    </div>
+                </div>
+                
+                <h2>بلوک finally</h2>
+                <p>بلوک <code>finally</code>، در صورت مشخص شدن، بدون توجه به اینکه بلوک try خطا ایجاد کند یا نه، اجرا می‌شود.</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            try:<br>
+                            &nbsp;&nbsp;print(x)<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("چیزی اشتباه پیش رفت")<br>
+                            finally:<br>
+                            &nbsp;&nbsp;print("'try except' به پایان رسید")
+                        </code>
+                    </div>
+                </div>
+                
+                <p>این می‌تواند برای بستن اشیاء و پاکسازی منابع مفید باشد:</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            try:<br>
+                            &nbsp;&nbsp;f = open("demofile.txt")<br>
+                            &nbsp;&nbsp;try:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;f.write("Lorum Ipsum")<br>
+                            &nbsp;&nbsp;except:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("هنگام نوشتن در فایل مشکلی پیش آمد")<br>
+                            &nbsp;&nbsp;finally:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;f.close()<br>
+                            except:<br>
+                            &nbsp;&nbsp;print("هنگام باز کردن فایل مشکلی پیش آمد")
+                        </code>
+                    </div>
+                    <p>برنامه می‌تواند ادامه یابد، بدون اینکه شی فایل باز بماند.</p>
+                </div>
+                
+                <!-- تست دوم -->
+                <div class="quiz">
+                    <h3>تست دوم: بلوک‌های else و finally</h3>
+                    <div class="quiz-question">کدام بلوک همیشه اجرا می‌شود، صرف نظر از اینکه خطا رخ داده باشد یا نه؟</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="quiz2" value="a">
+                            <label for="q2a">بلوک try</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="quiz2" value="b">
+                            <label for="q2b">بلوک except</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="quiz2" value="c">
+                            <label for="q2c">بلوک else</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2d" name="quiz2" value="d">
+                            <label for="q2d">بلوک finally</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz2()">بررسی پاسخ</button>
+                    <div id="quiz2-result" class="quiz-result"></div>
+                </div>
+                
+                <h2>ایجاد یک استثنا</h2>
+                <p>به عنوان یک توسعه‌دهنده پایتون، می‌توانید در صورت بروز یک شرط، یک استثنا ایجاد کنید.</p>
+                <p>برای ایجاد (یا بالا بردن) یک استثنا، از کلمه کلیدی <code>raise</code> استفاده کنید.</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            x = -1<br><br>
+                            
+                            if x < 0:<br>
+                            &nbsp;&nbsp;raise Exception("با عرض پوزش، اعداد زیر صفر مجاز نیستند")
+                        </code>
+                    </div>
+                </div>
+                
+                <p>کلمه کلیدی <code>raise</code> برای ایجاد یک استثنا استفاده می‌شود.</p>
+                <p>شما می‌توانید تعریف کنید چه نوع خطایی ایجاد شود و چه متنی به کاربر نمایش داده شود.</p>
+                
+                <div class="example">
+                    <div class="example-title">مثال:</div>
+                    <div class="code-block">
+                        <code>
+                            x = "hello"<br><br>
+                            
+                            if not type(x) is int:<br>
+                            &nbsp;&nbsp;raise TypeError("فقط اعداد صحیح مجاز هستند")
+                        </code>
+                    </div>
+                </div>
+                
+                <!-- تست سوم -->
+                <div class="quiz">
+                    <h3>تست سوم: ایجاد استثنا</h3>
+                    <div class="quiz-question">کدام کلمه کلیدی برای ایجاد یک استثنا در پایتون استفاده می‌شود؟</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="quiz3" value="a">
+                            <label for="q3a">exception</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="quiz3" value="b">
+                            <label for="q3b">throw</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="quiz3" value="c">
+                            <label for="q3c">raise</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3d" name="quiz3" value="d">
+                            <label for="q3d">error</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz3()">بررسی پاسخ</button>
+                    <div id="quiz3-result" class="quiz-result"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون به صورت تعاملی و کاربردی ایجاد شده است.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <ul class="footer-links">
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>کلیه حقوق محفوظ است © ۲۰۲۳ BusIntell</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی تست اول
+        function checkQuiz1() {
+            const selectedOption = document.querySelector('input[name="quiz1"]:checked');
+            const resultDiv = document.getElementById('quiz1-result');
+            
+            if (!selectedOption) {
+                resultDiv.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                resultDiv.className = "quiz-result incorrect";
+                resultDiv.style.display = "block";
+                return;
+            }
+            
+            if (selectedOption.value === 'c') {
+                resultDiv.textContent = "✅ پاسخ شما صحیح است! هر دو بلوک try و except برای مدیریت خطاها استفاده می‌شوند.";
+                resultDiv.className = "quiz-result correct";
+            } else {
+                resultDiv.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح «هر دو بلوک try و except» است.";
+                resultDiv.className = "quiz-result incorrect";
+            }
+            
+            resultDiv.style.display = "block";
+        }
+        
+        // تابع بررسی تست دوم
+        function checkQuiz2() {
+            const selectedOption = document.querySelector('input[name="quiz2"]:checked');
+            const resultDiv = document.getElementById('quiz2-result');
+            
+            if (!selectedOption) {
+                resultDiv.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                resultDiv.className = "quiz-result incorrect";
+                resultDiv.style.display = "block";
+                return;
+            }
+            
+            if (selectedOption.value === 'd') {
+                resultDiv.textContent = "✅ پاسخ شما صحیح است! بلوک finally همیشه اجرا می‌شود.";
+                resultDiv.className = "quiz-result correct";
+            } else {
+                resultDiv.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح «بلوک finally» است.";
+                resultDiv.className = "quiz-result incorrect";
+            }
+            
+            resultDiv.style.display = "block";
+        }
+        
+        // تابع بررسی تست سوم
+        function checkQuiz3() {
+            const selectedOption = document.querySelector('input[name="quiz3"]:checked');
+            const resultDiv = document.getElementById('quiz3-result');
+            
+            if (!selectedOption) {
+                resultDiv.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                resultDiv.className = "quiz-result incorrect";
+                resultDiv.style.display = "block";
+                return;
+            }
+            
+            if (selectedOption.value === 'c') {
+                resultDiv.textContent = "✅ پاسخ شما صحیح است! کلمه کلیدی raise برای ایجاد استثنا استفاده می‌شود.";
+                resultDiv.className = "quiz-result correct";
+            } else {
+                resultDiv.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح «raise» است.";
+                resultDiv.className = "quiz-result incorrect";
+            }
+            
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>

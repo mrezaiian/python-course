@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رشته‌ها در پایتون | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-signup:hover {
+            background-color: var(--golden-yellow);
+        }
+        
+        /* محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 2rem 0;
+            gap: 2rem;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content h2 {
+            color: var(--sea-blue);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .content h3 {
+            color: var(--dark-blue);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--green);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        .code-example code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--gold);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* بخش مسیر آموزشی */
+        .learning-path {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            position: sticky;
+            top: 100px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .learning-path h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .path-list a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .path-list a:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-blue);
+        }
+        
+        .path-list .active {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
+        /* بخش آزمون */
+        .quiz-section {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--green);
+        }
+        
+        .quiz-section h3 {
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-options {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .quiz-options li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .quiz-options input {
+            margin-left: 0.5rem;
+        }
+        
+        .btn-submit {
+            background-color: var(--green);
+            color: var(--white);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1a7a4a;
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .result-correct {
+            background-color: #e6f7ee;
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        
+        .result-incorrect {
+            background-color: #fde8e8;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-blue);
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                position: static;
+                max-height: none;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">BusIntell</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">خانه</a></li>
+                <li><a href="features.html">ویژگی‌ها</a></li>
+                <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                <li><a href="about.html">درباره ما</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">ورود</a>
+                <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- محتوای اصلی -->
+            <div class="content">
+                <h1>رشته‌ها در پایتون</h1>
+                
+                <p>رشته‌ها در پایتون با علامت نقل قول تکی یا دوتایی احاطه می‌شوند.</p>
+                
+                <div class="code-example">
+                    <code>'hello'</code> همان است که <code>"hello"</code>
+                </div>
+                
+                <p>شما می‌توانید یک رشته تحت اللفظی را با تابع <code>print()</code> نمایش دهید:</p>
+                
+                <div class="code-example">
+                    <code>print("Hello")<br>print('Hello')</code>
+                </div>
+                
+                <h2>نقل قول درون رشته‌ها</h2>
+                <p>می‌توانید از نقل قول درون یک رشته استفاده کنید، تا زمانی که با نقل قول‌های اطراف رشته مطابقت نداشته باشند:</p>
+                
+                <div class="code-example">
+                    <code>print("It's alright")<br>print("He is called 'Johnny'")<br>print('He is called "Johnny"')</code>
+                </div>
+                
+                <h2>انتساب رشته به یک متغیر</h2>
+                <p>انتساب یک رشته به یک متغیر با نام متغیر به دنبال علامت مساوی و رشته انجام می‌شود:</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello"<br>print(a)</code>
+                </div>
+                
+                <h2>رشته‌های چند خطی</h2>
+                <p>می‌توانید یک رشته چند خطی را با استفاده از سه نقل قول به یک متغیر اختصاص دهید:</p>
+                
+                <div class="code-example">
+                    <code>a = """Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod tempor incididunt<br>ut labore et dolore magna aliqua."""<br>print(a)</code>
+                </div>
+                
+                <p>یا سه نقل قول تکی:</p>
+                
+                <div class="code-example">
+                    <code>a = '''Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod tempor incididunt<br>ut labore et dolore magna aliqua.'''<br>print(a)</code>
+                </div>
+                
+                <div class="note">
+                    <strong>توجه:</strong> در نتیجه، شکستن خطوط در همان موقعیتی که در کد قرار دارند وارد می‌شوند.
+                </div>
+                
+                <h2>رشته‌ها آرایه هستند</h2>
+                <p>مانند بسیاری از زبان‌های برنامه‌نویسی محبوب دیگر، رشته‌ها در پایتون آرایه‌هایی از کاراکترهای یونیکد هستند.</p>
+                <p>با این حال، پایتون نوع داده کاراکتر ندارد، یک کاراکتر منفرد به سادگی یک رشته با طول 1 است.</p>
+                <p>از براکت‌های مربعی می‌توان برای دسترسی به عناصر رشته استفاده کرد.</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(a[1])</code>
+                </div>
+                
+                <h2>حلقه زدن در رشته</h2>
+                <p>از آنجایی که رشته‌ها آرایه هستند، می‌توانیم با حلقه for در کاراکترهای یک رشته حلقه بزنیم.</p>
+                
+                <div class="code-example">
+                    <code>for x in "banana":<br>&nbsp;&nbsp;print(x)</code>
+                </div>
+                
+                <h2>طول رشته</h2>
+                <p>برای به دست آوردن طول یک رشته، از تابع <code>len()</code> استفاده کنید.</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(len(a))</code>
+                </div>
+                
+                <h2>بررسی رشته</h2>
+                <p>برای بررسی اینکه آیا عبارت یا کاراکتر خاصی در یک رشته وجود دارد، می‌توانیم از کلیدواژه <code>in</code> استفاده کنیم.</p>
+                
+                <div class="code-example">
+                    <code>txt = "The best things in life are free!"<br>print("free" in txt)</code>
+                </div>
+                
+                <p>استفاده از آن در یک عبارت شرطی:</p>
+                
+                <div class="code-example">
+                    <code>txt = "The best things in life are free!"<br>if "free" in txt:<br>&nbsp;&nbsp;print("Yes, 'free' is present.")</code>
+                </div>
+                
+                <h2>بررسی عدم وجود</h2>
+                <p>برای بررسی اینکه آیا عبارت یا کاراکتر خاصی در یک رشته وجود ندارد، می‌توانیم از کلیدواژه <code>not in</code> استفاده کنیم.</p>
+                
+                <div class="code-example">
+                    <code>txt = "The best things in life are free!"<br>print("expensive" not in txt)</code>
+                </div>
+                
+                <p>استفاده از آن در یک عبارت شرطی:</p>
+                
+                <div class="code-example">
+                    <code>txt = "The best things in life are free!"<br>if "expensive" not in txt:<br>&nbsp;&nbsp;print("No, 'expensive' is NOT present.")</code>
+                </div>
+                
+                <h2>برش رشته‌ها</h2>
+                <p>می‌توانید با استفاده از سینتکس برش، یک محدوده از کاراکترها را برگردانید.</p>
+                <p>شاخص شروع و شاخص پایان را مشخص کنید، که با دونقطه از هم جدا شده‌اند، تا بخشی از رشته برگردانده شود.</p>
+                
+                <div class="code-example">
+                    <code>b = "Hello, World!"<br>print(b[2:5])</code>
+                </div>
+                
+                <div class="note">
+                    <strong>توجه:</strong> اولین کاراکتر دارای شاخص 0 است.
+                </div>
+                
+                <h3>برش از ابتدا</h3>
+                <p>با حذف شاخص شروع، محدوده از اولین کاراکتر شروع می‌شود:</p>
+                
+                <div class="code-example">
+                    <code>b = "Hello, World!"<br>print(b[:5])</code>
+                </div>
+                
+                <h3>برش تا انتها</h3>
+                <p>با حذف شاخص پایان، محدوده تا انتها ادامه می‌یابد:</p>
+                
+                <div class="code-example">
+                    <code>b = "Hello, World!"<br>print(b[2:])</code>
+                </div>
+                
+                <h3>نمایه‌سازی منفی</h3>
+                <p>از شاخص‌های منفی برای شروع برش از انتهای رشته استفاده کنید:</p>
+                
+                <div class="code-example">
+                    <code>b = "Hello, World!"<br>print(b[-5:-2])</code>
+                </div>
+                
+                <h2>تغییر رشته‌ها</h2>
+                <p>پایتون مجموعه‌ای از متدهای داخلی دارد که می‌توانید روی رشته‌ها استفاده کنید.</p>
+                
+                <h3>حروف بزرگ</h3>
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(a.upper())</code>
+                </div>
+                
+                <h3>حروف کوچک</h3>
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(a.lower())</code>
+                </div>
+                
+                <h3>حذف فاصله‌های سفید</h3>
+                <p>فاصله سفید، فضای قبل و/یا بعد از متن واقعی است، و اغلب می‌خواهید این فضا را حذف کنید.</p>
+                
+                <div class="code-example">
+                    <code>a = " Hello, World! "<br>print(a.strip()) # returns "Hello, World!"</code>
+                </div>
+                
+                <h3>جایگزینی رشته</h3>
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(a.replace("H", "J"))</code>
+                </div>
+                
+                <h3>تقسیم رشته</h3>
+                <p>متد <code>split()</code> یک لیست برمی‌گرداند که در آن متن بین جداکننده مشخص شده به عناصر لیست تبدیل می‌شود.</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello, World!"<br>print(a.split(",")) # returns ['Hello', ' World!']</code>
+                </div>
+                
+                <h2>الحاق رشته</h2>
+                <p>برای الحاق یا ترکیب دو رشته می‌توانید از عملگر <code>+</code> استفاده کنید.</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello"<br>b = "World"<br>c = a + b<br>print(c)</code>
+                </div>
+                
+                <p>برای افزودن فاصله بین آن‌ها، یک <code>" "</code> اضافه کنید:</p>
+                
+                <div class="code-example">
+                    <code>a = "Hello"<br>b = "World"<br>c = a + " " + b<br>print(c)</code>
+                </div>
+                
+                <h2>قالب‌بندی رشته</h2>
+                <p>همانطور که در فصل متغیرهای پایتون آموختیم، نمی‌توانیم رشته‌ها و اعداد را مانند این ترکیب کنیم:</p>
+                
+                <div class="code-example">
+                    <code>age = 36<br>#This will produce an error:<br>txt = "My name is John, I am " + age<br>print(txt)</code>
+                </div>
+                
+                <p>اما می‌توانیم رشته‌ها و اعداد را با استفاده از f-string یا متد <code>format()</code> ترکیب کنیم!</p>
+                
+                <h3>F-Strings</h3>
+                <p>F-String در پایتون 3.6 معرفی شد و اکنون روش ترجیحی برای قالب‌بندی رشته‌ها است.</p>
+                <p>برای مشخص کردن یک رشته به عنوان f-string، به سادگی یک f در جلوی رشته تحت اللفظی قرار دهید و براکت‌های فرفری {} را به عنوان نگهدارنده برای متغیرها و عملیات‌های دیگر اضافه کنید.</p>
+                
+                <div class="code-example">
+                    <code>age = 36<br>txt = f"My name is John, I am {age}"<br>print(txt)</code>
+                </div>
+                
+                <h3>نگهدارنده‌ها و اصلاح‌کننده‌ها</h3>
+                <p>یک نگهدارنده می‌تواند شامل متغیرها، عملیات‌ها، توابع و اصلاح‌کننده‌ها برای قالب‌بندی مقدار باشد.</p>
+                
+                <div class="code-example">
+                    <code>price = 59<br>txt = f"The price is {price} dollars"<br>print(txt)</code>
+                </div>
+                
+                <p>یک نگهدارنده می‌تواند شامل یک اصلاح‌کننده برای قالب‌بندی مقدار باشد.</p>
+                <p>یک اصلاح‌کننده با افزودن دونقطه : و به دنبال آن یک نوع قالب‌بندی قانونی، مانند .2f که به معنای عدد نقطه ثابت با 2 رقم اعشار است، گنجانده می‌شود:</p>
+                
+                <div class="code-example">
+                    <code>price = 59<br>txt = f"The price is {price:.2f} dollars"<br>print(txt)</code>
+                </div>
+                
+                <p>یک نگهدارنده می‌تواند شامل کد پایتون، مانند عملیات ریاضی باشد:</p>
+                
+                <div class="code-example">
+                    <code>txt = f"The price is {20 * 59} dollars"<br>print(txt)</code>
+                </div>
+                
+                <h2>کاراکترهای فرار</h2>
+                <p>برای درج کاراکترهایی که در یک رشته غیرقانونی هستند، از یک کاراکتر فرار استفاده کنید.</p>
+                <p>یک کاراکتر فرار یک بک‌اسلش \ است که به دنبال کاراکتری که می‌خواهید درج کنید، می‌آید.</p>
+                <p>نمونه‌ای از یک کاراکتر غیرقانونی، یک نقل قول دوتایی در داخل رشته‌ای است که با نقل قول دوتایی احاطه شده است:</p>
+                
+                <div class="code-example">
+                    <code># You will get an error if you use double quotes inside a string that is surrounded by double quotes:<br>txt = "We are the so-called "Vikings" from the north."</code>
+                </div>
+                
+                <p>برای رفع این مشکل، از کاراکتر فرار <code>\"</code> استفاده کنید:</p>
+                
+                <div class="code-example">
+                    <code>txt = "We are the so-called \"Vikings\" from the north."</code>
+                </div>
+                
+                <!-- بخش آزمون -->
+                <div class="quiz-section">
+                    <h3>آزمون: رشته‌ها در پایتون</h3>
+                    <p>برای سنجش درک خود از مبحث رشته‌ها، به سوالات زیر پاسخ دهید:</p>
+                    
+                    <div class="quiz-question">
+                        <p><strong>سوال 1:</strong> خروجی کد زیر چیست؟</p>
+                        <div class="code-example">
+                            <code>text = "Python Programming"<br>print(text[7:11])</code>
+                        </div>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> Pyth</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> Prog</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> gram</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> ming</label></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p><strong>سوال 2:</strong> کدام یک از گزینه‌های زیر برای الحاق دو رشته <code>str1</code> و <code>str2</code> صحیح است؟</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> str1 . str2</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> str1 + str2</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> str1 & str2</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> str1 , str2</label></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p><strong>سوال 3:</strong> کدام متد برای تبدیل یک رشته به حروف بزرگ استفاده می‌شود؟</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q3" value="a"> toUpper()</label></li>
+                            <li><label><input type="radio" name="q3" value="b"> uppercase()</label></li>
+                            <li><label><input type="radio" name="q3" value="c"> upper()</label></li>
+                            <li><label><input type="radio" name="q3" value="d"> capital()</label></li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn-submit" onclick="checkQuiz()">بررسی پاسخ‌ها</button>
+                    
+                    <div id="quiz-result" class="quiz-result"></div>
+                </div>
+            </div>
+            
+            <!-- بخش مسیر آموزشی -->
+            <div class="learning-path">
+                <h2>مسیر آموزشی پایتون</h2>
+                <ul class="path-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html" class="active">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه if.html">حلقه if</a></li>
+                    <li><a href="حلقه while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار با فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار با داده ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور سازی داده.html">مصور سازی داده</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BusIntell</h3>
+                    <p>پلتفرم آموزشی پایتون با تمرین‌های تعاملی برای یادگیری مؤثر و لذت‌بخش برنامه‌نویسی.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <ul class="footer-links">
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-icon" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-icon" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-icon" target="_blank">ب</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 BusIntell. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی آزمون
+        function checkQuiz() {
+            const answers = {
+                q1: 'b', // Prog
+                q2: 'b', // str1 + str2
+                q3: 'c'  // upper()
+            };
+            
+            let score = 0;
+            let resultHTML = '';
+            
+            // بررسی پاسخ‌ها
+            for (const question in answers) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                
+                if (selectedOption) {
+                    if (selectedOption.value === answers[question]) {
+                        score++;
+                        resultHTML += `<p class="result-correct">سوال ${question.replace('q', '')}: پاسخ شما صحیح است!</p>`;
+                    } else {
+                        resultHTML += `<p class="result-incorrect">سوال ${question.replace('q', '')}: پاسخ شما نادرست است. پاسخ صحیح: ${answers[question]}</p>`;
+                    }
+                } else {
+                    resultHTML += `<p class="result-incorrect">سوال ${question.replace('q', '')}: شما پاسخی انتخاب نکرده‌اید.</p>`;
+                }
+            }
+            
+            // نمایش نتیجه
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.innerHTML = `<h4>نتیجه آزمون: ${score} از ${Object.keys(answers).length}</h4>` + resultHTML;
+            resultDiv.style.display = 'block';
+            
+            // اسکرول به بخش نتیجه
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

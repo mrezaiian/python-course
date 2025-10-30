@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مصورسازی داده | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --brown-gold: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup:hover {
+            background-color: var(--golden-yellow);
+        }
+        
+        /* بخش محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        
+        /* بخش مصورسازی داده */
+        .data-viz-section {
+            margin-top: 2rem;
+        }
+        
+        .viz-controls {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .control-group input, .control-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .btn-generate {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-generate:hover {
+            background-color: var(--sea-blue);
+        }
+        
+        .viz-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .chart-container h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #6c757d;
+        }
+        
+        /* بخش مسیر آموزشی */
+        .learning-path {
+            margin-top: 3rem;
+        }
+        
+        .path-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .path-list li {
+            margin-bottom: 0.5rem;
+            padding: 0.75rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .path-list li:hover {
+            background-color: #e9ecef;
+        }
+        
+        .path-list a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: block;
+        }
+        
+        .path-list a:hover {
+            color: var(--sea-blue);
+        }
+        
+        /* بخش درباره ما */
+        .about-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* آزمون */
+        .quiz-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-options li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-options input {
+            margin-left: 0.5rem;
+        }
+        
+        .btn-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1a7a4a;
+        }
+        
+        /* پاسخ صحیح */
+        .correct-answer {
+            color: var(--green);
+            font-weight: 500;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .viz-results {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">BusIntell</div>
+            <ul class="nav-links">
+                <li><a href="index.html">خانه</a></li>
+                <li><a href="features.html">ویژگی‌ها</a></li>
+                <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                <li><a href="about.html">درباره ما</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">ورود</a>
+                <a href="#" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <!-- محتوای اصلی -->
+        <div class="content">
+            <h1>مصورسازی داده با Python</h1>
+            
+            <p>مصورسازی داده‌ها یکی از مهارت‌های مهم در علم داده است که به ما کمک می‌کند تا الگوها، روندها و روابط موجود در داده‌ها را بهتر درک کنیم. در این بخش با استفاده از کتابخانه matplotlib در پایتون، نحوه ایجاد نمودارهای مختلف را یاد خواهیم گرفت.</p>
+            
+            <h2>معرفی matplotlib</h2>
+            <p>matplotlib یک کتابخانه قدرتمند پایتون برای ایجاد نمودارها و مصورسازی داده‌ها است. این کتابخانه امکان ایجاد انواع نمودارها از جمله خطی، میله‌ای، دایره‌ای، هیستوگرام و... را فراهم می‌کند.</p>
+            
+            <div class="code-block">
+                # نصب و وارد کردن کتابخانه<br>
+                pip install matplotlib<br>
+                import matplotlib.pyplot as plt<br>
+                import numpy as np
+            </div>
+            
+            <h2>ایجاد نمودار پایه</h2>
+            <p>برای ایجاد یک نمودار ساده، ابتدا داده‌های خود را تعریف کرده و سپس با استفاده از تابع plot آن‌ها را رسم می‌کنیم.</p>
+            
+            <div class="code-block">
+                # ایجاد داده‌های نمونه<br>
+                x = [1, 2, 3, 4, 5]<br>
+                y = [2, 4, 6, 8, 10]<br>
+                <br>
+                # رسم نمودار خطی<br>
+                plt.plot(x, y)<br>
+                plt.title('نمودار خطی نمونه')<br>
+                plt.xlabel('محور X')<br>
+                plt.ylabel('محور Y')<br>
+                plt.show()
+            </div>
+            
+            <!-- بخش مصورسازی تعاملی -->
+            <div class="data-viz-section">
+                <h2>مصورسازی تعاملی داده‌ها</h2>
+                <p>در این بخش می‌توانید داده‌های خود را وارد کرده و نمودارهای مختلفی ایجاد کنید.</p>
+                
+                <div class="viz-controls">
+                    <h3>کنترل‌های نمودار</h3>
+                    
+                    <div class="control-group">
+                        <label for="chart-type">نوع نمودار:</label>
+                        <select id="chart-type">
+                            <option value="line">نمودار خطی</option>
+                            <option value="bar">نمودار میله‌ای</option>
+                            <option value="scatter">نمودار پراکندگی</option>
+                            <option value="pie">نمودار دایره‌ای</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="x-values">مقادیر محور X (با کاما جدا کنید):</label>
+                        <input type="text" id="x-values" value="1,2,3,4,5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="y-values">مقادیر محور Y (با کاما جدا کنید):</label>
+                        <input type="text" id="y-values" value="2,4,6,8,10">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="chart-title">عنوان نمودار:</label>
+                        <input type="text" id="chart-title" value="نمودار نمونه">
+                    </div>
+                    
+                    <button class="btn-generate" onclick="generateChart()">ایجاد نمودار</button>
+                </div>
+                
+                <div class="viz-results">
+                    <div class="chart-container">
+                        <h3>نمودار 1</h3>
+                        <div class="chart-placeholder" id="chart1">
+                            نمودار در اینجا نمایش داده خواهد شد
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>نمودار 2</h3>
+                        <div class="chart-placeholder" id="chart2">
+                            نمودار در اینجا نمایش داده خواهد شد
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- آزمون -->
+            <div class="quiz-section">
+                <h2>آزمون: مصورسازی داده</h2>
+                <p>برای اطمینان از یادگیری مطالب، لطفاً به سوال زیر پاسخ دهید:</p>
+                
+                <div class="quiz-question">کدام یک از گزینه‌های زیر برای ایجاد نمودار خطی در matplotlib استفاده می‌شود؟</div>
+                
+                <ul class="quiz-options">
+                    <li><input type="radio" name="quiz1" value="a"> plt.bar()</li>
+                    <li><input type="radio" name="quiz1" value="b"> plt.scatter()</li>
+                    <li><input type="radio" name="quiz1" value="c"> plt.plot()</li>
+                    <li><input type="radio" name="quiz1" value="d"> plt.pie()</li>
+                </ul>
+                
+                <button class="btn-submit" onclick="checkQuiz()">بررسی پاسخ</button>
+                
+                <div class="correct-answer" id="quiz-result">
+                    پاسخ صحیح: plt.plot() برای ایجاد نمودار خطی استفاده می‌شود.
+                </div>
+            </div>
+        </div>
+        
+        <!-- نوار کناری - مسیر آموزشی -->
+        <div class="sidebar">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="path-list">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- بخش درباره ما -->
+    <div class="container">
+        <div class="about-section">
+            <h2>درباره BusIntell</h2>
+            <p>BusIntell یک پلتفرم آموزشی آنلاین است که با هدف ارائه آموزش‌های برنامه‌نویسی پایتون با تمرین‌های تعاملی ایجاد شده است. ما معتقدیم که بهترین روش یادگیری برنامه‌نویسی، تمرین عملی و حل مسئله است.</p>
+            
+            <h3>فلسفه آموزشی ما</h3>
+            <p>در BusIntell، ما بر یادگیری مبتنی بر پروژه تأکید داریم. دانش‌آموزان ما نه تنها مفاهیم تئوری را یاد می‌گیرند، بلکه با انجام پروژه‌های واقعی، مهارت‌های عملی خود را تقویت می‌کنند.</p>
+            
+            <h3>تیم ما</h3>
+            <p>تیم BusIntell متشکل از متخصصان با تجربه در زمینه برنامه‌نویسی، علم داده و آموزش است که با اشتیاق به توسعه مهارت‌های برنامه‌نویسی در ایران کمک می‌کنند.</p>
+        </div>
+    </div>
+    
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <p>آدرس: تهران، خیابان آزادی، دانشگاه صنعتی شریف</p>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۶۶۱۶۶۱۶۶</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <p>ما را در شبکه‌های اجتماعی دنبال کنید:</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© ۲۰۲۳ BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع برای ایجاد نمودار
+        function generateChart() {
+            const chartType = document.getElementById('chart-type').value;
+            const xValues = document.getElementById('x-values').value.split(',').map(Number);
+            const yValues = document.getElementById('y-values').value.split(',').map(Number);
+            const chartTitle = document.getElementById('chart-title').value;
+            
+            // ایجاد محتوای نمودار (در حالت واقعی اینجا کد پایتون اجرا می‌شود)
+            const chartContent = `
+                <div style="background: linear-gradient(135deg, ${getRandomColor()}, ${getRandomColor()}); 
+                           height: 100%; display: flex; align-items: center; justify-content: center; 
+                           border-radius: 4px; color: white; font-weight: bold;">
+                    <div style="text-align: center;">
+                        <h4>${chartTitle}</h4>
+                        <p>نوع: ${getChartTypeName(chartType)}</p>
+                        <p>داده‌های X: [${xValues.join(', ')}]</p>
+                        <p>داده‌های Y: [${yValues.join(', ')}]</p>
+                        <p style="font-size: 0.8rem; margin-top: 10px;">(این یک شبیه‌سازی است - در محیط واقعی نمودار با matplotlib رسم می‌شود)</p>
+                    </div>
+                </div>
+            `;
+            
+            // نمایش نمودارها
+            document.getElementById('chart1').innerHTML = chartContent;
+            
+            // ایجاد یک نمودار دوم با داده‌های متفاوت برای نمایش بهتر
+            const chartContent2 = `
+                <div style="background: linear-gradient(135deg, ${getRandomColor()}, ${getRandomColor()}); 
+                           height: 100%; display: flex; align-items: center; justify-content: center; 
+                           border-radius: 4px; color: white; font-weight: bold;">
+                    <div style="text-align: center;">
+                        <h4>${chartTitle} - نمودار ۲</h4>
+                        <p>این یک نمونه دیگر از نمودار است</p>
+                        <p>که می‌تواند اطلاعات بیشتری نمایش دهد</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('chart2').innerHTML = chartContent2;
+        }
+        
+        // تابع برای دریافت نام فارسی نوع نمودار
+        function getChartTypeName(type) {
+            switch(type) {
+                case 'line': return 'نمودار خطی';
+                case 'bar': return 'نمودار میله‌ای';
+                case 'scatter': return 'نمودار پراکندگی';
+                case 'pie': return 'نمودار دایره‌ای';
+                default: return 'نمودار ناشناخته';
+            }
+        }
+        
+        // تابع برای تولید رنگ تصادفی
+        function getRandomColor() {
+            const colors = [
+                '#043a8e', '#eab819', '#228957', '#68bbef', 
+                '#15495f', '#d9c16c', '#484d32', '#0a407c', '#999459'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // تابع برای بررسی پاسخ آزمون
+        function checkQuiz() {
+            const options = document.getElementsByName('quiz1');
+            let selectedValue = '';
+            
+            for (const option of options) {
+                if (option.checked) {
+                    selectedValue = option.value;
+                    break;
+                }
+            }
+            
+            const resultElement = document.getElementById('quiz-result');
+            
+            if (selectedValue === 'c') {
+                resultElement.style.color = '#228957';
+                resultElement.textContent = 'آفرین! پاسخ شما صحیح است. plt.plot() برای ایجاد نمودار خطی استفاده می‌شود.';
+            } else {
+                resultElement.style.color = '#dc3545';
+                resultElement.textContent = 'متأسفانه پاسخ شما نادرست است. پاسخ صحیح: plt.plot() برای ایجاد نمودار خطی استفاده می‌شود.';
+            }
+            
+            resultElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

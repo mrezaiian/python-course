@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجموعه‌ها در پایتون | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+            margin-left: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: none;
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            width: 300px;
+            margin-right: 30px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar ul li a {
+            color: var(--dark-blue);
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        
+        .sidebar ul li.active a {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        /* استایل بخش‌های آموزشی */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .section h3 {
+            color: var(--sea-blue);
+            margin: 20px 0 10px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+        }
+        
+        .code-example {
+            background-color: #f8f8f8;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-example code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-right: 4px solid var(--gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .example {
+            background-color: #e8f4fd;
+            border: 1px solid var(--light-blue);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: right;
+        }
+        
+        th {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* استایل تمرین‌ها */
+        .quiz {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .quiz h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+        }
+        
+        .quiz-options {
+            margin: 15px 0;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-option input {
+            margin-left: 8px;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1a7a48;
+        }
+        
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-correct {
+            background-color: #e6f7e9;
+            border: 1px solid #4caf50;
+        }
+        
+        .quiz-incorrect {
+            background-color: #ffe6e6;
+            border: 1px solid #f44336;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section p, .footer-section a {
+            margin-bottom: 10px;
+            display: block;
+            color: #ddd;
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin-left: 15px;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* استایل واکنش‌گرا */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+            }
+            
+            .auth-buttons {
+                margin-top: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">BusIntell</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">ورود</button>
+                    <button class="btn btn-signup">ثبت‌نام</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- سایدبار مسیر آموزشی -->
+            <aside class="sidebar">
+                <h3>مسیر آموزشی پایتون</h3>
+                <ul>
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li class="active"><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </aside>
+
+            <!-- محتوای آموزشی -->
+            <main class="content">
+                <h1>مجموعه‌ها (Sets) در پایتون</h1>
+                
+                <div class="section">
+                    <h2>مقدمه‌ای بر مجموعه‌ها</h2>
+                    <p>مجموعه‌ها برای ذخیره چندین آیتم در یک متغیر استفاده می‌شوند.</p>
+                    <p>مجموعه یکی از 4 نوع داده داخلی در پایتون برای ذخیره مجموعه‌ای از داده‌ها است. سه نوع دیگر لیست، تاپل و دیکشنری هستند که هر کدام ویژگی‌ها و کاربردهای متفاوتی دارند.</p>
+                    <p>یک مجموعه، مجموعه‌ای است که ترتیب ندارد، غیرقابل تغییر* و بدون ایندکس است.</p>
+                    <div class="note">
+                        <p>* نکته: آیتم‌های مجموعه غیرقابل تغییر هستند، اما می‌توانید آیتم‌ها را حذف کرده و آیتم‌های جدید اضافه کنید.</p>
+                    </div>
+                    <p>مجموعه‌ها با آکولاد نوشته می‌شوند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: ایجاد یک مجموعه</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                    <div class="note">
+                        <p>نکته: مجموعه‌ها ترتیب ندارند، بنابراین نمی‌توانید مطمئن باشید که آیتم‌ها به چه ترتیبی ظاهر می‌شوند.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>آیتم‌های مجموعه</h2>
+                    <p>آیتم‌های مجموعه ترتیب ندارند، غیرقابل تغییر هستند و مقادیر تکراری را مجاز نمی‌دانند.</p>
+                    
+                    <h3>بدون ترتیب</h3>
+                    <p>بدون ترتیب به این معنی است که آیتم‌های مجموعه ترتیب مشخصی ندارند.</p>
+                    <p>آیتم‌های مجموعه می‌توانند هر بار که از آن‌ها استفاده می‌کنید به ترتیب متفاوتی ظاهر شوند و نمی‌توان با ایندکس یا کلید به آن‌ها اشاره کرد.</p>
+                    
+                    <h3>غیرقابل تغییر</h3>
+                    <p>آیتم‌های مجموعه غیرقابل تغییر هستند، به این معنی که نمی‌توانیم آیتم‌ها را پس از ایجاد مجموعه تغییر دهیم.</p>
+                    <p>پس از ایجاد یک مجموعه، نمی‌توانید آیتم‌های آن را تغییر دهید، اما می‌توانید آیتم‌ها را حذف کرده و آیتم‌های جدید اضافه کنید.</p>
+                    
+                    <h3>تکراری‌ها مجاز نیستند</h3>
+                    <p>مجموعه‌ها نمی‌توانند دو آیتم با مقدار یکسان داشته باشند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: مقادیر تکراری نادیده گرفته می‌شوند</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry", "apple"}<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <p>نکته: مقادیر True و 1 در مجموعه‌ها یکسان در نظر گرفته می‌شوند و به عنوان مقادیر تکراری رفتار می‌شوند:</p>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>مثال: True و 1 یکسان در نظر گرفته می‌شوند</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry", True, 1, 2}<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>طول مجموعه</h2>
+                    <p>برای تعیین تعداد آیتم‌های یک مجموعه، از تابع len() استفاده کنید.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: تعداد آیتم‌های یک مجموعه را دریافت کنید</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                print(len(thisset))
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>انواع داده‌ای آیتم‌های مجموعه</h2>
+                    <p>آیتم‌های مجموعه می‌توانند از هر نوع داده‌ای باشند:</p>
+                    
+                    <div class="example">
+                        <h3>مثال: انواع داده رشته، عدد صحیح و بولین</h3>
+                        <div class="code-example">
+                            <code>
+                                set1 = {"apple", "banana", "cherry"}<br>
+                                set2 = {1, 5, 7, 9, 3}<br>
+                                set3 = {True, False, False}
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <p>یک مجموعه می‌تواند شامل انواع داده‌های مختلف باشد:</p>
+                    
+                    <div class="example">
+                        <h3>مثال: مجموعه‌ای با رشته‌ها، اعداد صحیح و مقادیر بولین</h3>
+                        <div class="code-example">
+                            <code>
+                                set1 = {"abc", 34, True, 40, "male"}
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>سازنده set()</h2>
+                    <p>همچنین می‌توان از سازنده set() برای ایجاد یک مجموعه استفاده کرد.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: استفاده از سازنده set() برای ایجاد یک مجموعه</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = set(("apple", "banana", "cherry")) # توجه به پرانتزهای دوتایی<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- تمرین اول -->
+                <div class="quiz">
+                    <h3>تمرین: مفاهیم اولیه مجموعه‌ها</h3>
+                    <div class="quiz-question">
+                        <p>کدام یک از ویژگی‌های زیر برای مجموعه‌ها در پایتون صحیح است؟</p>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="quiz1" value="a">
+                            <label for="q1a">مجموعه‌ها ترتیب دارند و می‌توان با ایندکس به آیتم‌ها دسترسی داشت</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="quiz1" value="b">
+                            <label for="q1b">مجموعه‌ها ترتیب ندارند، غیرقابل تغییر هستند و مقادیر تکراری را مجاز نمی‌دانند</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="quiz1" value="c">
+                            <label for="q1c">مجموعه‌ها ترتیب دارند و مقادیر تکراری را مجاز می‌دانند</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz1()">بررسی پاسخ</button>
+                    <div id="quiz1-result" class="quiz-result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>دسترسی به آیتم‌های مجموعه</h2>
+                    <p>شما نمی‌توانید با اشاره به یک ایندکس یا کلید به آیتم‌های یک مجموعه دسترسی پیدا کنید.</p>
+                    <p>اما می‌توانید با استفاده از حلقه for در مجموعه حلقه بزنید، یا با استفاده از کلمه کلیدی in بپرسید که آیا یک مقدار مشخص در مجموعه وجود دارد یا خیر.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: حلقه زدن در مجموعه و چاپ مقادیر</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                for x in thisset:<br>
+                                &nbsp;&nbsp;print(x)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>مثال: بررسی وجود "banana" در مجموعه</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                print("banana" in thisset)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>اضافه کردن آیتم‌ها به مجموعه</h2>
+                    <p>پس از ایجاد یک مجموعه، نمی‌توانید آیتم‌های آن را تغییر دهید، اما می‌توانید آیتم‌های جدید اضافه کنید.</p>
+                    
+                    <h3>اضافه کردن یک آیتم</h3>
+                    <p>برای اضافه کردن یک آیتم به مجموعه از متد add() استفاده کنید.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: اضافه کردن یک آیتم به مجموعه با استفاده از متد add()</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                thisset.add("orange")<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <h3>اضافه کردن مجموعه‌ها</h3>
+                    <p>برای اضافه کردن آیتم‌ها از یک مجموعه دیگر به مجموعه فعلی، از متد update() استفاده کنید.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: اضافه کردن عناصر از tropical به thisset</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                tropical = {"pineapple", "mango", "papaya"}<br>
+                                thisset.update(tropical)<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- تمرین دوم -->
+                <div class="quiz">
+                    <h3>تمرین: اضافه کردن آیتم به مجموعه</h3>
+                    <div class="quiz-question">
+                        <p>کدام متد برای اضافه کردن یک آیتم به مجموعه استفاده می‌شود؟</p>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="quiz2" value="a">
+                            <label for="q2a">append()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="quiz2" value="b">
+                            <label for="q2b">insert()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="quiz2" value="c">
+                            <label for="q2c">add()</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz2()">بررسی پاسخ</button>
+                    <div id="quiz2-result" class="quiz-result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>حذف آیتم‌های مجموعه</h2>
+                    <p>برای حذف یک آیتم در مجموعه، از متد remove() یا discard() استفاده کنید.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: حذف "banana" با استفاده از متد remove()</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                thisset.remove("banana")<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <p>نکته: اگر آیتمی که باید حذف شود وجود نداشته باشد، remove() یک خطا ایجاد می‌کند.</p>
+                    </div>
+                    
+                    <div class="example">
+                        <h3>مثال: حذف "banana" با استفاده از متد discard()</h3>
+                        <div class="code-example">
+                            <code>
+                                thisset = {"apple", "banana", "cherry"}<br>
+                                thisset.discard("banana")<br>
+                                print(thisset)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <p>نکته: اگر آیتمی که باید حذف شود وجود نداشته باشد، discard() خطایی ایجاد نمی‌کند.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>اتصال مجموعه‌ها</h2>
+                    <p>چندین راه برای اتصال دو یا چند مجموعه در پایتون وجود دارد.</p>
+                    
+                    <h3>اتحاد (Union)</h3>
+                    <p>متد union() یک مجموعه جدید با تمام آیتم‌های هر دو مجموعه برمی‌گرداند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: اتصال set1 و set2 به یک مجموعه جدید</h3>
+                        <div class="code-example">
+                            <code>
+                                set1 = {"a", "b", "c"}<br>
+                                set2 = {1, 2, 3}<br>
+                                set3 = set1.union(set2)<br>
+                                print(set3)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <h3>اشتراک (Intersection)</h3>
+                    <p>متد intersection() یک مجموعه جدید برمی‌گرداند که فقط شامل آیتم‌هایی است که در هر دو مجموعه وجود دارند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: اتصال set1 و set2، اما فقط موارد تکراری را نگه می‌دارد</h3>
+                        <div class="code-example">
+                            <code>
+                                set1 = {"apple", "banana", "cherry"}<br>
+                                set2 = {"google", "microsoft", "apple"}<br>
+                                set3 = set1.intersection(set2)<br>
+                                print(set3)
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <h3>تفاوت (Difference)</h3>
+                    <p>متد difference() یک مجموعه جدید برمی‌گرداند که فقط شامل آیتم‌هایی از مجموعه اول است که در مجموعه دیگر وجود ندارند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: نگه داشتن تمام آیتم‌های set1 که در set2 نیستند</h3>
+                        <div class="code-example">
+                            <code>
+                                set1 = {"apple", "banana", "cherry"}<br>
+                                set2 = {"google", "microsoft", "apple"}<br>
+                                set3 = set1.difference(set2)<br>
+                                print(set3)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- تمرین سوم -->
+                <div class="quiz">
+                    <h3>تمرین: اتصال مجموعه‌ها</h3>
+                    <div class="quiz-question">
+                        <p>کدام متد فقط آیتم‌هایی را نگه می‌دارد که در هر دو مجموعه وجود دارند؟</p>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="quiz3" value="a">
+                            <label for="q3a">union()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="quiz3" value="b">
+                            <label for="q3b">intersection()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="quiz3" value="c">
+                            <label for="q3c">difference()</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz3()">بررسی پاسخ</button>
+                    <div id="quiz3-result" class="quiz-result"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>مجموعه‌های فریز (frozenset)</h2>
+                    <p>frozenset نسخه غیرقابل تغییر یک مجموعه است.</p>
+                    <p>مانند مجموعه‌ها، شامل عناصر منحصربه‌فرد، بدون ترتیب و غیرقابل تغییر است.</p>
+                    <p>برخلاف مجموعه‌ها، نمی‌توان عناصر را به frozenset اضافه یا از آن حذف کرد.</p>
+                    
+                    <div class="example">
+                        <h3>مثال: ایجاد یک frozenset و بررسی نوع آن</h3>
+                        <div class="code-example">
+                            <code>
+                                x = frozenset({"apple", "banana", "cherry"})<br>
+                                print(x)<br>
+                                print(type(x))
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>متدهای مجموعه</h2>
+                    <p>پایتون مجموعه‌ای از متدهای داخلی دارد که می‌توانید روی مجموعه‌ها استفاده کنید.</p>
+                    
+                    <table>
+                        <tr>
+                            <th>متد</th>
+                            <th>شرح</th>
+                        </tr>
+                        <tr>
+                            <td>add()</td>
+                            <td>یک عنصر به مجموعه اضافه می‌کند</td>
+                        </tr>
+                        <tr>
+                            <td>clear()</td>
+                            <td>تمام عناصر را از مجموعه حذف می‌کند</td>
+                        </tr>
+                        <tr>
+                            <td>copy()</td>
+                            <td>یک کپی از مجموعه برمی‌گرداند</td>
+                        </tr>
+                        <tr>
+                            <td>difference()</td>
+                            <td>یک مجموعه حاوی تفاوت بین دو یا چند مجموعه برمی‌گرداند</td>
+                        </tr>
+                        <tr>
+                            <td>intersection()</td>
+                            <td>یک مجموعه که اشتراک دو مجموعه دیگر است برمی‌گرداند</td>
+                        </tr>
+                        <tr>
+                            <td>union()</td>
+                            <td>یک مجموعه حاوی اتحاد مجموعه‌ها برمی‌گرداند</td>
+                        </tr>
+                        <tr>
+                            <td>update()</td>
+                            <td>مجموعه را با اتحاد این مجموعه و مجموعه‌های دیگر به روز می‌کند</td>
+                        </tr>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BusIntell</h3>
+                    <p>پلتفرم آموزشی برنامه‌نویسی پایتون با تمرین‌های تعاملی</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <a href="index.html">خانه</a>
+                    <a href="features.html">ویژگی‌ها</a>
+                    <a href="learning-path.html">مسیر آموزشی</a>
+                    <a href="about.html">درباره ما</a>
+                </div>
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // توابع برای بررسی تمرین‌ها
+        function checkQuiz1() {
+            const selected = document.querySelector('input[name="quiz1"]:checked');
+            const result = document.getElementById('quiz1-result');
+            
+            if (!selected) {
+                result.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                result.className = "quiz-result quiz-incorrect";
+                result.style.display = "block";
+                return;
+            }
+            
+            if (selected.value === 'b') {
+                result.textContent = "✅ پاسخ شما صحیح است! مجموعه‌ها در پایتون ترتیب ندارند، غیرقابل تغییر هستند و مقادیر تکراری را مجاز نمی‌دانند.";
+                result.className = "quiz-result quiz-correct";
+            } else {
+                result.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح 'مجموعه‌ها ترتیب ندارند، غیرقابل تغییر هستند و مقادیر تکراری را مجاز نمی‌دانند' است.";
+                result.className = "quiz-result quiz-incorrect";
+            }
+            
+            result.style.display = "block";
+        }
+        
+        function checkQuiz2() {
+            const selected = document.querySelector('input[name="quiz2"]:checked');
+            const result = document.getElementById('quiz2-result');
+            
+            if (!selected) {
+                result.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                result.className = "quiz-result quiz-incorrect";
+                result.style.display = "block";
+                return;
+            }
+            
+            if (selected.value === 'c') {
+                result.textContent = "✅ پاسخ شما صحیح است! از متد add() برای اضافه کردن یک آیتم به مجموعه استفاده می‌شود.";
+                result.className = "quiz-result quiz-correct";
+            } else {
+                result.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح 'add()' است. append() برای لیست‌ها و insert() برای درج در موقعیت خاص استفاده می‌شود.";
+                result.className = "quiz-result quiz-incorrect";
+            }
+            
+            result.style.display = "block";
+        }
+        
+        function checkQuiz3() {
+            const selected = document.querySelector('input[name="quiz3"]:checked');
+            const result = document.getElementById('quiz3-result');
+            
+            if (!selected) {
+                result.textContent = "لطفاً یک گزینه انتخاب کنید.";
+                result.className = "quiz-result quiz-incorrect";
+                result.style.display = "block";
+                return;
+            }
+            
+            if (selected.value === 'b') {
+                result.textContent = "✅ پاسخ شما صحیح است! از متد intersection() برای نگه داشتن فقط آیتم‌هایی که در هر دو مجموعه وجود دارند استفاده می‌شود.";
+                result.className = "quiz-result quiz-correct";
+            } else {
+                result.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح 'intersection()' است. union() تمام آیتم‌ها و difference() فقط آیتم‌های منحصربه‌فرد مجموعه اول را برمی‌گرداند.";
+                result.className = "quiz-result quiz-incorrect";
+            }
+            
+            result.style.display = "block";
+        }
+    </script>
+</body>
+</html>

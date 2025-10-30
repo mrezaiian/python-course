@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توابع پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --brown-gold: #999459;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #fff;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* استایل هدر */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--dark-blue);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9a814;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .content h2 {
+            color: var(--sea-blue);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .content h3 {
+            color: var(--dark-blue);
+            margin: 20px 0 10px;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+        }
+        
+        .content ul, .content ol {
+            margin: 15px 0 15px 20px;
+        }
+        
+        .content li {
+            margin-bottom: 8px;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #6a737d;
+        }
+        
+        .example {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--sea-blue);
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--gold);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: var(--brown-gold);
+            margin-bottom: 10px;
+        }
+        
+        /* استایل سایدبار */
+        .sidebar {
+            width: 300px;
+            margin-right: 30px;
+        }
+        
+        .learning-path {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .learning-path h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .path-list li:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .path-list li.active {
+            background-color: #e6f7ff;
+            border-right: 3px solid var(--primary-blue);
+            font-weight: bold;
+        }
+        
+        .path-list a {
+            display: block;
+            color: var(--text-color);
+        }
+        
+        /* استایل بخش تست */
+        .quiz-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-top: 3px solid var(--green);
+        }
+        
+        .quiz-section h3 {
+            color: var(--green);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options {
+            margin: 15px 0;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .quiz-option input {
+            margin-left: 10px;
+            margin-top: 5px;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1e7a4c;
+        }
+        
+        .quiz-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background-color: #e7f7ef;
+            color: #1e7a4c;
+            border: 1px solid #c3e6d3;
+        }
+        
+        .quiz-result.incorrect {
+            background-color: #fdeaea;
+            color: #c53030;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #d1d5db;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            color: #d1d5db;
+            font-size: 14px;
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login">ورود</button>
+                <button class="btn btn-signup">ثبت‌نام</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container main-content">
+        <!-- سایدبار مسیر آموزشی -->
+        <aside class="sidebar">
+            <div class="learning-path">
+                <h2>مسیر آموزشی پایتون</h2>
+                <ul class="path-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li class="active"><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- محتوای آموزشی -->
+        <main class="content">
+            <h1>توابع پایتون</h1>
+            
+            <p>یک تابع بلوکی از کد است که فقط زمانی اجرا می‌شود که فراخوانی شود.</p>
+            <p>یک تابع می‌تواند داده‌ها را به عنوان نتیجه برگرداند.</p>
+            <p>یک تابع به جلوگیری از تکرار کد کمک می‌کند.</p>
+            
+            <h2>ایجاد یک تابع</h2>
+            <p>در پایتون، یک تابع با استفاده از کلمه کلیدی <code>def</code> تعریف می‌شود، به دنبال آن نام تابع و پرانتزها:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def greet():<br>
+&nbsp;&nbsp;print("Hello from a function")
+                </div>
+            </div>
+            
+            <p>این یک تابع به نام <code>greet</code> ایجاد می‌کند که وقتی فراخوانی شود، "Hello from a function" را چاپ می‌کند.</p>
+            
+            <div class="note">
+                <div class="note-title">توجه</div>
+                <p>کد داخل تابع باید تورفتگی داشته باشد. پایتون از تورفتگی برای تعریف بلوک‌های کد استفاده می‌کند.</p>
+            </div>
+            
+            <h2>فراخوانی یک تابع</h2>
+            <p>برای فراخوانی یک تابع، نام آن را به همراه پرانتزها بنویسید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def my_function():<br>
+&nbsp;&nbsp;print("Hello from a function")<br><br>
+my_function()
+                </div>
+            </div>
+            
+            <p>شما می‌توانید همان تابع را چندین بار فراخوانی کنید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def my_function():<br>
+&nbsp;&nbsp;print("Hello from a function")<br><br>
+my_function()<br>
+my_function()<br>
+my_function()
+                </div>
+            </div>
+            
+            <h2>نام‌های تابع</h2>
+            <p>نام‌های تابع از همان قوانین نام‌های متغیر در پایتون پیروی می‌کنند:</p>
+            <ul>
+                <li>نام تابع باید با یک حرف یا زیرخط شروع شود</li>
+                <li>نام تابع فقط می‌تواند شامل حروف، اعداد و زیرخط‌ها باشد</li>
+                <li>نام‌های تابع به حروف حساس هستند (myFunction و myfunction متفاوت هستند)</li>
+            </ul>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+# نام‌های معتبر تابع:<br>
+calculate_sum()<br>
+_private_function()<br>
+myFunction2()
+                </div>
+            </div>
+            
+            <p>عمل خوبی است که از نام‌های توصیفی استفاده کنید که توضیح می‌دهد تابع چه کاری انجام می‌دهد.</p>
+            
+            <h2>چرا از توابع استفاده کنیم؟</h2>
+            <p>تصور کنید که نیاز دارید چندین بار در برنامه خود دما را از فارنهایت به سلسیوس تبدیل کنید. بدون توابع، باید کد محاسبه یکسانی را به طور مکرر بنویسید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+# بدون توابع - کد تکراری:<br>
+temp1 = 77<br>
+celsius1 = (temp1 - 32) * 5 / 9<br>
+print(celsius1)<br><br>
+temp2 = 95<br>
+celsius2 = (temp2 - 32) * 5 / 9<br>
+print(celsius2)<br><br>
+temp3 = 50<br>
+celsius3 = (temp3 - 32) * 5 / 9<br>
+print(celsius3)
+                </div>
+            </div>
+            
+            <p>با توابع، کد را یک بار می‌نویسید و دوباره استفاده می‌کنید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+# با توابع - کد قابل استفاده مجدد:<br>
+def fahrenheit_to_celsius(fahrenheit):<br>
+&nbsp;&nbsp;return (fahrenheit - 32) * 5 / 9<br><br>
+print(fahrenheit_to_celsius(77))<br>
+print(fahrenheit_to_celsius(95))<br>
+print(fahrenheit_to_celsius(50))
+                </div>
+            </div>
+            
+            <h2>مقادیر بازگشتی</h2>
+            <p>توابع می‌توانند با استفاده از دستور <code>return</code> داده‌ها را به کدی که آن‌ها را فراخوانی کرده است برگردانند.</p>
+            <p>وقتی یک تابع به یک دستور <code>return</code> می‌رسد، اجرا را متوقف می‌کند و نتیجه را برمی‌گرداند:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def get_greeting():<br>
+&nbsp;&nbsp;return "Hello from a function"<br><br>
+message = get_greeting()<br>
+print(message)
+                </div>
+            </div>
+            
+            <p>شما می‌توانید از مقدار بازگشتی مستقیماً استفاده کنید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def get_greeting():<br>
+&nbsp;&nbsp;return "Hello from a function"<br><br>
+print(get_greeting())
+                </div>
+            </div>
+            
+            <p>اگر یک تابع دستور <code>return</code> نداشته باشد، به طور پیش‌فرض <code>None</code> را برمی‌گرداند.</p>
+            
+            <h2>دستور pass</h2>
+            <p>تعاریف تابع نمی‌توانند خالی باشند. اگر نیاز دارید یک نگهدارنده تابع بدون هیچ کدی ایجاد کنید، از دستور <code>pass</code> استفاده کنید:</p>
+            
+            <div class="example">
+                <div class="example-title">مثال</div>
+                <div class="code-block">
+def my_function():<br>
+&nbsp;&nbsp;pass
+                </div>
+            </div>
+            
+            <p>دستور <code>pass</code> اغلب هنگام توسعه استفاده می‌شود، که به شما اجازه می‌دهد ابتدا ساختار را تعریف کنید و جزئیات را بعداً پیاده‌سازی کنید.</p>
+            
+            <!-- بخش تست -->
+            <div class="quiz-section">
+                <h3>آزمون: توابع پایتون</h3>
+                <p>برای سنجش درک خود از مفاهیم توابع در پایتون، به سوالات زیر پاسخ دهید:</p>
+                
+                <div class="quiz-question">
+                    <p><strong>سوال 1:</strong> کدام کلمه کلیدی برای تعریف یک تابع در پایتون استفاده می‌شود؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">function</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">def</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">define</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">func</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p><strong>سوال 2:</strong> کدام دستور برای برگرداندن یک مقدار از یک تابع استفاده می‌شود؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">break</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">return</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">yield</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">exit</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p><strong>سوال 3:</strong> اگر یک تابع هیچ دستور return نداشته باشد، چه چیزی را برمی‌گرداند؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">0</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">"" (رشته خالی)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">None</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3d" name="q3" value="d">
+                            <label for="q3d">False</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="quiz-submit" onclick="checkQuiz()">بررسی پاسخ‌ها</button>
+                
+                <div id="quiz-result" class="quiz-result"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <ul>
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                        <li>آدرس: تهران، خیابان ولیعصر</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-icon" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" class="social-icon" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" class="social-icon" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع برای بررسی پاسخ‌های آزمون
+        function checkQuiz() {
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'c'
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            let resultText = '';
+            
+            // بررسی هر سوال
+            for (let question in answers) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                
+                if (selectedOption) {
+                    if (selectedOption.value === answers[question]) {
+                        score++;
+                    }
+                }
+            }
+            
+            // نمایش نتیجه
+            const resultDiv = document.getElementById('quiz-result');
+            
+            if (score === total) {
+                resultText = `تبریک! شما تمام ${total} سوال را درست پاسخ دادید.`;
+                resultDiv.className = 'quiz-result correct';
+            } else {
+                resultText = `شما ${score} از ${total} سوال را درست پاسخ دادید.`;
+                resultDiv.className = 'quiz-result incorrect';
+            }
+            
+            resultDiv.innerHTML = resultText;
+            resultDiv.style.display = 'block';
+            
+            // اسکرول به بخش نتیجه
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

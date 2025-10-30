@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حلقه if - BusIntell</title>
+    <link rel="icon" href="icon.jpg">
+    <style>
+        /* استایل کلی */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: #043a8e;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #eab819;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #eab819;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: #eab819;
+            color: #043a8e;
+            border: 1px solid #eab819;
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: #043a8e;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eab819;
+            padding-bottom: 10px;
+        }
+        
+        .content h2 {
+            color: #15495f;
+            margin: 25px 0 15px;
+            padding-right: 10px;
+            border-right: 3px solid #68bbef;
+        }
+        
+        .content h3 {
+            color: #0a407c;
+            margin: 20px 0 10px;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #d63384;
+        }
+        
+        .note {
+            background-color: #e7f3ff;
+            border-right: 4px solid #68bbef;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .example {
+            background-color: #f0f8f0;
+            border: 1px solid #228957;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example h4 {
+            color: #228957;
+            margin-bottom: 10px;
+        }
+        
+        .quiz {
+            background-color: #fff9e6;
+            border: 1px solid #eab819;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .quiz h3 {
+            color: #999459;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-right: 20px;
+        }
+        
+        .quiz-options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .quiz-submit {
+            background-color: #043a8e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #0a407c;
+        }
+        
+        /* نوار کناری مسیر آموزشی */
+        .sidebar {
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: #043a8e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eab819;
+        }
+        
+        .course-list {
+            list-style: none;
+        }
+        
+        .course-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .course-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .course-list a {
+            color: #484d32;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .course-list a:hover {
+            color: #043a8e;
+            padding-right: 5px;
+        }
+        
+        .course-list .active {
+            color: #043a8e;
+            font-weight: bold;
+            padding-right: 5px;
+            border-right: 3px solid #eab819;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: #15495f;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #eab819;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #eab819;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #eab819;
+            color: #15495f;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">BusIntell</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">ورود</a>
+                    <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- محتوای آموزشی -->
+            <div class="content">
+                <h1>حلقه if در پایتون</h1>
+                
+                <h2>شرایط و دستورات if در پایتون</h2>
+                <p>پایتون از شرایط منطقی معمول در ریاضیات پشتیبانی می‌کند:</p>
+                <ul style="margin-right: 20px; margin-bottom: 15px;">
+                    <li>مساوی: a == b</li>
+                    <li>نا مساوی: a != b</li>
+                    <li>کمتر از: a < b</li>
+                    <li>کمتر یا مساوی: a <= b</li>
+                    <li>بیشتر از: a > b</li>
+                    <li>بیشتر یا مساوی: a >= b</li>
+                </ul>
+                <p>این شرایط می‌توانند به چندین روش استفاده شوند، که معمولاً در "دستورات if" و حلقه‌ها به کار می‌روند.</p>
+                <p>یک "دستور if" با استفاده از کلمه کلیدی if نوشته می‌شود.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستور if</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 33<br>
+                            b = 200<br>
+                            if b > a:<br>
+                            &nbsp;&nbsp;print("b is greater than a")
+                        </code>
+                    </div>
+                    <p>در این مثال از دو متغیر a و b استفاده کرده‌ایم که به عنوان بخشی از دستور if برای آزمایش اینکه آیا b از a بزرگتر است استفاده می‌شوند. از آنجایی که a برابر با 33 و b برابر با 200 است، می‌دانیم که 200 از 33 بزرگتر است، بنابراین روی صفحه چاپ می‌کنیم که "b بزرگتر از a است".</p>
+                </div>
+                
+                <h3>چگونه دستورات if کار می‌کنند</h3>
+                <p>دستور if یک شرط (یک عبارت که نتیجه True یا False دارد) را ارزیابی می‌کند. اگر شرط درست باشد، بلوک کد داخل دستور if اجرا می‌شود. اگر شرط نادرست باشد، بلوک کد رد می‌شود.</p>
+                
+                <div class="example">
+                    <h4>مثال: بررسی مثبت بودن یک عدد</h4>
+                    <div class="code-block">
+                        <code>
+                            number = 15<br>
+                            if number > 0:<br>
+                            &nbsp;&nbsp;print("The number is positive")
+                        </code>
+                    </div>
+                </div>
+                
+                <h3>تورفتگی (Indentation)</h3>
+                <p>پایتون برای تعریف محدوده در کد به تورفتگی (فضای خالی در ابتدای خط) متکی است. زبان‌های برنامه‌نویسی دیگر اغلب از آکولاد برای این منظور استفاده می‌کنند.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستور if بدون تورفتگی (خطا ایجاد می‌کند)</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 33<br>
+                            b = 200<br>
+                            if b > a:<br>
+                            print("b is greater than a") # شما یک خطا دریافت خواهید کرد
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <p><strong>توجه:</strong> شما می‌توانید از فضاها یا تب‌ها برای تورفتگی استفاده کنید، اما باید از همان مقدار تورفتگی برای تمام دستورات درون یک بلوک کد استفاده کنید.</p>
+                </div>
+                
+                <!-- کوئیز 1 -->
+                <div class="quiz">
+                    <h3>آزمون: درک دستور if</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            x = 10<br>
+                            y = 5<br>
+                            if x > y:<br>
+                            &nbsp;&nbsp;print("x is greater")
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz1" value="a"> خطا</label>
+                        <label><input type="radio" name="quiz1" value="b"> هیچ چیز چاپ نمی‌شود</label>
+                        <label><input type="radio" name="quiz1" value="c"> "x is greater"</label>
+                        <label><input type="radio" name="quiz1" value="d"> "y is greater"</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(1)">بررسی پاسخ</button>
+                </div>
+                
+                <h2>دستور Elif در پایتون</h2>
+                <h3>کلمه کلیدی Elif</h3>
+                <p>کلمه کلیدی elif روش پایتون برای گفتن "اگر شرایط قبلی درست نبود، این شرط را امتحان کن" است.</p>
+                <p>کلمه کلیدی elif به شما امکان می‌دهد چندین عبارت را برای True بررسی کنید و به محض ارزیابی یکی از شرایط به True، یک بلوک کد اجرا کنید.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستور elif</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 33<br>
+                            b = 33<br>
+                            if b > a:<br>
+                            &nbsp;&nbsp;print("b is greater than a")<br>
+                            elif a == b:<br>
+                            &nbsp;&nbsp;print("a and b are equal")
+                        </code>
+                    </div>
+                    <p>در این مثال a برابر با b است، بنابراین شرط اول درست نیست، اما شرط elif درست است، بنابراین روی صفحه چاپ می‌کنیم که "a و b برابر هستند".</p>
+                </div>
+                
+                <!-- کوئیز 2 -->
+                <div class="quiz">
+                    <h3>آزمون: درک دستور elif</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            score = 75<br>
+                            if score >= 90:<br>
+                            &nbsp;&nbsp;print("Grade: A")<br>
+                            elif score >= 80:<br>
+                            &nbsp;&nbsp;print("Grade: B")<br>
+                            elif score >= 70:<br>
+                            &nbsp;&nbsp;print("Grade: C")<br>
+                            elif score >= 60:<br>
+                            &nbsp;&nbsp;print("Grade: D")
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz2" value="a"> Grade: A</label>
+                        <label><input type="radio" name="quiz2" value="b"> Grade: B</label>
+                        <label><input type="radio" name="quiz2" value="c"> Grade: C</label>
+                        <label><input type="radio" name="quiz2" value="d"> Grade: D</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(2)">بررسی پاسخ</button>
+                </div>
+                
+                <h2>دستور Else در پایتون</h2>
+                <h3>کلمه کلیدی Else</h3>
+                <p>کلمه کلیدی else هر چیزی را که توسط شرایط قبلی گرفته نشده است، می‌گیرد.</p>
+                <p>دستور else زمانی اجرا می‌شود که شرط if (و هر شرط elif) به False ارزیابی شود.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستور else</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 200<br>
+                            b = 33<br>
+                            if b > a:<br>
+                            &nbsp;&nbsp;print("b is greater than a")<br>
+                            elif a == b:<br>
+                            &nbsp;&nbsp;print("a and b are equal")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("a is greater than b")
+                        </code>
+                    </div>
+                    <p>در این مثال a از b بزرگتر است، بنابراین شرط اول درست نیست، همچنین شرط elif نیز درست نیست، بنابراین به شرط else می‌رویم و روی صفحه چاپ می‌کنیم که "a بزرگتر از b است".</p>
+                </div>
+                
+                <!-- کوئیز 3 -->
+                <div class="quiz">
+                    <h3>آزمون: درک دستور else</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            number = 7<br>
+                            if number % 2 == 0:<br>
+                            &nbsp;&nbsp;print("The number is even")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("The number is odd")
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz3" value="a"> The number is even</label>
+                        <label><input type="radio" name="quiz3" value="b"> The number is odd</label>
+                        <label><input type="radio" name="quiz3" value="c"> خطا</label>
+                        <label><input type="radio" name="quiz3" value="d"> هیچ چیز چاپ نمی‌شود</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(3)">بررسی پاسخ</button>
+                </div>
+                
+                <h2>عملگرهای منطقی در پایتون</h2>
+                <p>عملگرهای منطقی برای ترکیب دستورات شرطی استفاده می‌شوند. پایتون سه عملگر منطقی دارد:</p>
+                <ul style="margin-right: 20px; margin-bottom: 15px;">
+                    <li><strong>and</strong> - اگر هر دو عبارت درست باشند، True برمی‌گرداند</li>
+                    <li><strong>or</strong> - اگر یکی از عبارات درست باشد، True برمی‌گرداند</li>
+                    <li><strong>not</strong> - نتیجه را معکوس می‌کند، اگر نتیجه درست باشد False برمی‌گرداند</li>
+                </ul>
+                
+                <div class="example">
+                    <h4>مثال: عملگر and</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 200<br>
+                            b = 33<br>
+                            c = 500<br>
+                            if a > b and c > a:<br>
+                            &nbsp;&nbsp;print("Both conditions are True")
+                        </code>
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h4>مثال: عملگر or</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 200<br>
+                            b = 33<br>
+                            c = 500<br>
+                            if a > b or a > c:<br>
+                            &nbsp;&nbsp;print("At least one of the conditions is True")
+                        </code>
+                    </div>
+                </div>
+                
+                <!-- کوئیز 4 -->
+                <div class="quiz">
+                    <h3>آزمون: درک عملگرهای منطقی</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            x = 10<br>
+                            y = 20<br>
+                            z = 30<br>
+                            if x < y and y < z:<br>
+                            &nbsp;&nbsp;print("All conditions are true")
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz4" value="a"> خطا</label>
+                        <label><input type="radio" name="quiz4" value="b"> هیچ چیز چاپ نمی‌شود</label>
+                        <label><input type="radio" name="quiz4" value="c"> "All conditions are true"</label>
+                        <label><input type="radio" name="quiz4" value="d"> "Some conditions are false"</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(4)">بررسی پاسخ</button>
+                </div>
+                
+                <h2>دستورات if تودرتو</h2>
+                <p>شما می‌توانید دستورات if را درون دستورات if داشته باشید. این را دستورات if تودرتو می‌نامند.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستورات if تودرتو</h4>
+                    <div class="code-block">
+                        <code>
+                            x = 41<br>
+                            if x > 10:<br>
+                            &nbsp;&nbsp;print("Above ten,")<br>
+                            &nbsp;&nbsp;if x > 20:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("and also above 20!")<br>
+                            &nbsp;&nbsp;else:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("but not above 20.")
+                        </code>
+                    </div>
+                    <p>در این مثال، دستور if داخلی فقط در صورتی اجرا می‌شود که شرط بیرونی (x > 10) درست باشد.</p>
+                </div>
+                
+                <!-- کوئیز 5 -->
+                <div class="quiz">
+                    <h3>آزمون: درک if تودرتو</h3>
+                    <p class="quiz-question">خروجی کد زیر چیست؟</p>
+                    <div class="code-block">
+                        <code>
+                            age = 25<br>
+                            has_license = True<br>
+                            if age >= 18:<br>
+                            &nbsp;&nbsp;if has_license:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("You can drive")<br>
+                            &nbsp;&nbsp;else:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("You need a license")<br>
+                            else:<br>
+                            &nbsp;&nbsp;print("You are too young to drive")
+                        </code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz5" value="a"> "You can drive"</label>
+                        <label><input type="radio" name="quiz5" value="b"> "You need a license"</label>
+                        <label><input type="radio" name="quiz5" value="c"> "You are too young to drive"</label>
+                        <label><input type="radio" name="quiz5" value="d"> خطا</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(5)">بررسی پاسخ</button>
+                </div>
+                
+                <h2>دستور Pass در پایتون</h2>
+                <h3>دستور pass</h3>
+                <p>دستورات if نمی‌توانند خالی باشند، اما اگر به هر دلیلی یک دستور if بدون محتوا دارید، دستور pass را قرار دهید تا از دریافت خطا جلوگیری کنید.</p>
+                
+                <div class="example">
+                    <h4>مثال: دستور pass</h4>
+                    <div class="code-block">
+                        <code>
+                            a = 33<br>
+                            b = 200<br>
+                            if b > a:<br>
+                            &nbsp;&nbsp;pass
+                        </code>
+                    </div>
+                    <p>دستور pass یک عملیات null است - وقتی اجرا می‌شود هیچ اتفاقی نمی‌افتد. این به عنوان یک نگهدارنده عمل می‌کند.</p>
+                </div>
+                
+                <div class="note">
+                    <p><strong>چرا از pass استفاده کنیم؟</strong> دستور pass در چندین موقعیت مفید است:</p>
+                    <ul style="margin-right: 20px;">
+                        <li>وقتی در حال ایجاد ساختار کد هستید اما هنوز منطق را پیاده‌سازی نکرده‌اید</li>
+                        <li>وقتی یک دستور از نظر نحوی لازم است اما هیچ عملی لازم نیست</li>
+                        <li>به عنوان نگهدارنده برای کد آینده در طول توسعه</li>
+                    </ul>
+                </div>
+                
+                <!-- کوئیز 6 -->
+                <div class="quiz">
+                    <h3>آزمون: درک دستور pass</h3>
+                    <p class="quiz-question">کدام یک از موارد زیر در مورد دستور pass صحیح است؟</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quiz6" value="a"> دستور pass یک خطا ایجاد می‌کند</label>
+                        <label><input type="radio" name="quiz6" value="b"> دستور pass مانند کامنت عمل می‌کند</label>
+                        <label><input type="radio" name="quiz6" value="c"> دستور pass یک عملیات null است</label>
+                        <label><input type="radio" name="quiz6" value="d"> دستور pass فقط در حلقه‌ها کار می‌کند</label>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(6)">بررسی پاسخ</button>
+                </div>
+            </div>
+            
+            <!-- نوار کناری مسیر آموزشی -->
+            <div class="sidebar">
+                <h3>مسیر آموزشی پایتون</h3>
+                <ul class="course-list">
+                    <li><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html" class="active">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی ایجاد شده است.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" title="آپارات">آ</a>
+                        <a href="https://t.me/busintell" title="تلگرام">ت</a>
+                        <a href="https://ble.ir/busintell" title="بله">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>تمامی حقوق محفوظ است © ۲۰۲۳ BusIntell</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی پاسخ کوئیزها
+        function checkQuiz(quizNumber) {
+            let correctAnswers = {
+                1: "c",
+                2: "c",
+                3: "b",
+                4: "c",
+                5: "a",
+                6: "c"
+            };
+            
+            let selectedOption = document.querySelector(`input[name="quiz${quizNumber}"]:checked`);
+            
+            if (!selectedOption) {
+                alert("لطفاً یک گزینه انتخاب کنید.");
+                return;
+            }
+            
+            if (selectedOption.value === correctAnswers[quizNumber]) {
+                alert("✅ پاسخ شما صحیح است!");
+            } else {
+                alert("❌ پاسخ شما نادرست است. دوباره تلاش کنید.");
+            }
+        }
+    </script>
+</body>
+</html>
