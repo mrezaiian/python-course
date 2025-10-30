@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاپل‌ها در پایتون | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9b217;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 2rem auto;
+            max-width: 1200px;
+            gap: 2rem;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar {
+            flex: 1;
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            color: var(--sea-blue);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h3 {
+            color: var(--dark-blue);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* استایل کد */
+        .code-example {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        
+        .code-example code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        /* استایل تست */
+        .quiz {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid #ddd;
+        }
+        
+        .quiz h3 {
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .quiz-submit:hover {
+            background-color: var(--sea-blue);
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #e6f7e6;
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        
+        .incorrect {
+            background-color: #ffe6e6;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        
+        /* استایل منوی آموزشی */
+        .learning-path {
+            list-style: none;
+        }
+        
+        .learning-path li {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .learning-path li:last-child {
+            border-bottom: none;
+        }
+        
+        .learning-path a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: color 0.3s;
+        }
+        
+        .learning-path a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .learning-path a.active {
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            background-color: var(--sea-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: var(--light-blue);
+        }
+        
+        /* استایل واکنش‌گرا */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">ورود</a>
+                <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="main-content">
+        <!-- محتوای آموزشی -->
+        <div class="content">
+            <h1>تاپل‌ها در پایتون</h1>
+            
+            <div class="code-example">
+                <code>mytuple = ("apple", "banana", "cherry")</code>
+            </div>
+            
+            <h2>تاپل</h2>
+            <p>تاپل‌ها برای ذخیره چندین آیتم در یک متغیر استفاده می‌شوند.</p>
+            <p>تاپل یکی از 4 نوع داده داخلی در پایتون است که برای ذخیره مجموعه‌ای از داده‌ها استفاده می‌شود. سه نوع دیگر لیست، مجموعه و دیکشنری هستند که هر کدام ویژگی‌ها و کاربردهای متفاوتی دارند.</p>
+            <p>تاپل یک مجموعه مرتب و تغییرناپذیر است.</p>
+            <p>تاپل‌ها با پرانتز گرد نوشته می‌شوند.</p>
+            
+            <div class="code-example">
+                <code>
+                    # ایجاد یک تاپل:<br>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    print(thistuple)
+                </code>
+            </div>
+            
+            <h3>آیتم‌های تاپل</h3>
+            <p>آیتم‌های تاپل مرتب، تغییرناپذیر و اجازه مقادیر تکراری را می‌دهند.</p>
+            <p>آیتم‌های تاپل ایندکس‌دار هستند، اولین آیتم دارای ایندکس [0]، دومین آیتم دارای ایندکس [1] و غیره است.</p>
+            
+            <h4>مرتب</h4>
+            <p>وقتی می‌گوییم تاپل‌ها مرتب هستند، به این معنی است که آیتم‌ها دارای ترتیب مشخصی هستند و این ترتیب تغییر نخواهد کرد.</p>
+            
+            <h4>تغییرناپذیر</h4>
+            <p>تاپل‌ها تغییرناپذیر هستند، به این معنی که پس از ایجاد تاپل نمی‌توانیم آیتم‌ها را تغییر، اضافه یا حذف کنیم.</p>
+            
+            <h4>اجازه مقادیر تکراری</h4>
+            <p>از آنجایی که تاپل‌ها ایندکس‌دار هستند، می‌توانند آیتم‌هایی با مقدار یکسان داشته باشند:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry", "apple", "cherry")<br>
+                    print(thistuple)
+                </code>
+            </div>
+            
+            <h3>طول تاپل</h3>
+            <p>برای تعیین تعداد آیتم‌های یک تاپل، از تابع len() استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    print(len(thistuple))
+                </code>
+            </div>
+            
+            <h3>ایجاد تاپل با یک آیتم</h3>
+            <p>برای ایجاد یک تاپل با تنها یک آیتم، باید بعد از آیتم یک کاما اضافه کنید، در غیر این صورت پایتون آن را به عنوان تاپل شناسایی نمی‌کند.</p>
+            
+            <div class="code-example">
+                <code>
+                    # تاپل با یک آیتم، کاما را به خاطر بسپارید:<br>
+                    thistuple = ("apple",)<br>
+                    print(type(thistuple))<br><br>
+                    
+                    # این یک تاپل نیست<br>
+                    thistuple = ("apple")<br>
+                    print(type(thistuple))
+                </code>
+            </div>
+            
+            <!-- تست 1 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 1</h3>
+                <div class="quiz-question">کدام یک از موارد زیر یک تاپل معتبر در پایتون است؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a1" name="quiz1" value="a">
+                        <label for="q1a1">my_tuple = [1, 2, 3]</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a2" name="quiz1" value="b">
+                        <label for="q1a2">my_tuple = (1, 2, 3)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a3" name="quiz1" value="c">
+                        <label for="q1a3">my_tuple = {1, 2, 3}</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(1)">بررسی پاسخ</button>
+                <div id="quiz1-result" class="quiz-result"></div>
+            </div>
+            
+            <h3>نوع داده آیتم‌های تاپل</h3>
+            <p>آیتم‌های تاپل می‌توانند از هر نوع داده‌ای باشند:</p>
+            
+            <div class="code-example">
+                <code>
+                    tuple1 = ("apple", "banana", "cherry")<br>
+                    tuple2 = (1, 5, 7, 9, 3)<br>
+                    tuple3 = (True, False, False)<br><br>
+                    
+                    # یک تاپل می‌تواند شامل انواع داده مختلف باشد:<br>
+                    tuple1 = ("abc", 34, True, 40, "male")
+                </code>
+            </div>
+            
+            <h3>تابع type()</h3>
+            <p>از دیدگاه پایتون، تاپل‌ها به عنوان اشیاء با نوع داده 'tuple' تعریف می‌شوند:</p>
+            
+            <div class="code-example">
+                <code>
+                    mytuple = ("apple", "banana", "cherry")<br>
+                    print(type(mytuple))
+                </code>
+            </div>
+            
+            <h3>سازنده tuple()</h3>
+            <p>همچنین می‌توان از سازنده tuple() برای ایجاد یک تاپل استفاده کرد:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = tuple(("apple", "banana", "cherry")) # توجه به پرانتزهای دوتایی<br>
+                    print(thistuple)
+                </code>
+            </div>
+            
+            <!-- تست 2 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 2</h3>
+                <div class="quiz-question">کدام یک از موارد زیر یک تاپل با یک آیتم ایجاد می‌کند؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a1" name="quiz2" value="a">
+                        <label for="q2a1">my_tuple = (5)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a2" name="quiz2" value="b">
+                        <label for="q2a2">my_tuple = (5,)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a3" name="quiz2" value="c">
+                        <label for="q2a3">my_tuple = tuple(5)</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(2)">بررسی پاسخ</button>
+                <div id="quiz2-result" class="quiz-result"></div>
+            </div>
+            
+            <h2>دسترسی به آیتم‌های تاپل</h2>
+            <p>می‌توانید با اشاره به شماره ایندکس، در داخل براکت‌های مربعی، به آیتم‌های تاپل دسترسی پیدا کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    print(thistuple[1]) # چاپ دومین آیتم در تاپل
+                </code>
+            </div>
+            
+            <p class="note">توجه: اولین آیتم دارای ایندکس 0 است.</p>
+            
+            <h3>ایندکس‌گذاری منفی</h3>
+            <p>ایندکس‌گذاری منفی به معنای شروع از انتها است.</p>
+            <p>-1 به آخرین آیتم، -2 به آیتم ماقبل آخر و غیره اشاره می‌کند.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    print(thistuple[-1]) # چاپ آخرین آیتم تاپل
+                </code>
+            </div>
+            
+            <h3>محدوده ایندکس‌ها</h3>
+            <p>می‌توانید با مشخص کردن محل شروع و پایان محدوده، یک محدوده از ایندکس‌ها را مشخص کنید.</p>
+            <p>هنگام مشخص کردن یک محدوده، مقدار بازگشتی یک تاپل جدید با آیتم‌های مشخص شده خواهد بود.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")<br>
+                    print(thistuple[2:5]) # آیتم‌های سوم، چهارم و پنجم را برمی‌گرداند
+                </code>
+            </div>
+            
+            <p class="note">توجه: جستجو از ایندکس 2 (شامل) شروع می‌شود و در ایندکس 5 (شامل نیست) پایان می‌یابد.</p>
+            
+            <p>با حذف مقدار شروع، محدوده از اولین آیتم شروع می‌شود:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")<br>
+                    print(thistuple[:4]) # از ابتدا تا "kiwi" (شامل نیست) را برمی‌گرداند
+                </code>
+            </div>
+            
+            <p>با حذف مقدار پایان، محدوده تا انتهای تاپل ادامه می‌یابد:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")<br>
+                    print(thistuple[2:]) # از "cherry" تا انتها را برمی‌گرداند
+                </code>
+            </div>
+            
+            <h3>محدوده ایندکس‌های منفی</h3>
+            <p>اگر می‌خواهید جستجو را از انتهای تاپل شروع کنید، ایندکس‌های منفی را مشخص کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")<br>
+                    print(thistuple[-4:-1]) # از ایندکس -4 (شامل) تا -1 (شامل نیست)
+                </code>
+            </div>
+            
+            <h3>بررسی وجود آیتم</h3>
+            <p>برای تعیین اینکه آیا یک آیتم مشخص در تاپل وجود دارد، از کلیدواژه in استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    if "apple" in thistuple:<br>
+                    &nbsp;&nbsp;print("Yes, 'apple' is in the fruits tuple")
+                </code>
+            </div>
+            
+            <!-- تست 3 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 3</h3>
+                <div class="quiz-question">خروجی کد زیر چیست؟<br><code>my_tuple = (10, 20, 30, 40, 50)<br>print(my_tuple[1:4])</code></div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q3a1" name="quiz3" value="a">
+                        <label for="q3a1">(10, 20, 30)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3a2" name="quiz3" value="b">
+                        <label for="q3a2">(20, 30, 40)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3a3" name="quiz3" value="c">
+                        <label for="q3a3">(20, 30, 40, 50)</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(3)">بررسی پاسخ</button>
+                <div id="quiz3-result" class="quiz-result"></div>
+            </div>
+            
+            <h2>به‌روزرسانی تاپل‌ها</h2>
+            <p>تاپل‌ها تغییرناپذیر هستند، به این معنی که پس از ایجاد تاپل نمی‌توانید آیتم‌ها را تغییر، اضافه یا حذف کنید.</p>
+            <p>اما راه‌حل‌هایی وجود دارد.</p>
+            
+            <h3>تغییر مقادیر تاپل</h3>
+            <p>پس از ایجاد یک تاپل، نمی‌توانید مقادیر آن را تغییر دهید. تاپل‌ها تغییرناپذیر هستند.</p>
+            <p>اما یک راه‌حل وجود دارد. می‌توانید تاپل را به لیست تبدیل کنید، لیست را تغییر دهید و لیست را دوباره به تاپل تبدیل کنید.</p>
+            
+            <div class="code-example">
+                <code>
+                    x = ("apple", "banana", "cherry")<br>
+                    y = list(x)<br>
+                    y[1] = "kiwi"<br>
+                    x = tuple(y)<br><br>
+                    
+                    print(x)
+                </code>
+            </div>
+            
+            <h3>اضافه کردن آیتم‌ها</h3>
+            <p>از آنجایی که تاپل‌ها تغییرناپذیر هستند، متد append() داخلی ندارند، اما راه‌های دیگری برای اضافه کردن آیتم‌ها به تاپل وجود دارد.</p>
+            
+            <p>1. تبدیل به لیست: درست مانند راه‌حل برای تغییر یک تاپل، می‌توانید آن را به لیست تبدیل کنید، آیتم(های) خود را اضافه کنید و آن را دوباره به تاپل تبدیل کنید.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    y = list(thistuple)<br>
+                    y.append("orange")<br>
+                    thistuple = tuple(y)
+                </code>
+            </div>
+            
+            <p>2. اضافه کردن تاپل به تاپل. شما مجاز هستید تاپل‌ها را به تاپل‌ها اضافه کنید، بنابراین اگر می‌خواهید یک آیتم (یا چندین آیتم) اضافه کنید، یک تاپل جدید با مقدار(های) ایجاد کنید و آن را به تاپل موجود اضافه کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    y = ("orange",)<br>
+                    thistuple += y<br><br>
+                    
+                    print(thistuple)
+                </code>
+            </div>
+            
+            <p class="note">توجه: هنگام ایجاد یک تاپل با تنها یک آیتم، به یاد داشته باشید که بعد از آیتم یک کاما قرار دهید، در غیر این صورت به عنوان تاپل شناسایی نمی‌شود.</p>
+            
+            <h3>حذف آیتم‌ها</h3>
+            <p class="note">توجه: شما نمی‌توانید آیتم‌ها را در یک تاپل حذف کنید.</p>
+            <p>تاپل‌ها تغییرناپذیر هستند، بنابراین نمی‌توانید آیتم‌ها را از آن حذف کنید، اما می‌توانید از همان راه‌حلی که برای تغییر و اضافه کردن آیتم‌های تاپل استفاده کردیم، استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    y = list(thistuple)<br>
+                    y.remove("apple")<br>
+                    thistuple = tuple(y)
+                </code>
+            </div>
+            
+            <p>یا می‌توانید تاپل را به طور کامل حذف کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    del thistuple<br>
+                    print(thistuple) # این یک خطا ایجاد می‌کند زیرا تاپل دیگر وجود ندارد
+                </code>
+            </div>
+            
+            <!-- تست 4 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 4</h3>
+                <div class="quiz-question">کدام یک از روش‌های زیر برای حذف یک آیتم از تاپل صحیح است؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q4a1" name="quiz4" value="a">
+                        <label for="q4a1">my_tuple.remove("item")</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q4a2" name="quiz4" value="b">
+                        <label for="q4a2">my_tuple.pop(0)</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q4a3" name="quiz4" value="c">
+                        <label for="q4a3">تبدیل به لیست، حذف آیتم، تبدیل به تاپل</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(4)">بررسی پاسخ</button>
+                <div id="quiz4-result" class="quiz-result"></div>
+            </div>
+            
+            <h2>باز کردن بسته تاپل</h2>
+            <h3>باز کردن بسته یک تاپل</h3>
+            <p>وقتی یک تاپل ایجاد می‌کنیم، معمولاً مقادیر را به آن اختصاص می‌دهیم. این "بسته‌بندی" یک تاپل نامیده می‌شود:</p>
+            
+            <div class="code-example">
+                <code>
+                    fruits = ("apple", "banana", "cherry")
+                </code>
+            </div>
+            
+            <p>اما در پایتون، ما همچنین مجاز هستیم مقادیر را به متغیرها برگردانیم. این "باز کردن بسته" نامیده می‌شود:</p>
+            
+            <div class="code-example">
+                <code>
+                    fruits = ("apple", "banana", "cherry")<br><br>
+                    
+                    (green, yellow, red) = fruits<br><br>
+                    
+                    print(green)<br>
+                    print(yellow)<br>
+                    print(red)
+                </code>
+            </div>
+            
+            <p class="note">توجه: تعداد متغیرها باید با تعداد مقادیر در تاپل مطابقت داشته باشد، در غیر این صورت باید از ستاره (*) برای جمع‌آوری مقادیر باقی‌مانده به عنوان لیست استفاده کنید.</p>
+            
+            <h3>استفاده از ستاره *</h3>
+            <p>اگر تعداد متغیرها کمتر از تعداد مقادیر باشد، می‌توانید یک * به نام متغیر اضافه کنید و مقادیر به عنوان یک لیست به متغیر اختصاص داده می‌شوند:</p>
+            
+            <div class="code-example">
+                <code>
+                    fruits = ("apple", "banana", "cherry", "strawberry", "raspberry")<br><br>
+                    
+                    (green, yellow, *red) = fruits<br><br>
+                    
+                    print(green)<br>
+                    print(yellow)<br>
+                    print(red)
+                </code>
+            </div>
+            
+            <p>اگر ستاره به نام متغیر دیگری غیر از آخرین اضافه شود، پایتون مقادیر را به متغیر اختصاص می‌دهد تا زمانی که تعداد مقادیر باقی‌مانده با تعداد متغیرهای باقی‌مانده مطابقت داشته باشد.</p>
+            
+            <div class="code-example">
+                <code>
+                    fruits = ("apple", "mango", "papaya", "pineapple", "cherry")<br><br>
+                    
+                    (green, *tropic, red) = fruits<br><br>
+                    
+                    print(green)<br>
+                    print(tropic)<br>
+                    print(red)
+                </code>
+            </div>
+            
+            <!-- تست 5 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 5</h3>
+                <div class="quiz-question">خروجی کد زیر چیست؟<br><code>numbers = (1, 2, 3, 4, 5)<br>(a, *b, c) = numbers<br>print(b)</code></div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q5a1" name="quiz5" value="a">
+                        <label for="q5a1">[2, 3, 4]</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q5a2" name="quiz5" value="b">
+                        <label for="q5a2">[1, 2, 3]</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q5a3" name="quiz5" value="c">
+                        <label for="q5a3">[3, 4, 5]</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(5)">بررسی پاسخ</button>
+                <div id="quiz5-result" class="quiz-result"></div>
+            </div>
+            
+            <h2>حلقه در تاپل‌ها</h2>
+            <h3>حلقه زدن در تاپل</h3>
+            <p>می‌توانید با استفاده از حلقه for در آیتم‌های تاپل حلقه بزنید.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    for x in thistuple:<br>
+                    &nbsp;&nbsp;print(x)
+                </code>
+            </div>
+            
+            <h3>حلقه زدن از طریق شماره‌های ایندکس</h3>
+            <p>همچنین می‌توانید با اشاره به شماره ایندکس آن‌ها در آیتم‌های تاپل حلقه بزنید.</p>
+            <p>از توابع range() و len() برای ایجاد یک تکرارپذیر مناسب استفاده کنید.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    for i in range(len(thistuple)):<br>
+                    &nbsp;&nbsp;print(thistuple[i])
+                </code>
+            </div>
+            
+            <h3>استفاده از حلقه while</h3>
+            <p>می‌توانید با استفاده از حلقه while در آیتم‌های تاپل حلقه بزنید.</p>
+            <p>از تابع len() برای تعیین طول تاپل استفاده کنید، سپس از 0 شروع کنید و با اشاره به ایندکس‌های آن در آیتم‌های تاپل حلقه بزنید.</p>
+            <p>به یاد داشته باشید که پس از هر تکرار، ایندکس را 1 افزایش دهید.</p>
+            
+            <div class="code-example">
+                <code>
+                    thistuple = ("apple", "banana", "cherry")<br>
+                    i = 0<br>
+                    while i < len(thistuple):<br>
+                    &nbsp;&nbsp;print(thistuple[i])<br>
+                    &nbsp;&nbsp;i = i + 1
+                </code>
+            </div>
+            
+            <h2>اتصال تاپل‌ها</h2>
+            <h3>اتصال دو تاپل</h3>
+            <p>برای اتصال دو یا چند تاپل می‌توانید از عملگر + استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    tuple1 = ("a", "b" , "c")<br>
+                    tuple2 = (1, 2, 3)<br><br>
+                    
+                    tuple3 = tuple1 + tuple2<br>
+                    print(tuple3)
+                </code>
+            </div>
+            
+            <h3>ضرب تاپل‌ها</h3>
+            <p>اگر می‌خواهید محتوای یک تاپل را در تعداد دفعات مشخصی ضرب کنید، می‌توانید از عملگر * استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>
+                    fruits = ("apple", "banana", "cherry")<br>
+                    mytuple = fruits * 2<br><br>
+                    
+                    print(mytuple)
+                </code>
+            </div>
+            
+            <h2>متدهای تاپل</h2>
+            <p>پایتون دو متد داخلی دارد که می‌توانید روی تاپل‌ها استفاده کنید.</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <thead>
+                    <tr style="background-color: var(--primary-blue); color: white;">
+                        <th style="padding: 0.75rem; text-align: right; border: 1px solid #ddd;">متد</th>
+                        <th style="padding: 0.75rem; text-align: right; border: 1px solid #ddd;">توضیحات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">count()</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">تعداد دفعات وقوع یک مقدار مشخص در تاپل را برمی‌گرداند</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">index()</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">تاپل را برای یک مقدار مشخص جستجو می‌کند و موقعیت آن را برمی‌گرداند</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- تست 6 -->
+            <div class="quiz">
+                <h3>تست درک مطلب 6</h3>
+                <div class="quiz-question">کدام متد تعداد دفعات وقوع یک مقدار مشخص در تاپل را برمی‌گرداند؟</div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q6a1" name="quiz6" value="a">
+                        <label for="q6a1">count()</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q6a2" name="quiz6" value="b">
+                        <label for="q6a2">index()</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q6a3" name="quiz6" value="c">
+                        <label for="q6a3">find()</label>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="checkQuiz(6)">بررسی پاسخ</button>
+                <div id="quiz6-result" class="quiz-result"></div>
+            </div>
+            
+        </div>
+        
+        <!-- منوی مسیر آموزشی -->
+        <div class="sidebar">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="learning-path">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html" class="active">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی ایجاد شده است.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <ul class="footer-links">
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" title="آپارات">آ</a>
+                        <a href="https://t.me/busintell" title="تلگرام">ت</a>
+                        <a href="https://ble.ir/busintell" title="بله">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>کلیه حقوق مادی و معنوی این وب‌سایت متعلق به BusIntell می‌باشد.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی تست‌ها
+        function checkQuiz(quizNumber) {
+            const answers = {
+                1: "b",
+                2: "b",
+                3: "b",
+                4: "c",
+                5: "a",
+                6: "a"
+            };
+            
+            const explanations = {
+                1: "تاپل‌ها با پرانتز گرد () تعریف می‌شوند.",
+                2: "برای ایجاد تاپل با یک آیتم، باید بعد از آیتم کاما قرار دهید.",
+                3: "ایندکس‌گذاری در پایتون از صفر شروع می‌شود و مقدار انتهایی شامل نمی‌شود.",
+                4: "از آنجایی که تاپل‌ها تغییرناپذیر هستند، باید ابتدا به لیست تبدیل شوند.",
+                5: "ستاره (*) مقادیر باقی‌مانده را به عنوان لیست جمع‌آوری می‌کند.",
+                6: "متد count() تعداد دفعات وقوع یک مقدار را در تاپل برمی‌گرداند."
+            };
+            
+            const selectedOption = document.querySelector(`input[name="quiz${quizNumber}"]:checked`);
+            const resultElement = document.getElementById(`quiz${quizNumber}-result`);
+            
+            if (!selectedOption) {
+                alert("لطفاً یک گزینه انتخاب کنید.");
+                return;
+            }
+            
+            const userAnswer = selectedOption.value;
+            const correctAnswer = answers[quizNumber];
+            
+            if (userAnswer === correctAnswer) {
+                resultElement.textContent = "✓ پاسخ شما صحیح است! " + explanations[quizNumber];
+                resultElement.className = "quiz-result correct";
+            } else {
+                resultElement.textContent = "✗ پاسخ شما نادرست است. پاسخ صحیح: گزینه " + correctAnswer.toUpperCase() + ". " + explanations[quizNumber];
+                resultElement.className = "quiz-result incorrect";
+            }
+            
+            resultElement.style.display = "block";
+        }
+    </script>
+</body>
+</html>

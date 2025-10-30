@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سینتکس پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --brown-gold: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-left: 0.5rem;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 2rem 0;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content h2 {
+            color: var(--navy-blue);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        
+        .code-block .comment {
+            color: #6a737d;
+        }
+        
+        .code-block .output {
+            color: var(--green);
+            font-weight: bold;
+        }
+        
+        .example {
+            background-color: #e7f3ff;
+            border-right: 4px solid var(--light-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .example h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .error {
+            background-color: #ffeaea;
+            border-right: 4px solid #ff6b6b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .error h3 {
+            color: #d63031;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* مسیر آموزشی */
+        .learning-path {
+            flex: 1;
+            margin-right: 2rem;
+        }
+        
+        .path-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .path-card h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .path-list li a {
+            color: var(--navy-blue);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .path-list li a:hover {
+            background-color: #e7f3ff;
+            color: var(--primary-blue);
+        }
+        
+        .path-list li.active a {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+        
+        /* بخش تست */
+        .quiz-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .quiz-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-options {
+            margin: 1rem 0;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-option input {
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1e7e4a;
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .quiz-result.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            margin-left: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--gold);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">BusIntell</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="index.html#features">ویژگی‌ها</a></li>
+                        <li><a href="index.html#learning-path">مسیر آموزشی</a></li>
+                        <li><a href="index.html#about">درباره ما</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-login">ورود</a>
+                    <a href="#" class="btn btn-signup">ثبت‌نام</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- مسیر آموزشی -->
+            <aside class="learning-path">
+                <div class="path-card">
+                    <h2>مسیر آموزشی پایتون</h2>
+                    <ul class="path-list">
+                        <li><a href="مقدمه.html">مقدمه</a></li>
+                        <li class="active"><a href="سینتکس.html">سینتکس</a></li>
+                        <li><a href="متغیر.html">متغیر</a></li>
+                        <li><a href="انواع-داده.html">انواع داده</a></li>
+                        <li><a href="عدد.html">عدد</a></li>
+                        <li><a href="رشته.html">رشته</a></li>
+                        <li><a href="بولین.html">بولین</a></li>
+                        <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                        <li><a href="لیست.html">لیست</a></li>
+                        <li><a href="تاپل.html">تاپل</a></li>
+                        <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                        <li><a href="دیکشنری.html">دیکشنری</a></li>
+                        <li><a href="حلقه-if.html">حلقه if</a></li>
+                        <li><a href="حلقه-while.html">حلقه while</a></li>
+                        <li><a href="توابع.html">توابع</a></li>
+                        <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                        <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                        <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                        <li><a href="ماژول.html">ماژول</a></li>
+                        <li><a href="ایتریتور.html">ایتریتور</a></li>
+                        <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                        <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- محتوای اصلی -->
+            <main class="content">
+                <h1>سینتکس پایتون</h1>
+                
+                <section>
+                    <h2>اجرای سینتکس پایتون</h2>
+                    <p>همانطور که در صفحه قبلی آموختیم، سینتکس پایتون می‌تواند با نوشتن مستقیم در خط فرمان اجرا شود:</p>
+                    <div class="code-block">
+                        >>> print("Hello, World!")<br>
+                        <span class="output">Hello, World!</span>
+                    </div>
+                    <p>یا با ایجاد یک فایل پایتون روی سرور، با استفاده از پسوند فایل .py و اجرای آن در خط فرمان:</p>
+                    <div class="code-block">
+                        C:\Users\Your Name>python myfile.py
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>تورفتگی در پایتون</h2>
+                    <p>تورفتگی به فاصله‌های ابتدای خط کد اشاره دارد.</p>
+                    <p>در حالی که در سایر زبان‌های برنامه‌نویسی، تورفتگی در کد فقط برای خوانایی است، تورفتگی در پایتون بسیار مهم است.</p>
+                    <p>پایتون از تورفتگی برای نشان دادن یک بلوک کد استفاده می‌کند.</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            if 5 > 2:<br>
+                            &nbsp;&nbsp;print("Five is greater than two!")
+                        </div>
+                    </div>
+                    
+                    <p>پایتون در صورت حذف تورفتگی به شما خطا می‌دهد:</p>
+                    
+                    <div class="error">
+                        <h3>مثال خطا</h3>
+                        <div class="code-block">
+                            if 5 > 2:<br>
+                            print("Five is greater than two!") <span class="comment"># این خطا ایجاد می‌کند</span>
+                        </div>
+                    </div>
+                    
+                    <p>تعداد فاصله‌ها به شما به عنوان برنامه‌نویس بستگی دارد، رایج‌ترین استفاده چهار فاصله است، اما باید حداقل یک فاصله باشد.</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            if 5 > 2:<br>
+                            &nbsp;print("Five is greater than two!") <br>
+                            if 5 > 2:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Five is greater than two!")
+                        </div>
+                    </div>
+                    
+                    <p>شما باید از تعداد فاصله‌های یکسان در همان بلوک کد استفاده کنید، در غیر این صورت پایتون به شما خطا می‌دهد:</p>
+                    
+                    <div class="error">
+                        <h3>مثال خطا</h3>
+                        <div class="code-block">
+                            if 5 > 2:<br>
+                            &nbsp;print("Five is greater than two!")<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Five is greater than two!") <span class="comment"># این خطا ایجاد می‌کند</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- تست اول -->
+                <div class="quiz-section">
+                    <h3>تست اول: تورفتگی در پایتون</h3>
+                    <p>کدام یک از کدهای زیر از نظر تورفتگی صحیح است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a1" name="quiz1" value="a">
+                            <label for="q1a1">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    if 5 > 2:<br>
+                                    print("Five is greater than two!")
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a2" name="quiz1" value="b">
+                            <label for="q1a2">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    if 5 > 2:<br>
+                                    &nbsp;&nbsp;print("Five is greater than two!")
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a3" name="quiz1" value="c">
+                            <label for="q1a3">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    if 5 > 2:<br>
+                                    &nbsp;&nbsp;print("Five is greater than two!")<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;print("This is correct!")
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(1)">بررسی پاسخ</button>
+                    <div id="quiz1-result" class="quiz-result"></div>
+                </div>
+                
+                <section>
+                    <h2>متغیرهای پایتون</h2>
+                    <p>در پایتون، متغیرها زمانی ایجاد می‌شوند که یک مقدار به آن اختصاص دهید:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            x = 5<br>
+                            y = "Hello, World!"
+                        </div>
+                    </div>
+                    
+                    <p>پایتون هیچ دستوری برای اعلام متغیر ندارد.</p>
+                    <p>شما در فصل متغیرهای پایتون بیشتر درباره متغیرها یاد خواهید گرفت.</p>
+                </section>
+                
+                <section>
+                    <h2>توضیحات</h2>
+                    <p>پایتون قابلیت توضیح‌نویسی برای هدف مستندسازی درون کد را دارد.</p>
+                    <p>توضیحات با # شروع می‌شوند و پایتون بقیه خط را به عنوان توضیح نمایش می‌دهد:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            <span class="comment">#این یک توضیح است.</span><br>
+                            print("Hello, World!")
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- تست دوم -->
+                <div class="quiz-section">
+                    <h3>تست دوم: توضیحات در پایتون</h3>
+                    <p>کدام یک از گزینه‌های زیر نحوه صحیح نوشتن توضیح در پایتون است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a1" name="quiz2" value="a">
+                            <label for="q2a1">// این یک توضیح است</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a2" name="quiz2" value="b">
+                            <label for="q2a2">/* این یک توضیح است */</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a3" name="quiz2" value="c">
+                            <label for="q2a3"># این یک توضیح است</label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(2)">بررسی پاسخ</button>
+                    <div id="quiz2-result" class="quiz-result"></div>
+                </div>
+                
+                <section>
+                    <h2>دستورات پایتون</h2>
+                    <h3>دستورات</h3>
+                    <p>یک برنامه کامپیوتری لیستی از "دستورالعمل‌ها" است که باید توسط یک کامپیوتر "اجرا" شود.</p>
+                    <p>در یک زبان برنامه‌نویسی، این دستورالعمل‌های برنامه‌نویسی دستورات نامیده می‌شوند.</p>
+                    <p>دستور زیر متن "Python is fun!" را روی صفحه چاپ می‌کند:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Python is fun!")
+                        </div>
+                    </div>
+                    
+                    <p>در پایتون، یک دستور معمولاً زمانی پایان می‌یابد که خط به پایان برسد. شما نیازی به استفاده از نقطه‌ویرگول (;) مانند بسیاری از زبان‌های برنامه‌نویسی دیگر (مثلاً جاوا یا C) ندارید.</p>
+                    
+                    <h3>چندین دستور</h3>
+                    <p>اکثر برنامه‌های پایتون حاوی بسیاری از دستورات هستند.</p>
+                    <p>دستورات یکی پس از دیگری و به همان ترتیبی که نوشته شده‌اند اجرا می‌شوند:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Hello World!")<br>
+                            print("Have a good day.")<br>
+                            print("Learning Python is fun!")
+                        </div>
+                    </div>
+                    
+                    <h3>نقطه‌ویرگول (اختیاری، به ندرت استفاده می‌شود)</h3>
+                    <p>نقطه‌ویرگول در پایتون اختیاری است. شما می‌توانید چندین دستور را در یک خط با جدا کردن آنها با ; بنویسید، اما این به ندرت استفاده می‌شود زیرا خواندن آن را دشوار می‌کند:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Hello"); print("How are you?"); print("Bye bye!")
+                        </div>
+                    </div>
+                    
+                    <p>با این حال، اگر دو دستور را در همان خط بدون جداکننده (خط جدید یا ;) قرار دهید، پایتون خطا می‌دهد:</p>
+                    
+                    <div class="error">
+                        <h3>مثال خطا</h3>
+                        <div class="code-block">
+                            print("Python is fun!") print("Really!") <span class="comment"># این خطا ایجاد می‌کند</span>
+                        </div>
+                    </div>
+                    
+                    <p><strong>بهترین روش:</strong> هر دستور را در خط خود قرار دهید تا کد شما قابل درک باشد.</p>
+                </section>
+                
+                <!-- تست سوم -->
+                <div class="quiz-section">
+                    <h3>تست سوم: دستورات در پایتون</h3>
+                    <p>کدام یک از گزینه‌های زیر نحوه صحیح نوشتن چندین دستور در پایتون است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a1" name="quiz3" value="a">
+                            <label for="q3a1">print("Hello") print("World")</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a2" name="quiz3" value="b">
+                            <label for="q3a2">print("Hello"); print("World")</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a3" name="quiz3" value="c">
+                            <label for="q3a3">
+                                print("Hello")<br>
+                                print("World")
+                            </label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(3)">بررسی پاسخ</button>
+                    <div id="quiz3-result" class="quiz-result"></div>
+                </div>
+                
+                <section>
+                    <h2>خروجی / چاپ در پایتون</h2>
+                    <h3>چاپ متن</h3>
+                    <p>شما قبلاً آموخته‌اید که می‌توانید از تابع print() برای نمایش متن یا مقادیر خروجی استفاده کنید:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Hello World!")
+                        </div>
+                    </div>
+                    
+                    <p>شما می‌توانید از تابع print() به تعداد دفعاتی که می‌خواهید استفاده کنید. هر فراخوانی به طور پیش‌فرض متن را در یک خط جدید چاپ می‌کند:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Hello World!")<br>
+                            print("I am learning Python.")<br>
+                            print("It is awesome!")
+                        </div>
+                    </div>
+                    
+                    <h3>نقل‌قول دوگانه</h3>
+                    <p>متن در پایتون باید داخل نقل‌قول باشد. شما می‌توانید از " نقل‌قول دوگانه یا ' نقل‌قول تکی استفاده کنید:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("This will work!")<br>
+                            print('This will also work!')
+                        </div>
+                    </div>
+                    
+                    <p>اگر فراموش کنید که متن را داخل نقل‌قول قرار دهید، پایتون خطا می‌دهد:</p>
+                    
+                    <div class="error">
+                        <h3>مثال خطا</h3>
+                        <div class="code-block">
+                            print(This will cause an error) <span class="comment"># این خطا ایجاد می‌کند</span>
+                        </div>
+                    </div>
+                    
+                    <h3>چاپ بدون خط جدید</h3>
+                    <p>به طور پیش‌فرض، تابع print() با یک خط جدید پایان می‌یابد.</p>
+                    <p>اگر می‌خواهید چندین کلمه را در همان خط چاپ کنید، می‌توانید از پارامتر end استفاده کنید:</p>
+                    
+                    <div class="example">
+                        <h3>مثال</h3>
+                        <div class="code-block">
+                            print("Hello World!", end=" ")<br>
+                            print("I will print on the same line.")
+                        </div>
+                    </div>
+                    
+                    <p>توجه داشته باشید که ما یک فاصله بعد از end=" " برای خوانایی بهتر اضافه می‌کنیم.</p>
+                </section>
+                
+                <!-- تست چهارم -->
+                <div class="quiz-section">
+                    <h3>تست چهارم: چاپ در پایتون</h3>
+                    <p>کدام یک از گزینه‌های زیر خروجی صحیح را تولید می‌کند؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q4a1" name="quiz4" value="a">
+                            <label for="q4a1">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    print("Hello", end=" ")<br>
+                                    print("World")
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4a2" name="quiz4" value="b">
+                            <label for="q4a2">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    print("Hello")<br>
+                                    print("World")
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4a3" name="quiz4" value="c">
+                            <label for="q4a3">
+                                <div class="code-block" style="padding: 0.5rem; margin: 0;">
+                                    print("Hello" + "World")
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="quiz-submit" onclick="checkQuiz(4)">بررسی پاسخ</button>
+                    <div id="quiz4-result" class="quiz-result"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <a href="index.html">خانه</a>
+                    <a href="index.html#features">ویژگی‌ها</a>
+                    <a href="index.html#learning-path">مسیر آموزشی</a>
+                    <a href="index.html#about">درباره ما</a>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" title="آپارات">آ</a>
+                        <a href="https://t.me/busintell" title="تلگرام">ت</a>
+                        <a href="https://ble.ir/busintell" title="بله">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>تمامی حقوق محفوظ است © ۲۰۲۳ BusIntell</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی تست‌ها
+        function checkQuiz(quizNumber) {
+            let selectedOption = document.querySelector(`input[name="quiz${quizNumber}"]:checked`);
+            let resultElement = document.getElementById(`quiz${quizNumber}-result`);
+            
+            if (!selectedOption) {
+                alert("لطفاً یک گزینه انتخاب کنید.");
+                return;
+            }
+            
+            let correctAnswers = {
+                1: "b", // تست اول: گزینه دوم صحیح است
+                2: "c", // تست دوم: گزینه سوم صحیح است
+                3: "c", // تست سوم: گزینه سوم صحیح است
+                4: "a"  // تست چهارم: گزینه اول صحیح است
+            };
+            
+            if (selectedOption.value === correctAnswers[quizNumber]) {
+                resultElement.textContent = "آفرین! پاسخ شما صحیح است.";
+                resultElement.className = "quiz-result correct";
+                resultElement.style.display = "block";
+            } else {
+                resultElement.textContent = "متأسفانه پاسخ شما نادرست است. دوباره تلاش کنید.";
+                resultElement.className = "quiz-result incorrect";
+                resultElement.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

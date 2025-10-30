@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کلاس‌ها - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9a814;
+        }
+        
+        /* محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            width: 300px;
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar h2 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .course-list {
+            list-style: none;
+        }
+        
+        .course-list li {
+            margin-bottom: 10px;
+        }
+        
+        .course-list a {
+            display: block;
+            padding: 10px 15px;
+            background-color: var(--white);
+            border-radius: 4px;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+        }
+        
+        .course-list a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border-right-color: var(--gold);
+        }
+        
+        .course-list .active {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border-right-color: var(--gold);
+            font-weight: bold;
+        }
+        
+        /* بخش‌های محتوا */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .section h3 {
+            color: var(--sea-blue);
+            margin: 20px 0 10px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .example {
+            background-color: #e8f4fd;
+            border-right: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .example h4 {
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-right: 4px solid var(--gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .note h4 {
+            color: var(--golden-brown);
+            margin-bottom: 10px;
+        }
+        
+        /* تست‌های تعاملی */
+        .quiz {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .quiz h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin: 10px 0;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+        }
+        
+        .option input {
+            margin-left: 8px;
+        }
+        
+        .btn-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1e7a4a;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .incorrect {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">ورود</a>
+                <a href="#" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container main-content">
+        <!-- محتوای آموزشی -->
+        <div class="content">
+            <h1>برنامه‌نویسی شی‌گرا در پایتون (OOP)</h1>
+            
+            <div class="section">
+                <h2>برنامه‌نویسی شی‌گرا چیست؟</h2>
+                <p>OOP مخفف Object-Oriented Programming یا برنامه‌نویسی شی‌گرا است.</p>
+                <p>پایتون یک زبان برنامه‌نویسی شی‌گرا است که به شما امکان می‌دهد کد خود را با استفاده از کلاس‌ها و اشیاء برای سازماندهی بهتر و قابلیت استفاده مجدد ساختار دهید.</p>
+            </div>
+            
+            <div class="section">
+                <h2>مزایای برنامه‌نویسی شی‌گرا</h2>
+                <ul>
+                    <li>ساختار واضحی برای برنامه‌ها فراهم می‌کند</li>
+                    <li>کد را برای نگهداری، استفاده مجدد و اشکال‌زدایی آسان‌تر می‌کند</li>
+                    <li>به حفظ کد شما بر اساس اصل DRY کمک می‌کند (خودت را تکرار نکن)</li>
+                    <li>به شما امکان می‌دهد برنامه‌های قابل استفاده مجدد با کد کمتری بسازید</li>
+                </ul>
+                <div class="note">
+                    <h4>نکته</h4>
+                    <p>اصل DRY به این معنی است که باید از نوشتن کد یکسان بیش از یک بار خودداری کنید. کدهای تکراری را در توابع یا کلاس‌ها قرار دهید و مجدداً از آنها استفاده کنید.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>کلاس‌ها و اشیاء چیستند؟</h2>
+                <p>کلاس‌ها و اشیاء دو مفهوم اصلی در برنامه‌نویسی شی‌گرا هستند.</p>
+                <p>یک کلاس تعریف می‌کند که یک شیء چگونه باید باشد، و یک شیء بر اساس آن کلاس ایجاد می‌شود. برای مثال:</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 8px; background-color: var(--light-blue);">کلاس</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; background-color: var(--light-blue);">اشیاء</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">میوه</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">سیب، موز، انبه</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">ماشین</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">ولوو، آئودی، تویوتا</td>
+                    </tr>
+                </table>
+                
+                <p>وقتی یک شیء از یک کلاس ایجاد می‌کنید، تمام متغیرها و توابع تعریف شده در داخل آن کلاس را به ارث می‌برد.</p>
+            </div>
+            
+            <!-- تست تعاملی اول -->
+            <div class="quiz">
+                <h3>تست درک مطلب: برنامه‌نویسی شی‌گرا</h3>
+                <div class="question">
+                    <p>کدام یک از موارد زیر مزیت اصلی برنامه‌نویسی شی‌گرا نیست؟</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="question1" value="a">
+                        <label for="q1a">ساختار واضح برای برنامه‌ها</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="question1" value="b">
+                        <label for="q1b">کد ساده‌تر برای نگهداری، استفاده مجدد و اشکال‌زدایی</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="question1" value="c">
+                        <label for="q1c">اجرای سریع‌تر کد</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="question1" value="d">
+                        <label for="q1d">ساخت برنامه‌های قابل استفاده مجدد با کد کمتر</label>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="checkAnswer(1, 'c')">بررسی پاسخ</button>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="section">
+                <h2>کلاس‌ها و اشیاء در پایتون</h2>
+                <p>پایتون یک زبان برنامه‌نویسی شی‌گرا است.</p>
+                <p>تقریباً همه چیز در پایتون یک شیء است، با ویژگی‌ها و متدهای خود.</p>
+                <p>یک کلاس مانند یک سازنده شیء یا یک "الگو" برای ایجاد اشیاء است.</p>
+                
+                <h3>ایجاد یک کلاس</h3>
+                <p>برای ایجاد یک کلاس، از کلمه کلیدی class استفاده کنید:</p>
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک کلاس به نام MyClass با ویژگی x ایجاد کنید:</p>
+                    <div class="code-block">
+                        class MyClass:<br>
+                        &nbsp;&nbsp;x = 5
+                    </div>
+                </div>
+                
+                <h3>ایجاد شیء</h3>
+                <p>حالا می‌توانیم از کلاس MyClass برای ایجاد اشیاء استفاده کنیم:</p>
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک شیء به نام p1 ایجاد کنید و مقدار x را چاپ کنید:</p>
+                    <div class="code-block">
+                        p1 = MyClass()<br>
+                        print(p1.x)
+                    </div>
+                </div>
+                
+                <h3>حذف اشیاء</h3>
+                <p>می‌توانید اشیاء را با استفاده از کلمه کلیدی del حذف کنید:</p>
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>شیء p1 را حذف کنید:</p>
+                    <div class="code-block">
+                        del p1
+                    </div>
+                </div>
+                
+                <h3>اشیاء متعدد</h3>
+                <p>می‌توانید چندین شیء از یک کلاس ایجاد کنید:</p>
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>سه شیء از کلاس MyClass ایجاد کنید:</p>
+                    <div class="code-block">
+                        p1 = MyClass()<br>
+                        p2 = MyClass()<br>
+                        p3 = MyClass()<br><br>
+                        print(p1.x)<br>
+                        print(p2.x)<br>
+                        print(p3.x)
+                    </div>
+                </div>
+                <div class="note">
+                    <h4>توجه</h4>
+                    <p>هر شیء مستقل است و کپی خود را از ویژگی‌های کلاس دارد.</p>
+                </div>
+            </div>
+            
+            <!-- تست تعاملی دوم -->
+            <div class="quiz">
+                <h3>تست درک مطلب: کلاس‌ها و اشیاء</h3>
+                <div class="question">
+                    <p>کدام یک از گزینه‌های زیر در مورد کلاس‌ها و اشیاء در پایتون صحیح است؟</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="question2" value="a">
+                        <label for="q2a">هر شیء می‌تواند به چندین کلاس تعلق داشته باشد</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="question2" value="b">
+                        <label for="q2b">کلاس یک طرح اولیه برای ایجاد اشیاء است</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="question2" value="c">
+                        <label for="q2c">اشیاء ایجاد شده از یک کلاس خصوصیات و متدهای یکسانی دارند</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="question2" value="d">
+                        <label for="q2d">همه موارد بالا</label>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="checkAnswer(2, 'b')">بررسی پاسخ</button>
+                <div id="result2" class="result"></div>
+            </div>
+            
+            <div class="section">
+                <h2>متد __init__()</h2>
+                <p>همه کلاس‌ها یک متد داخلی به نام __init__() دارند که همیشه هنگام راه‌اندازی کلاس اجرا می‌شود.</p>
+                <p>متد __init__() برای اختصاص مقادیر به ویژگی‌های شیء یا انجام عملیات‌های لازم هنگام ایجاد شیء استفاده می‌شود.</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک کلاس به نام Person ایجاد کنید، از متد __init__() برای اختصاص مقادیر برای نام و سن استفاده کنید:</p>
+                    <div class="code-block">
+                        class Person:<br>
+                        &nbsp;&nbsp;def __init__(self, name, age):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.age = age<br><br>
+                        p1 = Person("امیل", 36)<br><br>
+                        print(p1.name)<br>
+                        print(p1.age)
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h4>توجه</h4>
+                    <p>متد __init__() به طور خودکار هر بار که از کلاس برای ایجاد یک شیء جدید استفاده می‌شود، فراخوانی می‌شود.</p>
+                </div>
+                
+                <h3>چرا از __init__() استفاده کنیم؟</h3>
+                <p>بدون متد __init__()، باید ویژگی‌ها را به صورت دستی برای هر شیء تنظیم کنید:</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک کلاس بدون __init__() ایجاد کنید:</p>
+                    <div class="code-block">
+                        class Person:<br>
+                        &nbsp;&nbsp;pass<br><br>
+                        p1 = Person()<br>
+                        p1.name = "توبیاس"<br>
+                        p1.age = 25<br><br>
+                        print(p1.name)<br>
+                        print(p1.age)
+                    </div>
+                </div>
+                
+                <p>استفاده از __init__() ایجاد اشیاء با مقادیر اولیه را آسان‌تر می‌کند:</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>با __init__()، می‌توانید مقادیر اولیه را هنگام ایجاد شیء تنظیم کنید:</p>
+                    <div class="code-block">
+                        class Person:<br>
+                        &nbsp;&nbsp;def __init__(self, name, age):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.age = age<br><br>
+                        p1 = Person("لینوس", 28)<br><br>
+                        print(p1.name)<br>
+                        print(p1.age)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- تست تعاملی سوم -->
+            <div class="quiz">
+                <h3>تست درک مطلب: متد __init__</h3>
+                <div class="question">
+                    <p>متد __init__() در پایتون چه زمانی اجرا می‌شود؟</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="question3" value="a">
+                        <label for="q3a">فقط وقتی شیء حذف می‌شود</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="question3" value="b">
+                        <label for="q3b">فقط وقتی به صورت دستی فراخوانی شود</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="question3" value="c">
+                        <label for="q3c">هر بار که از کلاس برای ایجاد یک شیء جدید استفاده می‌شود</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="question3" value="d">
+                        <label for="q3d">فقط یک بار هنگام تعریف کلاس</label>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="checkAnswer(3, 'c')">بررسی پاسخ</button>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="section">
+                <h2>وراثت در پایتون</h2>
+                <p>وراثت به ما امکان می‌دهد کلاسی را تعریف کنیم که تمام متدها و ویژگی‌ها را از کلاس دیگری به ارث می‌برد.</p>
+                <p>کلاس والد، کلاسی است که از آن ارث‌بری می‌شود، که به آن کلاس پایه نیز می‌گویند.</p>
+                <p>کلاس فرزند، کلاسی است که از کلاس دیگری ارث‌بری می‌کند، که به آن کلاس مشتق شده نیز می‌گویند.</p>
+                
+                <h3>ایجاد یک کلاس والد</h3>
+                <p>هر کلاسی می‌تواند یک کلاس والد باشد، بنابراین نحو آن مانند ایجاد هر کلاس دیگری است:</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک کلاس به نام Person با ویژگی‌های firstname و lastname و یک متد printname ایجاد کنید:</p>
+                    <div class="code-block">
+                        class Person:<br>
+                        &nbsp;&nbsp;def __init__(self, fname, lname):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.firstname = fname<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;self.lastname = lname<br><br>
+                        &nbsp;&nbsp;def printname(self):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(self.firstname, self.lastname)<br><br>
+                        # از کلاس Person برای ایجاد یک شیء استفاده کنید و سپس متد printname را اجرا کنید:<br><br>
+                        x = Person("جان", "دو")<br>
+                        x.printname()
+                    </div>
+                </div>
+                
+                <h3>ایجاد یک کلاس فرزند</h3>
+                <p>برای ایجاد کلاسی که قابلیت‌های کلاس دیگری را به ارث می‌برد، کلاس والد را به عنوان پارامتر هنگام ایجاد کلاس فرزند ارسال کنید:</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>یک کلاس به نام Student ایجاد کنید که ویژگی‌ها و متدهای کلاس Person را به ارث می‌برد:</p>
+                    <div class="code-block">
+                        class Student(Person):<br>
+                        &nbsp;&nbsp;pass
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h4>توجه</h4>
+                    <p>از کلمه کلیدی pass استفاده کنید وقتی نمی‌خواهید ویژگی‌ها یا متدهای دیگری به کلاس اضافه کنید.</p>
+                </div>
+                
+                <p>اکنون کلاس Student همان ویژگی‌ها و متدهای کلاس Person را دارد.</p>
+                
+                <div class="example">
+                    <h4>مثال</h4>
+                    <p>از کلاس Student برای ایجاد یک شیء استفاده کنید و سپس متد printname را اجرا کنید:</p>
+                    <div class="code-block">
+                        x = Student("مایک", "اولسن")<br>
+                        x.printname()
+                    </div>
+                </div>
+            </div>
+            
+            <!-- تست تعاملی چهارم -->
+            <div class="quiz">
+                <h3>تست درک مطلب: وراثت</h3>
+                <div class="question">
+                    <p>در وراثت در پایتون، کدام گزینه صحیح است؟</p>
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="question4" value="a">
+                        <label for="q4a">کلاس فرزند نمی‌تواند متدهای کلاس والد را تغییر دهد</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="question4" value="b">
+                        <label for="q4b">کلاس فرزند تمام ویژگی‌ها و متدهای کلاس والد را به ارث می‌برد</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="question4" value="c">
+                        <label for="q4c">یک کلاس فقط می‌تواند از یک کلاس والد ارث‌بری کند</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="question4" value="d">
+                        <label for="q4d">کلاس والد نمی‌تواند ویژگی‌های جدیدی داشته باشد</label>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="checkAnswer(4, 'b')">بررسی پاسخ</button>
+                <div id="result4" class="result"></div>
+            </div>
+            
+        </div>
+        
+        <!-- نوار کناری مسیر آموزشی -->
+        <div class="sidebar">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="course-list">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html" class="active">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-icon">آ</a>
+                        <a href="https://t.me/busintell" class="social-icon">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-icon">ب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 BusIntell. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تابع بررسی پاسخ تست‌ها
+        function checkAnswer(questionNum, correctAnswer) {
+            const selectedOption = document.querySelector(`input[name="question${questionNum}"]:checked`);
+            const resultDiv = document.getElementById(`result${questionNum}`);
+            
+            if (!selectedOption) {
+                alert("لطفاً یک گزینه انتخاب کنید");
+                return;
+            }
+            
+            if (selectedOption.value === correctAnswer) {
+                resultDiv.textContent = "پاسخ شما صحیح است!";
+                resultDiv.className = "result correct";
+            } else {
+                resultDiv.textContent = "پاسخ شما نادرست است. لطفاً مجدداً مطالعه کنید.";
+                resultDiv.className = "result incorrect";
+            }
+            
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>

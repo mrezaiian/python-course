@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انواع داده - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(4, 58, 142, 0.1);
+        }
+        
+        .btn-signup:hover {
+            background-color: var(--sea-blue);
+        }
+        
+        /* محتوای اصلی */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 5%;
+            gap: 2rem;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .content h2 {
+            color: var(--dark-blue);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            direction: ltr;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* بخش مسیر آموزشی */
+        .learning-path {
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .learning-path h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .path-list a {
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            color: var(--dark-blue);
+        }
+        
+        .path-list a:hover {
+            background-color: rgba(4, 58, 142, 0.1);
+        }
+        
+        .path-list a.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* بخش آزمون */
+        .quiz-section {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .quiz-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-options {
+            margin: 1rem 0;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-option label {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: var(--sea-blue);
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background-color: rgba(34, 137, 87, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+        
+        .quiz-result.incorrect {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                width: 100%;
+                position: static;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">BusIntell</div>
+            <ul class="nav-links">
+                <li><a href="index.html">خانه</a></li>
+                <li><a href="features.html">ویژگی‌ها</a></li>
+                <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                <li><a href="about.html">درباره ما</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-login">ورود</button>
+                <button class="btn btn-signup">ثبت‌نام</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="main-container">
+        <!-- بخش مسیر آموزشی -->
+        <aside class="learning-path">
+            <h3>مسیر آموزشی پایتون</h3>
+            <ul class="path-list">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html" class="active">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </aside>
+
+        <!-- محتوای آموزشی -->
+        <main class="content">
+            <h1>انواع داده در پایتون</h1>
+            
+            <h2>انواع داده داخلی</h2>
+            <p>در برنامه‌نویسی، نوع داده یک مفهوم مهم است.</p>
+            <p>متغیرها می‌توانند داده‌هایی از انواع مختلف را ذخیره کنند و انواع مختلف می‌توانند کارهای مختلفی انجام دهند.</p>
+            <p>پایتون به طور پیش‌فرض انواع داده زیر را در این دسته‌بندی‌ها دارد:</p>
+            
+            <table>
+                <tr>
+                    <th>دسته‌بندی</th>
+                    <th>انواع داده</th>
+                </tr>
+                <tr>
+                    <td>نوع متنی</td>
+                    <td>str</td>
+                </tr>
+                <tr>
+                    <td>انواع عددی</td>
+                    <td>int, float, complex</td>
+                </tr>
+                <tr>
+                    <td>انواع دنباله‌ای</td>
+                    <td>list, tuple, range</td>
+                </tr>
+                <tr>
+                    <td>نوع نگاشت</td>
+                    <td>dict</td>
+                </tr>
+                <tr>
+                    <td>انواع مجموعه</td>
+                    <td>set, frozenset</td>
+                </tr>
+                <tr>
+                    <td>نوع بولین</td>
+                    <td>bool</td>
+                </tr>
+                <tr>
+                    <td>انواع باینری</td>
+                    <td>bytes, bytearray, memoryview</td>
+                </tr>
+                <tr>
+                    <td>نوع None</td>
+                    <td>NoneType</td>
+                </tr>
+            </table>
+            
+            <h2>دریافت نوع داده</h2>
+            <p>می‌توانید نوع داده هر شیء را با استفاده از تابع type() دریافت کنید:</p>
+            
+            <div class="code-block">
+                <code>
+                    # چاپ نوع داده متغیر x<br>
+                    x = 5<br>
+                    print(type(x))
+                </code>
+            </div>
+            
+            <h2>تنظیم نوع داده</h2>
+            <p>در پایتون، نوع داده زمانی که یک مقدار را به یک متغیر اختصاص می‌دهید تنظیم می‌شود:</p>
+            
+            <table>
+                <tr>
+                    <th>مثال</th>
+                    <th>نوع داده</th>
+                </tr>
+                <tr>
+                    <td>x = "Hello World"</td>
+                    <td>str</td>
+                </tr>
+                <tr>
+                    <td>x = 20</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>x = 20.5</td>
+                    <td>float</td>
+                </tr>
+                <tr>
+                    <td>x = 1j</td>
+                    <td>complex</td>
+                </tr>
+                <tr>
+                    <td>x = ["apple", "banana", "cherry"]</td>
+                    <td>list</td>
+                </tr>
+                <tr>
+                    <td>x = ("apple", "banana", "cherry")</td>
+                    <td>tuple</td>
+                </tr>
+                <tr>
+                    <td>x = range(6)</td>
+                    <td>range</td>
+                </tr>
+                <tr>
+                    <td>x = {"name" : "John", "age" : 36}</td>
+                    <td>dict</td>
+                </tr>
+                <tr>
+                    <td>x = {"apple", "banana", "cherry"}</td>
+                    <td>set</td>
+                </tr>
+                <tr>
+                    <td>x = frozenset({"apple", "banana", "cherry"})</td>
+                    <td>frozenset</td>
+                </tr>
+                <tr>
+                    <td>x = True</td>
+                    <td>bool</td>
+                </tr>
+                <tr>
+                    <td>x = b"Hello"</td>
+                    <td>bytes</td>
+                </tr>
+                <tr>
+                    <td>x = bytearray(5)</td>
+                    <td>bytearray</td>
+                </tr>
+                <tr>
+                    <td>x = memoryview(bytes(5))</td>
+                    <td>memoryview</td>
+                </tr>
+                <tr>
+                    <td>x = None</td>
+                    <td>NoneType</td>
+                </tr>
+            </table>
+            
+            <h2>تنظیم نوع داده خاص</h2>
+            <p>اگر می‌خواهید نوع داده را مشخص کنید، می‌توانید از توابع سازنده زیر استفاده کنید:</p>
+            
+            <table>
+                <tr>
+                    <th>مثال</th>
+                    <th>نوع داده</th>
+                </tr>
+                <tr>
+                    <td>x = str("Hello World")</td>
+                    <td>str</td>
+                </tr>
+                <tr>
+                    <td>x = int(20)</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>x = float(20.5)</td>
+                    <td>float</td>
+                </tr>
+                <tr>
+                    <td>x = complex(1j)</td>
+                    <td>complex</td>
+                </tr>
+                <tr>
+                    <td>x = list(("apple", "banana", "cherry"))</td>
+                    <td>list</td>
+                </tr>
+                <tr>
+                    <td>x = tuple(("apple", "banana", "cherry"))</td>
+                    <td>tuple</td>
+                </tr>
+                <tr>
+                    <td>x = range(6)</td>
+                    <td>range</td>
+                </tr>
+                <tr>
+                    <td>x = dict(name="John", age=36)</td>
+                    <td>dict</td>
+                </tr>
+                <tr>
+                    <td>x = set(("apple", "banana", "cherry"))</td>
+                    <td>set</td>
+                </tr>
+                <tr>
+                    <td>x = frozenset(("apple", "banana", "cherry"))</td>
+                    <td>frozenset</td>
+                </tr>
+                <tr>
+                    <td>x = bool(5)</td>
+                    <td>bool</td>
+                </tr>
+                <tr>
+                    <td>x = bytes(5)</td>
+                    <td>bytes</td>
+                </tr>
+                <tr>
+                    <td>x = bytearray(5)</td>
+                    <td>bytearray</td>
+                </tr>
+                <tr>
+                    <td>x = memoryview(bytes(5))</td>
+                    <td>memoryview</td>
+                </tr>
+            </table>
+            
+            <!-- بخش آزمون -->
+            <div class="quiz-section">
+                <h3>آزمون: انواع داده در پایتون</h3>
+                
+                <div class="quiz-question">
+                    <p>1. کدام یک از موارد زیر نوع داده عدد صحیح (integer) را نشان می‌دهد؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">x = "5"</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">x = 5.0</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">x = 5</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">x = [5]</label>
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="result1"></div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>2. کدام یک از موارد زیر نوع داده لیست (list) را نشان می‌دهد؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">x = (1, 2, 3)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">x = {1, 2, 3}</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">x = [1, 2, 3]</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">x = "1, 2, 3"</label>
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="result2"></div>
+                </div>
+                
+                <button class="quiz-submit" onclick="checkQuiz()">بررسی پاسخ‌ها</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>BusIntell</h3>
+                <p>پلتفرم آموزشی برنامه‌نویسی پایتون با تمرین‌های تعاملی و مسیر یادگیری ساختاریافته.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>لینک‌های سریع</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>اطلاعات تماس</h3>
+                <ul class="footer-links">
+                    <li>ایمیل: info@busintell.com</li>
+                    <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    <li>آدرس: تهران، خیابان ولیعصر</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>شبکه‌های اجتماعی</h3>
+                <p>ما را در شبکه‌های اجتماعی دنبال کنید</p>
+                <div class="social-links">
+                    <a href="https://www.aparat.com/busintell" class="social-icon" target="_blank">آ</a>
+                    <a href="https://t.me/busintell" class="social-icon" target="_blank">ت</a>
+                    <a href="https://ble.ir/busintell" class="social-icon" target="_blank">ب</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 BusIntell. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkQuiz() {
+            // پاسخ‌های صحیح
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'c'
+            };
+            
+            // بررسی پاسخ اول
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            const result1 = document.getElementById('result1');
+            
+            if (q1Answer) {
+                if (q1Answer.value === correctAnswers.q1) {
+                    result1.textContent = "✅ پاسخ شما صحیح است! x = 5 یک عدد صحیح (int) است.";
+                    result1.className = "quiz-result correct";
+                } else {
+                    result1.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح x = 5 است که یک عدد صحیح (int) را نشان می‌دهد.";
+                    result1.className = "quiz-result incorrect";
+                }
+                result1.style.display = 'block';
+            }
+            
+            // بررسی پاسخ دوم
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            const result2 = document.getElementById('result2');
+            
+            if (q2Answer) {
+                if (q2Answer.value === correctAnswers.q2) {
+                    result2.textContent = "✅ پاسخ شما صحیح است! x = [1, 2, 3] یک لیست (list) است.";
+                    result2.className = "quiz-result correct";
+                } else {
+                    result2.textContent = "❌ پاسخ شما نادرست است. گزینه صحیح x = [1, 2, 3] است که یک لیست (list) را نشان می‌دهد.";
+                    result2.className = "quiz-result incorrect";
+                }
+                result2.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

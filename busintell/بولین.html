@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بولین پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --brown-gold: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9c16c;
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .content h2 {
+            color: var(--navy-blue);
+            margin: 25px 0 15px;
+            font-size: 24px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: justify;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+        }
+        
+        .code-example code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+        }
+        
+        .result {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--light-blue);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .quiz-section {
+            background-color: #f0f7ff;
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .quiz-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-option input {
+            margin-left: 10px;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .quiz-submit:hover {
+            background-color: var(--navy-blue);
+        }
+        
+        /* استایل مسیر آموزشی */
+        .learning-path {
+            width: 300px;
+            margin-right: 30px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .learning-path h2 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .path-list {
+            list-style: none;
+        }
+        
+        .path-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .path-list li:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .path-list li.active {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .path-list li a {
+            display: block;
+            width: 100%;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links li a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .learning-path {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .path-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login">ورود</button>
+                <button class="btn btn-signup">ثبت‌نام</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container main-content">
+        <!-- مسیر آموزشی -->
+        <aside class="learning-path">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="path-list">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li class="active"><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </aside>
+
+        <!-- محتوای بولین -->
+        <main class="content">
+            <h1>بولین پایتون</h1>
+            <p>بولین‌ها یکی از دو مقدار را نشان می‌دهند: <code>True</code> یا <code>False</code>.</p>
+
+            <h2>مقادیر بولین</h2>
+            <p>در برنامه‌نویسی، اغلب نیاز دارید بدانید که یک عبارت True است یا False.</p>
+            <p>شما می‌توانید هر عبارتی را در پایتون ارزیابی کنید و یکی از دو پاسخ True یا False را دریافت کنید.</p>
+            <p>وقتی دو مقدار را با هم مقایسه می‌کنید، عبارت ارزیابی شده و پایتون پاسخ بولین را برمی‌گرداند:</p>
+
+            <div class="code-example">
+                <code>
+                    print(10 > 9)<br>
+                    print(10 == 9)<br>
+                    print(10 &lt; 9)
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True<br>
+                False<br>
+                False
+            </div>
+
+            <p>وقتی یک شرط را در یک عبارت if اجرا می‌کنید، پایتون True یا False را برمی‌گرداند:</p>
+
+            <div class="code-example">
+                <code>
+                    a = 200<br>
+                    b = 33<br><br>
+                    
+                    if b > a:<br>
+                    &nbsp;&nbsp;print("b is greater than a")<br>
+                    else:<br>
+                    &nbsp;&nbsp;print("b is not greater than a")
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                b is not greater than a
+            </div>
+
+            <h2>ارزیابی مقادیر و متغیرها</h2>
+            <p>تابع <code>bool()</code> به شما امکان می‌دهد هر مقداری را ارزیابی کنید و در ازای آن True یا False را به شما بدهد.</p>
+
+            <div class="code-example">
+                <code>
+                    print(bool("Hello"))<br>
+                    print(bool(15))
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True<br>
+                True
+            </div>
+
+            <div class="code-example">
+                <code>
+                    x = "Hello"<br>
+                    y = 15<br><br>
+                    
+                    print(bool(x))<br>
+                    print(bool(y))
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True<br>
+                True
+            </div>
+
+            <h2>اکثر مقادیر True هستند</h2>
+            <p>تقریباً هر مقداری که محتوایی داشته باشد، به True ارزیابی می‌شود.</p>
+            <p>هر رشته‌ای True است، به جز رشته‌های خالی.</p>
+            <p>هر عددی True است، به جز 0.</p>
+            <p>هر لیست، تاپل، مجموعه و دیکشنری True است، به جز موارد خالی.</p>
+
+            <div class="code-example">
+                <code>
+                    bool("abc")<br>
+                    bool(123)<br>
+                    bool(["apple", "cherry", "banana"])
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True<br>
+                True<br>
+                True
+            </div>
+
+            <h2>برخی مقادیر False هستند</h2>
+            <p>در واقع، مقادیر زیادی وجود ندارد که به False ارزیابی شوند، به جز مقادیر خالی، مانند <code>()</code>، <code>[]</code>، <code>{}</code>، <code>""</code>، عدد 0 و مقدار None. و البته مقدار False به False ارزیابی می‌شود.</p>
+
+            <div class="code-example">
+                <code>
+                    bool(False)<br>
+                    bool(None)<br>
+                    bool(0)<br>
+                    bool("")<br>
+                    bool(())<br>
+                    bool([])<br>
+                    bool({})
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                False<br>
+                False<br>
+                False<br>
+                False<br>
+                False<br>
+                False<br>
+                False
+            </div>
+
+            <p>یک مقدار دیگر، یا شیء در این مورد، به False ارزیابی می‌شود، و آن این است که اگر شما یک شیء داشته باشید که از یک کلاس با تابع <code>__len__</code> ساخته شده باشد که 0 یا False را برمی‌گرداند:</p>
+
+            <div class="code-example">
+                <code>
+                    class myclass():<br>
+                    &nbsp;&nbsp;def __len__(self):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return 0<br><br>
+                    
+                    myobj = myclass()<br>
+                    print(bool(myobj))
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                False
+            </div>
+
+            <h2>توابع می‌توانند یک بولین برگردانند</h2>
+            <p>شما می‌توانید توابعی ایجاد کنید که یک مقدار بولین برگردانند:</p>
+
+            <div class="code-example">
+                <code>
+                    def myFunction():<br>
+                    &nbsp;&nbsp;return True<br><br>
+                    
+                    print(myFunction())
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True
+            </div>
+
+            <p>شما می‌توانید کد را بر اساس پاسخ بولین یک تابع اجرا کنید:</p>
+
+            <div class="code-example">
+                <code>
+                    def myFunction():<br>
+                    &nbsp;&nbsp;return True<br><br>
+                    
+                    if myFunction():<br>
+                    &nbsp;&nbsp;print("YES!")<br>
+                    else:<br>
+                    &nbsp;&nbsp;print("NO!")
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                YES!
+            </div>
+
+            <p>پایتون همچنین توابع داخلی زیادی دارد که یک مقدار بولین برمی‌گردانند، مانند تابع <code>isinstance()</code> که می‌تواند برای تعیین اینکه آیا یک شیء از نوع داده خاصی است استفاده شود:</p>
+
+            <div class="code-example">
+                <code>
+                    x = 200<br>
+                    print(isinstance(x, int))
+                </code>
+            </div>
+            <div class="result">
+                <strong>خروجی:</strong><br>
+                True
+            </div>
+
+            <!-- بخش آزمون -->
+            <div class="quiz-section">
+                <h3>آزمون درک مطلب</h3>
+                <p class="quiz-question">1. کدام یک از مقادیر زیر به False ارزیابی می‌شود؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a" name="question1" value="a">
+                        <label for="q1a">"Hello"</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1b" name="question1" value="b">
+                        <label for="q1b">15</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1c" name="question1" value="c">
+                        <label for="q1c">""</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1d" name="question1" value="d">
+                        <label for="q1d">["apple", "banana"]</label>
+                    </div>
+                </div>
+
+                <p class="quiz-question">2. خروجی کد زیر چیست؟</p>
+                <div class="code-example">
+                    <code>
+                        x = 0<br>
+                        print(bool(x))
+                    </code>
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a" name="question2" value="a">
+                        <label for="q2a">True</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2b" name="question2" value="b">
+                        <label for="q2b">False</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2c" name="question2" value="c">
+                        <label for="q2c">0</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2d" name="question2" value="d">
+                        <label for="q2d">Error</label>
+                    </div>
+                </div>
+
+                <button class="quiz-submit">ارسال پاسخ‌ها</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی BusIntell با هدف ارائه آموزش‌های برنامه‌نویسی پایتون با تمرین‌های تعاملی ایجاد شده است. ما معتقدیم که یادگیری برنامه‌نویسی باید برای همه در دسترس و لذت‌بخش باشد.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>ارتباط با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link">آپارات</a>
+                        <a href="https://t.me/busintell" class="social-link">تلگرام</a>
+                        <a href="https://ble.ir/busintell" class="social-link">بله</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>تمامی حقوق برای BusIntell محفوظ است. © ۱۴۰۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // اسکریپت برای آزمون
+        document.querySelector('.quiz-submit').addEventListener('click', function() {
+            const q1 = document.querySelector('input[name="question1"]:checked');
+            const q2 = document.querySelector('input[name="question2"]:checked');
+            
+            let score = 0;
+            let message = "نتایج آزمون:\n\n";
+            
+            if (q1 && q1.value === 'c') {
+                score++;
+                message += "سوال ۱: ✅ پاسخ صحیح\n";
+            } else {
+                message += "سوال ۱: ❌ پاسخ نادرست (پاسخ صحیح: رشته خالی)\n";
+            }
+            
+            if (q2 && q2.value === 'b') {
+                score++;
+                message += "سوال ۲: ✅ پاسخ صحیح\n";
+            } else {
+                message += "سوال ۲: ❌ پاسخ نادرست (پاسخ صحیح: False)\n";
+            }
+            
+            message += `\nامتیاز شما: ${score} از ۲`;
+            
+            alert(message);
+        });
+    </script>
+</body>
+</html>

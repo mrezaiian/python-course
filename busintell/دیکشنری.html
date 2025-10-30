@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دیکشنری پایتون | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --navy-blue: #0a407c;
+            --brown-gold: #999459;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+        
+        .btn-login:hover {
+            background-color: var(--white);
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-signup:hover {
+            background-color: var(--gold-yellow);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            margin: 2rem 0;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            width: 300px;
+            margin-right: 2rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar ul li a {
+            color: var(--dark-blue);
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        
+        .sidebar ul li a.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        /* Content Sections */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .section h3 {
+            color: var(--navy-blue);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .section p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-example {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--gold);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background-color: #ffe6e6;
+            border-left: 4px solid #ff4d4d;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        /* Quiz Section */
+        .quiz {
+            background-color: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .quiz h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-options {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: var(--navy-blue);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            margin-bottom: 0.5rem;
+            display: block;
+            color: var(--light-blue);
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light-blue);
+            color: var(--light-blue);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login">ورود</button>
+                <button class="btn btn-signup">ثبت‌نام</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>مسیر آموزشی پایتون</h3>
+            <ul>
+                <li><a href="introduction.html">مقدمه</a></li>
+                <li><a href="syntax.html">سینتکس</a></li>
+                <li><a href="variables.html">متغیر</a></li>
+                <li><a href="data-types.html">انواع داده</a></li>
+                <li><a href="numbers.html">عدد</a></li>
+                <li><a href="strings.html">رشته</a></li>
+                <li><a href="booleans.html">بولین</a></li>
+                <li><a href="operators.html">عملیات ها</a></li>
+                <li><a href="lists.html">لیست</a></li>
+                <li><a href="tuples.html">تاپل</a></li>
+                <li><a href="sets.html">مجموعه ها</a></li>
+                <li><a href="dictionaries.html" class="active">دیکشنری</a></li>
+                <li><a href="if-statements.html">حلقه if</a></li>
+                <li><a href="while-loops.html">حلقه while</a></li>
+                <li><a href="functions.html">توابع</a></li>
+                <li><a href="file-handling.html">کار با فایل</a></li>
+                <li><a href="error-handling.html">مدیریت خطا</a></li>
+                <li><a href="classes.html">کلاس ها</a></li>
+                <li><a href="modules.html">ماژول</a></li>
+                <li><a href="iterators.html">ایتریتور</a></li>
+                <li><a href="data-processing.html">کار با داده ها</a></li>
+                <li><a href="data-visualization.html">مصور سازی داده</a></li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <h1>دیکشنری پایتون</h1>
+            
+            <div class="section">
+                <h2>دیکشنری چیست؟</h2>
+                <p>دیکشنری‌ها برای ذخیره مقادیر داده در قالب جفت‌های کلید:مقدار استفاده می‌شوند.</p>
+                <p>یک دیکشنری مجموعه‌ای است که مرتب‌شده، قابل تغییر است و اجازه تکراری‌ها را نمی‌دهد.</p>
+                <p>از نسخه 3.7 پایتون، دیکشنری‌ها مرتب‌شده هستند. در پایتون 3.6 و نسخه‌های قبل، دیکشنری‌ها نامرتب بودند.</p>
+                <p>دیکشنری‌ها با آکولاد نوشته می‌شوند و دارای کلید و مقدار هستند:</p>
+                
+                <div class="code-example">
+                    thisdict = {<br>
+                    &nbsp;&nbsp;"brand": "Ford",<br>
+                    &nbsp;&nbsp;"model": "Mustang",<br>
+                    &nbsp;&nbsp;"year": 1964<br>
+                    }<br>
+                    print(thisdict)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>آیتم‌های دیکشنری</h2>
+                <p>آیتم‌های دیکشنری مرتب‌شده، قابل تغییر هستند و اجازه تکراری‌ها را نمی‌دهند.</p>
+                <p>آیتم‌های دیکشنری به صورت جفت‌های کلید:مقدار ارائه می‌شوند و می‌توان با استفاده از نام کلید به آن‌ها ارجاع داد.</p>
+                
+                <div class="code-example">
+                    thisdict = {<br>
+                    &nbsp;&nbsp;"brand": "Ford",<br>
+                    &nbsp;&nbsp;"model": "Mustang",<br>
+                    &nbsp;&nbsp;"year": 1964<br>
+                    }<br>
+                    print(thisdict["brand"])
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>مرتب‌شده یا نامرتب؟</h2>
+                <p>از نسخه 3.7 پایتون، دیکشنری‌ها مرتب‌شده هستند. در پایتون 3.6 و نسخه‌های قبل، دیکشنری‌ها نامرتب بودند.</p>
+                <p>وقتی می‌گوییم دیکشنری‌ها مرتب‌شده هستند، یعنی آیتم‌ها دارای ترتیب مشخصی هستند و این ترتیب تغییر نخواهد کرد.</p>
+                <p>نامرتب بودن به این معنی است که آیتم‌ها ترتیب مشخصی ندارند و نمی‌توان با استفاده از ایندکس به یک آیتم ارجاع داد.</p>
+            </div>
+            
+            <div class="section">
+                <h2>قابل تغییر</h2>
+                <p>دیکشنری‌ها قابل تغییر هستند، به این معنی که می‌توانیم پس از ایجاد دیکشنری، آیتم‌ها را تغییر داده، اضافه یا حذف کنیم.</p>
+            </div>
+            
+            <div class="section">
+                <h2>عدم اجازه تکراری‌ها</h2>
+                <p>دیکشنری‌ها نمی‌توانند دو آیتم با کلید یکسان داشته باشند:</p>
+                
+                <div class="code-example">
+                    thisdict = {<br>
+                    &nbsp;&nbsp;"brand": "Ford",<br>
+                    &nbsp;&nbsp;"model": "Mustang",<br>
+                    &nbsp;&nbsp;"year": 1964,<br>
+                    &nbsp;&nbsp;"year": 2020<br>
+                    }<br>
+                    print(thisdict)
+                </div>
+                
+                <div class="note">
+                    <p>مقادیر تکراری، مقادیر موجود را بازنویسی می‌کنند.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>طول دیکشنری</h2>
+                <p>برای تعیین تعداد آیتم‌های یک دیکشنری، از تابع len() استفاده کنید:</p>
+                
+                <div class="code-example">
+                    print(len(thisdict))
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>آیتم‌های دیکشنری - انواع داده</h2>
+                <p>مقادیر در آیتم‌های دیکشنری می‌توانند از هر نوع داده‌ای باشند:</p>
+                
+                <div class="code-example">
+                    thisdict = {<br>
+                    &nbsp;&nbsp;"brand": "Ford",<br>
+                    &nbsp;&nbsp;"electric": False,<br>
+                    &nbsp;&nbsp;"year": 1964,<br>
+                    &nbsp;&nbsp;"colors": ["red", "white", "blue"]<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>type()</h2>
+                <p>از دیدگاه پایتون، دیکشنری‌ها به عنوان اشیاء با نوع داده 'dict' تعریف می‌شوند:</p>
+                
+                <div class="code-example">
+                    thisdict = {<br>
+                    &nbsp;&nbsp;"brand": "Ford",<br>
+                    &nbsp;&nbsp;"model": "Mustang",<br>
+                    &nbsp;&nbsp;"year": 1964<br>
+                    }<br>
+                    print(type(thisdict))
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>سازنده dict()</h2>
+                <p>همچنین می‌توان از سازنده dict() برای ایجاد یک دیکشنری استفاده کرد:</p>
+                
+                <div class="code-example">
+                    thisdict = dict(name = "John", age = 36, country = "Norway")<br>
+                    print(thisdict)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>مجموعه‌های پایتون (آرایه‌ها)</h2>
+                <p>چهار نوع داده مجموعه در زبان برنامه‌نویسی پایتون وجود دارد:</p>
+                <ul>
+                    <li><strong>لیست</strong>: مجموعه‌ای است که مرتب‌شده و قابل تغییر است. اجازه اعضای تکراری را می‌دهد.</li>
+                    <li><strong>تاپل</strong>: مجموعه‌ای است که مرتب‌شده و غیرقابل تغییر است. اجازه اعضای تکراری را می‌دهد.</li>
+                    <li><strong>مجموعه</strong>: مجموعه‌ای است که نامرتب، غیرقابل تغییر* و بدون ایندکس است. هیچ عضو تکراری ندارد.</li>
+                    <li><strong>دیکشنری</strong>: مجموعه‌ای است که مرتب‌شده** و قابل تغییر است. هیچ عضو تکراری ندارد.</li>
+                </ul>
+                <div class="note">
+                    <p>*آیتم‌های مجموعه غیرقابل تغییر هستند، اما می‌توانید هر زمان که بخواهید آیتم‌ها را حذف و/یا اضافه کنید.</p>
+                    <p>**از نسخه 3.7 پایتون، دیکشنری‌ها مرتب‌شده هستند. در پایتون 3.6 و نسخه‌های قبل، دیکشنری‌ها نامرتب بودند.</p>
+                </div>
+            </div>
+            
+            <!-- Quiz Section -->
+            <div class="quiz">
+                <h3>آزمون: دیکشنری پایتون</h3>
+                <p>برای سنجش یادگیری خود در مورد دیکشنری‌ها، به سوالات زیر پاسخ دهید:</p>
+                
+                <div class="quiz-question">
+                    <p>1. کدام یک از موارد زیر یک دیکشنری معتبر در پایتون است؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">my_dict = {1: "one", 2: "two", 3: "three"}</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">my_dict = [1: "one", 2: "two", 3: "three"]</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">my_dict = (1: "one", 2: "two", 3: "three")</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>2. چگونه می‌توانید مقدار "model" را از دیکشنری زیر دریافت کنید؟</p>
+                    <div class="code-example">
+                        car = {<br>
+                        &nbsp;&nbsp;"brand": "Ford",<br>
+                        &nbsp;&nbsp;"model": "Mustang",<br>
+                        &nbsp;&nbsp;"year": 1964<br>
+                        }
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">car.get("model")</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">car["model"]</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">هر دو گزینه بالا</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>3. کدام روش برای حذف تمام آیتم‌های یک دیکشنری استفاده می‌شود؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">clear()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">remove()</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">delete()</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="quiz-submit">ارسال پاسخ‌ها</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BusIntell</h3>
+                    <p>پلتفرم آموزشی برنامه‌نویسی پایتون با تمرین‌های تعاملی</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <a href="index.html">خانه</a>
+                    <a href="features.html">ویژگی‌ها</a>
+                    <a href="learning-path.html">مسیر آموزشی</a>
+                    <a href="about.html">درباره ما</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>اطلاعات تماس</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" class="social-link" target="_blank">آ</a>
+                        <a href="https://t.me/busintell" class="social-link" target="_blank">ت</a>
+                        <a href="https://ble.ir/busintell" class="social-link" target="_blank">ب</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>کلیه حقوق محفوظ است © ۲۰۲۳ BusIntell</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple quiz functionality
+        document.querySelector('.quiz-submit').addEventListener('click', function() {
+            let score = 0;
+            const totalQuestions = 3;
+            
+            // Check question 1
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            if (q1 && q1.value === 'a') {
+                score++;
+            }
+            
+            // Check question 2
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if (q2 && q2.value === 'c') {
+                score++;
+            }
+            
+            // Check question 3
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            if (q3 && q3.value === 'a') {
+                score++;
+            }
+            
+            alert(`نمره شما: ${score} از ${totalQuestions}\n\nپاسخ صحیح:\n1. گزینه اول\n2. هر دو گزینه بالا\n3. clear()`);
+        });
+    </script>
+</body>
+</html>

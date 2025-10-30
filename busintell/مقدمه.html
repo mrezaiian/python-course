@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقدمه پایتون - BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --main-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --golden-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --golden-brown: #999459;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* استایل هدر و ناوبری */
+        header {
+            background-color: var(--main-blue);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            margin-left: 10px;
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--main-blue);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* استایل محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-left: 20px;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar h3 {
+            color: var(--main-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar ul li a {
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            color: var(--dark-blue);
+            border-right: 3px solid transparent;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: rgba(104, 187, 239, 0.1);
+            border-right: 3px solid var(--light-blue);
+        }
+        
+        .sidebar ul li.active a {
+            background-color: rgba(104, 187, 239, 0.2);
+            border-right: 3px solid var(--main-blue);
+            color: var(--main-blue);
+            font-weight: 500;
+        }
+        
+        /* استایل بخش‌های محتوا */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: var(--main-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .section h3 {
+            color: var(--sea-blue);
+            margin: 20px 0 10px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .section ul {
+            margin-right: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .code-example {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: Consolas, monospace;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        /* استایل کوییز */
+        .quiz {
+            background-color: #f0f8ff;
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .quiz h3 {
+            color: var(--main-blue);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            margin-bottom: 10px;
+        }
+        
+        .quiz-option input {
+            margin-left: 8px;
+        }
+        
+        .quiz-submit {
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #1a7a4d;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--light-blue);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin-left: 10px;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--light-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* استایل ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+            }
+            
+            .auth-buttons {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">BusIntell</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">ورود</button>
+                    <button class="btn btn-signup">ثبت‌نام</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <div class="main-content">
+            <!-- نوار کناری مسیر آموزشی -->
+            <aside class="sidebar">
+                <h3>مسیر آموزشی پایتون</h3>
+                <ul>
+                    <li class="active"><a href="مقدمه.html">مقدمه</a></li>
+                    <li><a href="سینتکس.html">سینتکس</a></li>
+                    <li><a href="متغیر.html">متغیر</a></li>
+                    <li><a href="انواع-داده.html">انواع داده</a></li>
+                    <li><a href="عدد.html">عدد</a></li>
+                    <li><a href="رشته.html">رشته</a></li>
+                    <li><a href="بولین.html">بولین</a></li>
+                    <li><a href="عملیات-ها.html">عملیات‌ها</a></li>
+                    <li><a href="لیست.html">لیست</a></li>
+                    <li><a href="تاپل.html">تاپل</a></li>
+                    <li><a href="مجموعه-ها.html">مجموعه‌ها</a></li>
+                    <li><a href="دیکشنری.html">دیکشنری</a></li>
+                    <li><a href="حلقه-if.html">حلقه if</a></li>
+                    <li><a href="حلقه-while.html">حلقه while</a></li>
+                    <li><a href="توابع.html">توابع</a></li>
+                    <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                    <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                    <li><a href="کلاس-ها.html">کلاس‌ها</a></li>
+                    <li><a href="ماژول.html">ماژول</a></li>
+                    <li><a href="ایتریتور.html">ایتریتور</a></li>
+                    <li><a href="کار-با-داده-ها.html">کار با داده‌ها</a></li>
+                    <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+                </ul>
+            </aside>
+
+            <!-- محتوای مقدمه پایتون -->
+            <main class="content">
+                <h1>مقدمه پایتون</h1>
+                
+                <div class="section">
+                    <h2>پایتون چیست؟</h2>
+                    <p>پایتون یک زبان برنامه‌نویسی محبوب است. این زبان توسط گیدو ون روسوم ایجاد شده و در سال ۱۹۹۱ منتشر شد.</p>
+                    <p>از پایتون برای موارد زیر استفاده می‌شود:</p>
+                    <ul>
+                        <li>توسعه وب (سمت سرور)</li>
+                        <li>توسعه نرم‌افزار</li>
+                        <li>ریاضیات</li>
+                        <li>اسکریپت‌نویسی سیستم</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>پایتون چه کارهایی می‌تواند انجام دهد؟</h2>
+                    <ul>
+                        <li>پایتون می‌تواند روی سرور برای ایجاد برنامه‌های وب استفاده شود.</li>
+                        <li>پایتون می‌تواند همراه با نرم‌افزار برای ایجاد گردش کار استفاده شود.</li>
+                        <li>پایتون می‌تواند به سیستم‌های پایگاه داده متصل شود. همچنین می‌تواند فایل‌ها را بخواند و تغییر دهد.</li>
+                        <li>پایتون می‌تواند برای مدیریت داده‌های بزرگ و انجام ریاضیات پیچیده استفاده شود.</li>
+                        <li>پایتون می‌تواند برای نمونه‌سازی سریع یا توسعه نرم‌افزار آماده تولید استفاده شود.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>چرا پایتون؟</h2>
+                    <ul>
+                        <li>پایتون روی پلتفرم‌های مختلف (ویندوز، مک، لینوکس، رزبری پای و غیره) کار می‌کند.</li>
+                        <li>پایتون دارای سینتکس ساده‌ای مشابه زبان انگلیسی است.</li>
+                        <li>پایتون دارای سینتکسی است که به توسعه‌دهندگان اجازه می‌دهد برنامه‌ها را با خطوط کمتری نسبت به برخی زبان‌های برنامه‌نویسی دیگر بنویسند.</li>
+                        <li>پایتون روی یک سیستم مفسر اجرا می‌شود، به این معنی که کد به محض نوشتن قابل اجرا است. این بدان معناست که نمونه‌سازی می‌تواند بسیار سریع باشد.</li>
+                        <li>پایتون می‌تواند به صورت رویه‌ای، شیءگرا یا تابعی مورد استفاده قرار گیرد.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>نکات خوب برای دانستن</h2>
+                    <p>آخرین نسخه اصلی پایتون، پایتون ۳ است که در این آموزش از آن استفاده خواهیم کرد.</p>
+                    <p>در این آموزش پایتون در یک ویرایشگر متن نوشته خواهد شد. نوشتن پایتون در یک محیط توسعه یکپارچه (IDE) مانند Thonny، Pycharm، Netbeans یا Eclipse امکان‌پذیر است که به ویژه هنگام مدیریت مجموعه‌های بزرگتری از فایل‌های پایتون مفید هستند.</p>
+                </div>
+
+                <div class="section">
+                    <h2>سینتکس پایتون در مقایسه با سایر زبان‌های برنامه‌نویسی</h2>
+                    <p>پایتون برای خوانایی طراحی شده است و شباهت‌هایی با زبان انگلیسی با تأثیر از ریاضیات دارد.</p>
+                    <p>پایتون از خطوط جدید برای تکمیل یک دستور استفاده می‌کند، برخلاف سایر زبان‌های برنامه‌نویسی که اغلب از نقطه‌ویرگول یا پرانتز استفاده می‌کنند.</p>
+                    <p>پایتون برای تعریف محدوده، مانند محدوده حلقه‌ها، توابع و کلاس‌ها، به تورفتگی (فاصله سفید) متکی است. سایر زبان‌های برنامه‌نویسی اغلب از آکولاد برای این منظور استفاده می‌کنند.</p>
+                    
+                    <h3>مثال</h3>
+                    <div class="code-example">
+                        print("Hello, World!")
+                    </div>
+                </div>
+
+                <!-- بخش کوییز -->
+                <div class="quiz">
+                    <h3>آزمون مقدمه پایتون</h3>
+                    <p>برای اطمینان از یادگیری مطالب، لطفاً به سوالات زیر پاسخ دهید:</p>
+                    
+                    <div class="quiz-question">
+                        1. پایتون توسط چه کسی ایجاد شد؟
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">بیل گیتس</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">گیدو ون روسوم</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">استیو جابز</label>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        2. پایتون در چه سالی منتشر شد؟
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">۱۹۸۵</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">۱۹۹۱</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">۲۰۰۰</label>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        3. پایتون برای تعریف محدوده از چه چیزی استفاده می‌کند؟
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">آکولاد</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">تورفتگی (فاصله سفید)</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">براکت</label>
+                        </div>
+                    </div>
+                    
+                    <button class="quiz-submit">ارسال پاسخ‌ها</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>تماس با ما</h3>
+                    <p>ایمیل: info@busintell.com</p>
+                    <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                    <p>آدرس: تهران، خیابان ولیعصر</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>شبکه‌های اجتماعی</h3>
+                    <p>ما را در شبکه‌های اجتماعی دنبال کنید</p>
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" target="_blank">آپارات</a>
+                        <a href="https://t.me/busintell" target="_blank">تلگرام</a>
+                        <a href="https://ble.ir/busintell" target="_blank">بله</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>کلیه حقوق مادی و معنوی این وب‌سایت متعلق به BusIntell می‌باشد.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // اسکریپت ساده برای ارسال کوییز
+        document.querySelector('.quiz-submit').addEventListener('click', function() {
+            alert('پاسخ‌های شما ثبت شد! در صورت نیاز، پاسخ‌های صحیح به شما نمایش داده خواهد شد.');
+            // در اینجا می‌توانید منطق ارزیابی پاسخ‌ها را پیاده‌سازی کنید
+        });
+    </script>
+</body>
+</html>

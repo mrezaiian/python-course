@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست‌ها در پایتون | BusIntell</title>
+    <link rel="icon" href="icon.jpg" type="image/jpg">
+    <style>
+        /* استایل کلی */
+        :root {
+            --primary-blue: #043a8e;
+            --gold: #eab819;
+            --green: #228957;
+            --light-blue: #68bbef;
+            --dark-blue: #15495f;
+            --gold-yellow: #d9c16c;
+            --dark-gray: #484d32;
+            --sea-blue: #0a407c;
+            --gold-brown: #999459;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* هدر و ناوبری */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: var(--primary-blue);
+        }
+        
+        .btn-signup {
+            background-color: var(--gold);
+            color: var(--primary-blue);
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-signup:hover {
+            background-color: #d9b117;
+        }
+        
+        /* محتوای اصلی */
+        .main-content {
+            display: flex;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+        
+        .content {
+            flex: 3;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .content h1 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content h2 {
+            color: var(--sea-blue);
+            margin: 1.5rem 0 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .content h3 {
+            color: var(--dark-blue);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+        }
+        
+        .code-example {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+        }
+        
+        .code-example code {
+            font-family: 'Courier New', monospace;
+            color: var(--dark-blue);
+            display: block;
+            white-space: pre;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--gold);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example-output {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--light-blue);
+            padding: 1rem;
+            margin: 0.5rem 0 1rem;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example-output h4 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .method-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .method-table th, .method-table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: right;
+        }
+        
+        .method-table th {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .method-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* نوار کناری */
+        .sidebar {
+            flex: 1;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light-blue);
+        }
+        
+        .course-list {
+            list-style: none;
+        }
+        
+        .course-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-list a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .course-list a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        
+        .course-list .active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* بخش آزمون */
+        .quiz-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border: 1px solid var(--light-blue);
+        }
+        
+        .quiz-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .quiz-options {
+            margin-top: 0.5rem;
+        }
+        
+        .quiz-options label {
+            display: block;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .quiz-options label:hover {
+            background-color: #e9ecef;
+        }
+        
+        .quiz-options input {
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .quiz-submit:hover {
+            background-color: var(--sea-blue);
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">BusIntell</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">خانه</a></li>
+                    <li><a href="features.html">ویژگی‌ها</a></li>
+                    <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                    <li><a href="about.html">درباره ما</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">ورود</a>
+                <a href="signup.html" class="btn btn-signup">ثبت‌نام</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <!-- محتوای اصلی -->
+        <div class="content">
+            <h1>لیست‌ها در پایتون</h1>
+            
+            <div class="code-example">
+                <code>mylist = ["apple", "banana", "cherry"]</code>
+            </div>
+            
+            <h2>لیست چیست؟</h2>
+            <p>لیست‌ها برای ذخیره چندین آیتم در یک متغیر استفاده می‌شوند.</p>
+            <p>لیست‌ها یکی از 4 نوع داده داخلی در پایتون برای ذخیره مجموعه‌ای از داده‌ها هستند. سه نوع دیگر Tuple، Set و Dictionary هستند که هر کدام ویژگی‌ها و کاربردهای متفاوتی دارند.</p>
+            <p>لیست‌ها با استفاده از براکت‌های مربعی ایجاد می‌شوند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry']</code>
+            </div>
+            
+            <h2>ویژگی‌های آیتم‌های لیست</h2>
+            <p>آیتم‌های لیست مرتب شده، قابل تغییر و اجازه مقادیر تکراری را می‌دهند.</p>
+            <p>آیتم‌های لیست ایندکس‌دار هستند، اولین آیتم دارای ایندکس [0]، دومین آیتم دارای ایندکس [1] و غیره است.</p>
+            
+            <h3>مرتب شده</h3>
+            <p>وقتی می‌گوییم لیست‌ها مرتب شده‌اند، به این معنی است که آیتم‌ها دارای ترتیب مشخصی هستند و آن ترتیب تغییر نخواهد کرد.</p>
+            <p>اگر آیتم‌های جدیدی به لیست اضافه کنید، آیتم‌های جدید در انتهای لیست قرار می‌گیرند.</p>
+            
+            <div class="note">
+                <strong>توجه:</strong> برخی از متدهای لیست ترتیب را تغییر می‌دهند، اما به طور کلی: ترتیب آیتم‌ها تغییر نخواهد کرد.
+            </div>
+            
+            <h3>قابل تغییر</h3>
+            <p>لیست قابل تغییر است، به این معنی که می‌توانیم آیتم‌های لیست را پس از ایجاد آن تغییر، اضافه و حذف کنیم.</p>
+            
+            <h3>اجازه مقادیر تکراری</h3>
+            <p>از آنجایی که لیست‌ها ایندکس‌دار هستند، لیست‌ها می‌توانند آیتم‌هایی با مقدار یکسان داشته باشند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry", "apple", "cherry"]
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry', 'apple', 'cherry']</code>
+            </div>
+            
+            <h2>طول لیست</h2>
+            <p>برای تعیین تعداد آیتم‌های یک لیست، از تابع len() استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+print(len(thislist))</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>3</code>
+            </div>
+            
+            <h2>انواع داده‌ای آیتم‌های لیست</h2>
+            <p>آیتم‌های لیست می‌توانند از هر نوع داده‌ای باشند:</p>
+            
+            <div class="code-example">
+                <code>list1 = ["apple", "banana", "cherry"]  # رشته
+list2 = [1, 5, 7, 9, 3]          # عدد
+list3 = [True, False, False]     # بولین</code>
+            </div>
+            
+            <p>یک لیست می‌تواند شامل انواع داده‌های مختلف باشد:</p>
+            
+            <div class="code-example">
+                <code>list1 = ["abc", 34, True, 40, "male"]</code>
+            </div>
+            
+            <h2>تابع type()</h2>
+            <p>از دیدگاه پایتون، لیست‌ها به عنوان اشیاء با نوع داده 'list' تعریف می‌شوند:</p>
+            
+            <div class="code-example">
+                <code>mylist = ["apple", "banana", "cherry"]
+print(type(mylist))</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>&lt;class 'list'&gt;</code>
+            </div>
+            
+            <h2>سازنده list()</h2>
+            <p>همچنین می‌توان از سازنده list() برای ایجاد یک لیست جدید استفاده کرد:</p>
+            
+            <div class="code-example">
+                <code>thislist = list(("apple", "banana", "cherry"))  # توجه به پرانتزهای دوتایی
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry']</code>
+            </div>
+            
+            <h2>دسترسی به آیتم‌های لیست</h2>
+            <h3>دسترسی با ایندکس</h3>
+            <p>آیتم‌های لیست ایندکس‌دار هستند و می‌توانید با اشاره به شماره ایندکس به آن‌ها دسترسی پیدا کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+print(thislist[1])</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>banana</code>
+            </div>
+            
+            <div class="note">
+                <strong>توجه:</strong> اولین آیتم دارای ایندکس 0 است.
+            </div>
+            
+            <h3>ایندکس‌گذاری منفی</h3>
+            <p>ایندکس‌گذاری منفی به معنای شروع از انتها است:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+print(thislist[-1])</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>cherry</code>
+            </div>
+            
+            <h3>محدوده ایندکس‌ها</h3>
+            <p>می‌توانید با مشخص کردن نقطه شروع و پایان، یک محدوده از ایندکس‌ها را مشخص کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
+print(thislist[2:5])</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['cherry', 'orange', 'kiwi']</code>
+            </div>
+            
+            <div class="note">
+                <strong>توجه:</strong> جستجو از ایندکس 2 (شامل) شروع می‌شود و در ایندکس 5 (شامل نیست) پایان می‌یابد.
+            </div>
+            
+            <h2>تغییر آیتم‌های لیست</h2>
+            <h3>تغییر مقدار آیتم</h3>
+            <p>برای تغییر مقدار یک آیتم خاص، به شماره ایندکس آن اشاره کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+thislist[1] = "blackcurrant"
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'blackcurrant', 'cherry']</code>
+            </div>
+            
+            <h3>تغییر یک محدوده از مقادیر آیتم</h3>
+            <p>برای تغییر مقادیر آیتم‌ها در یک محدوده خاص، یک لیست با مقادیر جدید تعریف کنید و به محدوده ایندکس‌هایی که می‌خواهید مقادیر جدید را درج کنید اشاره کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry", "orange", "kiwi", "mango"]
+thislist[1:3] = ["blackcurrant", "watermelon"]
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'blackcurrant', 'watermelon', 'orange', 'kiwi', 'mango']</code>
+            </div>
+            
+            <h2>اضافه کردن آیتم‌های لیست</h2>
+            <h3>افزودن با append()</h3>
+            <p>برای افزودن یک آیتم به انتهای لیست، از متد append() استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+thislist.append("orange")
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry', 'orange']</code>
+            </div>
+            
+            <h3>درج با insert()</h3>
+            <p>برای درج یک آیتم لیست در یک ایندکس مشخص، از متد insert() استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+thislist.insert(1, "orange")
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'orange', 'banana', 'cherry']</code>
+            </div>
+            
+            <h3>افزودن با extend()</h3>
+            <p>برای افزودن عناصر از یک لیست دیگر به لیست فعلی، از متد extend() استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+tropical = ["mango", "pineapple", "papaya"]
+thislist.extend(tropical)
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry', 'mango', 'pineapple', 'papaya']</code>
+            </div>
+            
+            <h2>حذف آیتم‌های لیست</h2>
+            <h3>حذف با remove()</h3>
+            <p>متد remove() آیتم مشخص شده را حذف می‌کند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+thislist.remove("banana")
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'cherry']</code>
+            </div>
+            
+            <h3>حذف با pop()</h3>
+            <p>متد pop() ایندکس مشخص شده را حذف می‌کند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+thislist.pop(1)
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'cherry']</code>
+            </div>
+            
+            <h3>حذف با del</h3>
+            <p>کلمه کلیدی del نیز ایندکس مشخص شده را حذف می‌کند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+del thislist[0]
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['banana', 'cherry']</code>
+            </div>
+            
+            <h2>حلقه‌ها در لیست‌ها</h2>
+            <h3>حلقه for</h3>
+            <p>می‌توانید با استفاده از حلقه for در آیتم‌های لیست حلقه بزنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+for x in thislist:
+    print(x)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>apple
+banana
+cherry</code>
+            </div>
+            
+            <h2>درک لیست (List Comprehension)</h2>
+            <p>درک لیست سینتکس کوتاه‌تری را ارائه می‌دهد وقتی می‌خواهید یک لیست جدید بر اساس مقادیر یک لیست موجود ایجاد کنید:</p>
+            
+            <div class="code-example">
+                <code>fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
+newlist = [x for x in fruits if "a" in x]
+print(newlist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'mango']</code>
+            </div>
+            
+            <h2>مرتب‌سازی لیست‌ها</h2>
+            <h3>مرتب‌سازی با sort()</h3>
+            <p>اشیاء لیست یک متد sort() دارند که لیست را به طور پیش‌فرض به صورت صعودی مرتب می‌کند:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort()
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['banana', 'kiwi', 'mango', 'orange', 'pineapple']</code>
+            </div>
+            
+            <h3>مرتب‌سازی نزولی</h3>
+            <p>برای مرتب‌سازی نزولی، از آرگومان کلیدی reverse = True استفاده کنید:</p>
+            
+            <div class="code-example">
+                <code>thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort(reverse = True)
+print(thislist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['pineapple', 'orange', 'mango', 'kiwi', 'banana']</code>
+            </div>
+            
+            <h2>کپی لیست‌ها</h2>
+            <p>شما نمی‌توانید یک لیست را فقط با تایپ کردن list2 = list1 کپی کنید، زیرا list2 فقط یک ارجاع به list1 خواهد بود و تغییرات ایجاد شده در list1 به طور خودکار در list2 نیز انجام می‌شود.</p>
+            
+            <h3>استفاده از متد copy()</h3>
+            
+            <div class="code-example">
+                <code>thislist = ["apple", "banana", "cherry"]
+mylist = thislist.copy()
+print(mylist)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['apple', 'banana', 'cherry']</code>
+            </div>
+            
+            <h2>اتصال لیست‌ها</h2>
+            <h3>اتصال با عملگر +</h3>
+            
+            <div class="code-example">
+                <code>list1 = ["a", "b", "c"]
+list2 = [1, 2, 3]
+list3 = list1 + list2
+print(list3)</code>
+            </div>
+            
+            <div class="example-output">
+                <h4>خروجی:</h4>
+                <code>['a', 'b', 'c', 1, 2, 3]</code>
+            </div>
+            
+            <h2>متدهای لیست</h2>
+            <table class="method-table">
+                <thead>
+                    <tr>
+                        <th>متد</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>append()</td>
+                        <td>یک عنصر را به انتهای لیست اضافه می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>clear()</td>
+                        <td>همه عناصر را از لیست حذف می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>copy()</td>
+                        <td>یک کپی از لیست برمی‌گرداند</td>
+                    </tr>
+                    <tr>
+                        <td>count()</td>
+                        <td>تعداد عناصر با مقدار مشخص شده را برمی‌گرداند</td>
+                    </tr>
+                    <tr>
+                        <td>extend()</td>
+                        <td>عناصر یک لیست (یا هر تکرارپذیر) را به انتهای لیست فعلی اضافه می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>index()</td>
+                        <td>ایندکس اولین عنصر با مقدار مشخص شده را برمی‌گرداند</td>
+                    </tr>
+                    <tr>
+                        <td>insert()</td>
+                        <td>یک عنصر را در موقعیت مشخص شده اضافه می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>pop()</td>
+                        <td>عنصر را در موقعیت مشخص شده حذف می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>remove()</td>
+                        <td>آیتم را با مقدار مشخص شده حذف می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>reverse()</td>
+                        <td>ترتیب لیست را معکوس می‌کند</td>
+                    </tr>
+                    <tr>
+                        <td>sort()</td>
+                        <td>لیست را مرتب می‌کند</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- بخش آزمون -->
+            <div class="quiz-section">
+                <h3>آزمون: دانش خود را محک بزنید</h3>
+                
+                <div class="quiz-question">
+                    <p>1. کدام یک از موارد زیر یک لیست معتبر در پایتون است؟</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1" value="a"> list = (1, 2, 3)</label>
+                        <label><input type="radio" name="q1" value="b"> list = [1, 2, 3]</label>
+                        <label><input type="radio" name="q1" value="c"> list = {1, 2, 3}</label>
+                        <label><input type="radio" name="q1" value="d"> list = "1, 2, 3"</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>2. خروجی کد زیر چیست؟</p>
+                    <div class="code-example">
+                        <code>my_list = [1, 2, 3, 4, 5]
+print(my_list[1:3])</code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2" value="a"> [1, 2]</label>
+                        <label><input type="radio" name="q2" value="b"> [2, 3]</label>
+                        <label><input type="radio" name="q2" value="c"> [1, 2, 3]</label>
+                        <label><input type="radio" name="q2" value="d"> [2, 3, 4]</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>3. کدام متد برای اضافه کردن یک آیتم به انتهای لیست استفاده می‌شود؟</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q3" value="a"> insert()</label>
+                        <label><input type="radio" name="q3" value="b"> add()</label>
+                        <label><input type="radio" name="q3" value="c"> append()</label>
+                        <label><input type="radio" name="q3" value="d"> extend()</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>4. خروجی کد زیر چیست؟</p>
+                    <div class="code-example">
+                        <code>fruits = ["apple", "banana", "cherry"]
+fruits.append("orange")
+print(len(fruits))</code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q4" value="a"> 3</label>
+                        <label><input type="radio" name="q4" value="b"> 4</label>
+                        <label><input type="radio" name="q4" value="c"> 5</label>
+                        <label><input type="radio" name="q4" value="d"> خطا</label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>5. کدام یک از گزینه‌های زیر برای حذف آیتم "banana" از لیست صحیح است؟</p>
+                    <div class="code-example">
+                        <code>fruits = ["apple", "banana", "cherry"]</code>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q5" value="a"> fruits.remove("banana")</label>
+                        <label><input type="radio" name="q5" value="b"> fruits.delete("banana")</label>
+                        <label><input type="radio" name="q5" value="c"> fruits.pop("banana")</label>
+                        <label><input type="radio" name="q5" value="d"> fruits.del("banana")</label>
+                    </div>
+                </div>
+                
+                <button class="quiz-submit" id="submitQuiz">ارسال پاسخ‌ها</button>
+                <div class="quiz-result" id="quizResult"></div>
+            </div>
+        </div>
+        
+        <!-- نوار کناری مسیر آموزشی -->
+        <div class="sidebar">
+            <h2>مسیر آموزشی پایتون</h2>
+            <ul class="course-list">
+                <li><a href="مقدمه.html">مقدمه</a></li>
+                <li><a href="سینتکس.html">سینتکس</a></li>
+                <li><a href="متغیر.html">متغیر</a></li>
+                <li><a href="انواع-داده.html">انواع داده</a></li>
+                <li><a href="عدد.html">عدد</a></li>
+                <li><a href="رشته.html">رشته</a></li>
+                <li><a href="بولین.html">بولین</a></li>
+                <li><a href="عملیات-ها.html">عملیات ها</a></li>
+                <li><a href="لیست.html" class="active">لیست</a></li>
+                <li><a href="تاپل.html">تاپل</a></li>
+                <li><a href="مجموعه-ها.html">مجموعه ها</a></li>
+                <li><a href="دیکشنری.html">دیکشنری</a></li>
+                <li><a href="حلقه-if.html">حلقه if</a></li>
+                <li><a href="حلقه-while.html">حلقه while</a></li>
+                <li><a href="توابع.html">توابع</a></li>
+                <li><a href="کار-با-فایل.html">کار با فایل</a></li>
+                <li><a href="مدیریت-خطا.html">مدیریت خطا</a></li>
+                <li><a href="کلاس-ها.html">کلاس ها</a></li>
+                <li><a href="ماژول.html">ماژول</a></li>
+                <li><a href="ایتریتور.html">ایتریتور</a></li>
+                <li><a href="کار-با-داده-ها.html">کار با داده ها</a></li>
+                <li><a href="مصور-سازی-داده.html">مصور سازی داده</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>درباره BusIntell</h3>
+                    <p>پلتفرم آموزشی آنلاین برای یادگیری برنامه‌نویسی پایتون با تمرین‌های تعاملی و پروژه‌های عملی.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>لینک‌های سریع</h3>
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="features.html">ویژگی‌ها</a></li>
+                        <li><a href="learning-path.html">مسیر آموزشی</a></li>
+                        <li><a href="about.html">درباره ما</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>ارتباط با ما</h3>
+                    <ul>
+                        <li>ایمیل: info@busintell.com</li>
+                        <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="https://www.aparat.com/busintell" title="آپارات">آ</a>
+                        <a href="https://t.me/busintell" title="تلگرام">ت</a>
+                        <a href="https://ble.ir/busintell" title="بله">ب</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 BusIntell. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // اسکریپت برای آزمون
+        document.getElementById('submitQuiz').addEventListener('click', function() {
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'c',
+                q4: 'b',
+                q5: 'a'
+            };
+            
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+            
+            for (const question in answers) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                if (selectedOption && selectedOption.value === answers[question]) {
+                    score++;
+                }
+            }
+            
+            const resultElement = document.getElementById('quizResult');
+            resultElement.style.display = 'block';
+            
+            if (score === totalQuestions) {
+                resultElement.textContent = `عالی! شما ${score} از ${totalQuestions} سوال را صحیح پاسخ دادید.`;
+                resultElement.className = 'quiz-result success';
+            } else if (score >= totalQuestions / 2) {
+                resultElement.textContent = `خوب! شما ${score} از ${totalQuestions} سوال را صحیح پاسخ دادید.`;
+                resultElement.className = 'quiz-result success';
+            } else {
+                resultElement.textContent = `نیاز به مطالعه بیشتر! شما ${score} از ${totalQuestions} سوال را صحیح پاسخ دادید.`;
+                resultElement.className = 'quiz-result error';
+            }
+            
+            // اسکرول به نتیجه
+            resultElement.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
